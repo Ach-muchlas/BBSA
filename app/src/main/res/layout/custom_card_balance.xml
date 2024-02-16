@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="10dp"
+    android:layout_height="60dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iconBalance"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/icon_wallet"
+            android:src="@drawable/wallet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="9dp"
+            android:text="@string/actual_balance"
+            android:textColor="@color/deep_green"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconBalance"
+            app:layout_constraintEnd_toEndOf="@id/divider"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/iconBalance"
+            app:layout_constraintTop_toTopOf="@id/iconBalance"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/textBalance"
+            style="@style/TextContent.Body.PopBold"
+            android:text="@string/example_balance"
+            app:layout_constraintEnd_toEndOf="@id/divider"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/iconBalance"
+            app:layout_constraintTop_toBottomOf="@id/iconBalance" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="9dp"
+            app:dividerColor="@color/deep_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iconWallet"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/icon_wallet"
+            android:src="@drawable/wallet"
+            app:layout_constraintStart_toEndOf="@id/divider"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="9dp"
+            android:text="@string/temporary_balance"
+            android:textColor="@color/deep_green"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconWallet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/iconWallet"
+            app:layout_constraintTop_toTopOf="@id/iconWallet"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            style="@style/TextContent.Body.PopBold"
+            android:text="@string/example_balance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/iconWallet"
+            app:layout_constraintTop_toBottomOf="@id/iconWallet" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

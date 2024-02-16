@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.register.RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/icon_arrow_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textHeadline"
+            style="@style/TextContent.HeadlineMon"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/register"
+            android:textColor="@color/deep_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonBack" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textFullName"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/full_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textHeadline" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:autofillHints="name"
+            android:hint="@string/enter_full_name"
+            android:textColorHint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textFullName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtFullName"
+                style="@style/EditTextContent"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textCitizenIdentificationNumber"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/citizen_identification_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlFullName" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlCitizenIdentificationNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/enter_citizen_identification_number"
+            android:textColorHint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textCitizenIdentificationNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCitizenIdentificationNumber"
+                style="@style/EditTextContent"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textGender"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/gender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlCitizenIdentificationNumber" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/example_gender"
+            android:textColorHint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textGender">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtGender"
+                style="@style/EditTextContent"
+                android:drawableEnd="@drawable/icon_arrow_left"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textNumberPhone"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/phone_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlGender" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlNumberPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:autofillHints="phone"
+            android:hint="@string/example_number_phone"
+            android:textColorHint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textNumberPhone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNumberPhone"
+                style="@style/EditTextContent"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textPassword"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlNumberPhone" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:autofillHints="password"
+            android:hint="@string/input_your_password"
+            android:textColorHint="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPassword"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/deep_green">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPassword"
+                style="@style/EditTextContent"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRegister"
+            style="@style/ButtonContent"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:text="@string/register"
+            app:cornerRadius="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlPassword" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textHaveAccount"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/have_account"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textRegister"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonRegister"
+            app:layout_constraintVertical_bias="0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textLogin"
+            style="@style/TextContent.Body.PopBold"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/enter_here"
+            android:textColor="@color/deep_green"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textHaveAccount"
+            app:layout_constraintTop_toBottomOf="@id/buttonRegister"
+            app:layout_constraintVertical_bias="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

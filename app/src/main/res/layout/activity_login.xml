@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.login.LoginActivity">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textHeadline"
+        style="@style/TextContent.HeadlineMon"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="160dp"
+        android:text="@string/enter"
+        android:textColor="@color/deep_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textNumberPhone"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/phone_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textHeadline" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edlNumberPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="phone"
+        android:hint="@string/example_number_phone"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textNumberPhone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtNumberPhone"
+            style="@style/EditTextContent"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textPassword"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlNumberPhone" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textForgotPassword"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="26dp"
+        android:text="@string/forgot_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlNumberPhone" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edlPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="password"
+        android:hint="@string/input_your_password"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textPassword"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/deep_green">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPassword"
+            style="@style/EditTextContent"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonEnter"
+        style="@style/ButtonContent"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/enter"
+        app:cornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlPassword" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textHaveAccount"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/dont_have_account"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textRegister"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textRegister"
+        style="@style/TextContent.Body.PopBold"
+        android:layout_marginBottom="30dp"
+        android:text="@string/register_here"
+        android:textColor="@color/deep_green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textHaveAccount" />
+</androidx.constraintlayout.widget.ConstraintLayout>

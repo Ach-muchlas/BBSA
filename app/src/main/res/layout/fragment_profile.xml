@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.profile.ProfileFragment">
+
+    <include
+        android:id="@+id/viewAppBar"
+        layout="@layout/custom_app_bar_button_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="46dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/me"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewAppBar" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMandatoryIdentity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/imageProfile">
+
+        <include
+            android:id="@+id/cardProfileFullName"
+            layout="@layout/item_content_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="10dp" />
+
+        <include
+            android:id="@+id/cardProfileNIK"
+            layout="@layout/item_content_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="57dp" />
+
+        <include
+            android:id="@+id/cardProfilePhoneNumber"
+            layout="@layout/item_content_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="104dp"
+            android:layout_marginBottom="15dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardNotMandatoryIdentity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/cardMandatoryIdentity">
+
+        <include
+            android:id="@+id/cardProfileGender"
+            layout="@layout/item_content_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="10dp" />
+
+        <include
+            android:id="@+id/cardProfileBirth"
+            layout="@layout/item_content_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginBottom="15dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRegis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/cardNotMandatoryIdentity">
+
+        <include
+            android:id="@+id/cardNumberRegis"
+            layout="@layout/item_content_card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
