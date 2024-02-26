@@ -14,8 +14,8 @@ fun Activity.goToActivity(targetActivity: Activity, bundle: Bundle? = null) {
     startActivity(intent)
 }
 
-fun FragmentActivity.replaceFragment(resId: Int, replaceFragment: Fragment) {
+fun FragmentActivity.replaceFragment(resId: Int, fragment: Fragment) {
     this.supportFragmentManager.beginTransaction()
-        .replace(resId, replaceFragment)
+        .replace(resId, fragment)
         .commit()
 }

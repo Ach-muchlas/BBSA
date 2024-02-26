@@ -2,7 +2,7 @@ package com.am.bbsa.ui.auth.otp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.am.bbsa.ui.main.CustomersMainActivity
+import com.am.bbsa.ui.customers.main.CustomersMainActivity
 import com.am.bbsa.databinding.ActivityOtpBinding
 import com.am.bbsa.utils.goToActivity
 

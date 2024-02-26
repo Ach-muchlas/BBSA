@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.customers.home.withdraw_balance.WithdrawBalanceFragment">
+
+    <include
+        android:id="@+id/viewAppBar"
+        layout="@layout/custom_app_bar_button_and_title"
+        android:layout_width="match_parent"
+        android:layout_height="47dp" />
+
+    <TextView
+        android:id="@+id/textName"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewAppBar" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edlName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="name"
+        android:hint="@string/example_name"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtName"
+            style="@style/EditTextContent"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textMethodWithdraw"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/method_withdraw"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlName" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edlMethodWithdraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/example_bank"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMethodWithdraw">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtMethodWithdraw"
+            style="@style/EditTextContent"
+            android:drawableEnd="@drawable/icon_arrow_left" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/textAccountNumber"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/account_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlMethodWithdraw" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edlAccountNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="creditCardNumber"
+        android:hint="@string/random_number"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAccountNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtAccountNumber"
+            style="@style/EditTextContent"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textAmount"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlAccountNumber" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edlAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/example_rp"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAmount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtAmount"
+            style="@style/EditTextContent"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textRequirement"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="22dp"
+        android:text="@string/requirement"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edlAmount" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textValueRequirement"
+        style="@style/TextContent.Body.PopLight"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/example_requirement"
+        android:textColor="@color/deep_grey"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textRequirement" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buttonWithdraw"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        app:cardBackgroundColor="@color/deep_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            style="@style/TextContent.Body.PopBold"
+            android:layout_gravity="center"
+            android:text="@string/withdraw"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonWithdraw"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="11dp"
+            android:text="@string/total" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textTotal"
+            style="@style/TextContent.Body.PopBold"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="34dp"
+            android:text="@string/example_rp" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

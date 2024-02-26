@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     app:cardCornerRadius="8dp"
     app:cardElevation="10dp"
@@ -23,17 +22,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/TextContent.Body.PopReg"
+            style="@style/TextContent.Body.PopMedium"
             android:layout_marginStart="9dp"
             android:text="@string/actual_balance"
             android:textColor="@color/deep_green"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iconBalance"
             app:layout_constraintEnd_toEndOf="@id/divider"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/iconBalance"
-            app:layout_constraintTop_toTopOf="@id/iconBalance"
-            tools:ignore="SmallSp" />
+            app:layout_constraintTop_toTopOf="@id/iconBalance" />
 
         <TextView
             android:id="@+id/textBalance"
@@ -65,17 +63,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/TextContent.Body.PopReg"
+            style="@style/TextContent.Body.PopMedium"
             android:layout_marginStart="9dp"
             android:text="@string/temporary_balance"
             android:textColor="@color/deep_green"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iconWallet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/iconWallet"
-            app:layout_constraintTop_toTopOf="@id/iconWallet"
-            tools:ignore="SmallSp" />
+            app:layout_constraintTop_toTopOf="@id/iconWallet" />
 
         <TextView
             style="@style/TextContent.Body.PopBold"

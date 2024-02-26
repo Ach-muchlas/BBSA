@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_admin_home"
+        android:icon="@drawable/icon_home"
+        android:title="@string/title_admin_home" />
+
+    <item
+        android:id="@+id/navigation_admin_menu"
+        android:icon="@drawable/icon_menu"
+        android:title="@string/title_admin_menu" />
+
+    <item
+        android:id="@+id/navigation_admin_account"
+        android:icon="@drawable/icon_account"
+        android:title="@string/title_admin_account" />
+</menu>

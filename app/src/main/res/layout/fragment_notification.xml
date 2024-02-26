@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_marginBottom="80dp"
     android:layout_height="match_parent"
-    tools:context=".ui.notifikasi.NotificationFragment">
+    tools:context=".ui.customers.notifikasi.NotificationFragment">
 
     <TextView
         android:id="@+id/textHeadline"

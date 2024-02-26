@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_navigation"
+    app:startDestination="@id/navigation_admin_home">
+
+    <fragment
+        android:id="@+id/navigation_admin_home"
+        android:name="com.am.bbsa.ui.admin.home.HomeAdminFragment"
+        android:label="@string/title_admin_home"
+        tools:layout="@layout/fragment_home_admin" />
+    <fragment
+        android:id="@+id/navigation_admin_menu"
+        android:name="com.am.bbsa.ui.admin.menu.MenuAdminFragment"
+        android:label="@string/title_admin_menu"
+        tools:layout="@layout/fragment_menu_admin" />
+    <fragment
+        android:id="@+id/navigation_admin_account"
+        android:name="com.am.bbsa.ui.admin.account.AccountAdminFragment"
+        android:label="@string/title_admin_account"
+        tools:layout="@layout/fragment_account_admin" />
+</navigation>

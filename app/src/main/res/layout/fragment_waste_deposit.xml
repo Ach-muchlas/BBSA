@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.waste_deposit.WasteDepositFragment">
+    tools:context=".ui.customers.home.waste_deposit.WasteDepositFragment">
 
     <include
         android:id="@+id/viewAppBar"
@@ -80,12 +80,21 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardValuePhoto"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginTop="5dp"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="@id/textPhoto"
         app:layout_constraintTop_toBottomOf="@id/textPhoto">
+
+        <TextView
+            android:id="@+id/textCardPhoto"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:text="@string/photo_your_waste"
+            android:textColor="@color/grey"
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/imageTrashPhoto"

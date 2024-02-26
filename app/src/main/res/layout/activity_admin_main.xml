@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.AdminMainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.admin.main.AdminMainActivity">
 
+
+    <fragment
+        android:id="@+id/navigationHost"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationAdmin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/admin_navigation" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationAdmin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/custom_corner_top"
+        android:elevation="8dp"
+        app:elevation="20dp"
+        app:itemBackground="@color/transparent"
+        app:itemIconSize="28dp"
+        app:itemIconTint="@color/bottom_navigation_color"
+        app:itemTextColor="@color/bottom_navigation_color"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu_admin_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
