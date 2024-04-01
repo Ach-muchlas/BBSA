@@ -5,6 +5,23 @@
     android:layout_height="135dp"
     android:background="@drawable/custom_bg_shape_bottom_rounded">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerContainerImage"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/light_grey" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageProfile"
         android:layout_width="65dp"
@@ -12,6 +29,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/me"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,22 +39,43 @@
         style="@style/TextContent.Body.PopReg"
         android:layout_height="30dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:text="@string/hai"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="0dp"
+        android:id="@+id/shimmerContainerName"
+        android:layout_height="27dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/shimmerContainerImage"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/textHai"
+        app:layout_constraintTop_toBottomOf="@id/textHai">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/light_grey" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <TextView
+        android:id="@+id/textName"
+        android:layout_marginTop="3dp"
         style="@style/TextContent.Body.PopSemiBold"
         android:text="@string/example_name"
+        android:visibility="gone"
         android:layout_marginEnd="10dp"
         android:maxLines="2"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toStartOf="@id/imageProfile"
+        app:layout_constraintEnd_toStartOf="@id/shimmerContainerImage"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/textHai"
         app:layout_constraintTop_toBottomOf="@id/textHai" />

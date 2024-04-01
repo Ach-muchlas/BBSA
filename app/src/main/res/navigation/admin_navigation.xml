@@ -14,10 +14,165 @@
         android:id="@+id/navigation_admin_menu"
         android:name="com.am.bbsa.ui.admin.menu.MenuAdminFragment"
         android:label="@string/title_admin_menu"
-        tools:layout="@layout/fragment_menu_admin" />
+        tools:layout="@layout/fragment_menu_admin">
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_wasteTypeInformationFragment"
+            app:destination="@id/wasteTypeInformationFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_nasabahFragment"
+            app:destination="@id/nasabahFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_wasteDepositAdminFragment"
+            app:destination="@id/wasteDepositAdminFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_depositWeighing"
+            app:destination="@id/depositWeighing" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_newsFragment"
+            app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_historyDepositAdminFragment"
+            app:destination="@id/historyDepositAdminFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_admin_account"
         android:name="com.am.bbsa.ui.admin.account.AccountAdminFragment"
         android:label="@string/title_admin_account"
-        tools:layout="@layout/fragment_account_admin" />
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_navigation_admin_account_to_profileAdminFragment"
+            app:destination="@id/profileAdminFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_account_to_changeLanguageFragment"
+            app:destination="@id/changeLanguageFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_account_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wasteTypeInformationFragment"
+        android:name="com.am.bbsa.ui.admin.menu.waste_type_information.WasteTypeInformationFragment"
+        android:label="WasteTypeInformationFragment"
+        tools:layout="@layout/fragment_waste_type_information">
+        <action
+            android:id="@+id/action_wasteTypeInformationFragment_to_updateWasteTypeFragment"
+            app:destination="@id/updateWasteTypeFragment" />
+        <action
+            android:id="@+id/action_wasteTypeInformationFragment_to_addWasteTypeFragment"
+            app:destination="@id/addWasteTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nasabahFragment"
+        android:name="com.am.bbsa.ui.admin.menu.nasabah.NasabahFragment"
+        android:label="fragment_nasabah"
+        tools:layout="@layout/fragment_nasabah">
+        <action
+            android:id="@+id/action_nasabahFragment_to_detailNasabahFragment"
+            app:destination="@id/detailNasabahFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailNasabahFragment"
+        android:name="com.am.bbsa.ui.admin.menu.nasabah.DetailNasabahFragment"
+        android:label="fragment_detail_nasabah"
+        tools:layout="@layout/fragment_detail_nasabah">
+        <argument
+            android:name="nasabah_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateWasteTypeFragment"
+        android:name="com.am.bbsa.ui.admin.menu.waste_type_information.UpdateWasteTypeFragment"
+        android:label="AddOrUpdateWasteTypeFragment"
+        tools:layout="@layout/fragment_add_or_update_waste_type">
+        <argument
+            android:name="data_sampah"
+            app:argType="com.am.bbsa.data.response.DataItemSampah" />
+    </fragment>
+    <fragment
+        android:id="@+id/addWasteTypeFragment"
+        android:name="com.am.bbsa.ui.admin.menu.waste_type_information.AddWasteTypeFragment"
+        android:label="AddWasteTypeFragment"
+        tools:layout="@layout/fragment_add_or_update_waste_type" />
+    <fragment
+        android:id="@+id/wasteDepositAdminFragment"
+        android:name="com.am.bbsa.ui.admin.menu.waste_deposit.WasteDepositAdminFragment"
+        android:label="WasteDepositAdminFragment"
+        tools:layout="@layout/fragment_waste_deposit_admin" />
+    <fragment
+        android:id="@+id/depositWeighing"
+        android:name="com.am.bbsa.ui.admin.menu.deposit_weighing.DepositWeighingFragment"
+        android:label="fragment_deposit_weighing"
+        tools:layout="@layout/fragment_deposit_weighing">
+        <action
+            android:id="@+id/action_depositWeighing_to_detailDepositWeighingFragment"
+            app:destination="@id/detailDepositWeighingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailDepositWeighingFragment"
+        android:name="com.am.bbsa.ui.admin.menu.deposit_weighing.DetailDepositWeighingFragment"
+        android:label="fragment_detail_deposit_weighing"
+        tools:layout="@layout/fragment_detail_deposit_weighing">
+        <argument
+            android:name="data_bundle_deposit_weighing"
+            app:argType="com.am.bbsa.data.response.DataItemDepositWeighing" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyDepositAdminFragment"
+        android:name="com.am.bbsa.ui.admin.menu.history_deposit_admin.HistoryDepositAdminFragment"
+        android:label="fragment_history_deposit_admin"
+        tools:layout="@layout/fragment_history_deposit_admin" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.am.bbsa.ui.admin.menu.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_addNewsFragment"
+            app:destination="@id/addNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailNewsFragment"
+        android:name="com.am.bbsa.ui.admin.menu.news.DetailNewsFragment"
+        android:label="fragment_detail_news"
+        tools:layout="@layout/fragment_detail_news">
+        <argument
+            android:name="data_news"
+            app:argType="com.am.bbsa.data.response.DataItemNews" />
+        <action
+            android:id="@+id/action_detailNewsFragment_to_updateNewsFragment"
+            app:destination="@id/updateNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewsFragment"
+        android:name="com.am.bbsa.ui.admin.menu.news.AddNewsFragment"
+        android:label="AddNewsFragment"
+        tools:layout="@layout/fragment_add_or_update_news" />
+
+    <fragment
+        android:id="@+id/updateNewsFragment"
+        android:name="com.am.bbsa.ui.admin.menu.news.UpdateNewsFragment"
+        android:label="UpdateNewsFragment"
+        tools:layout="@layout/fragment_add_or_update_news">
+        <argument
+            android:name="data_news"
+            app:argType="com.am.bbsa.data.response.DataItemNews" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileAdminFragment"
+        android:name="com.am.bbsa.ui.admin.account.profile.ProfileAdminFragment"
+        android:label="ProfileAdminFragment"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/changeLanguageFragment"
+        android:name="com.am.bbsa.ui.customers.account.change_language.ChangeLanguageFragment"
+        android:label="fragment_change_language"
+        tools:layout="@layout/fragment_change_language" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.am.bbsa.ui.customers.account.change_password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

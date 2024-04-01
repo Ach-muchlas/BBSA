@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "491897270195",
+    "project_id": "bbsa-b350a",
+    "storage_bucket": "bbsa-b350a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491897270195:android:c59406263b3e66b35ba5c6",
+        "android_client_info": {
+          "package_name": "com.am.bbsa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtQVVQkpd10NkJxqL3gGU3TqUg9JmVwlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

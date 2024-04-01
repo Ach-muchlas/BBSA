@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.am.bbsa.R
+import com.am.bbsa.databinding.FragmentHistoryDepositWasteBinding
 
 class HistoryDepositWasteFragment : Fragment() {
+    private var _binding: FragmentHistoryDepositWasteBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_deposit_waste, container, false)
+    ): View {
+        _binding = FragmentHistoryDepositWasteBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
 }

@@ -11,13 +11,15 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
             android:layout_marginStart="26dp"
             android:layout_marginTop="14dp"
             android:backgroundTint="@color/transparent"
-            android:src="@drawable/icon_arrow_right"
+            android:src="@drawable/icon_back_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/edlFullName" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edlCitizenIdentificationNumber"
+            android:id="@+id/edlNIK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -79,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@id/textCitizenIdentificationNumber">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtCitizenIdentificationNumber"
+                android:id="@+id/edtNIK"
                 style="@style/EditTextContent"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,23 +93,53 @@
             android:layout_marginTop="16dp"
             android:text="@string/gender"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edlCitizenIdentificationNumber" />
+            app:layout_constraintTop_toBottomOf="@id/edlNIK" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edlGender"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:textColorHint="@color/grey"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            app:layout_constraintTop_toBottomOf="@id/textGender">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteGender"
+                android:layout_width="match_parent"
+                style="@style/EditTextContent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pop_reg"
+                android:hint="@string/example_gender"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textAddress"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlGender" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="5dp"
-            android:hint="@string/example_gender"
+            android:autofillHints="phone"
+            android:hint="@string/example_address"
+
             android:textColorHint="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textGender">
+            app:layout_constraintTop_toBottomOf="@id/textAddress">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtGender"
+                android:id="@+id/edtAddress"
+                android:layout_height="120dp"
                 style="@style/EditTextContent"
-                android:drawableEnd="@drawable/icon_arrow_left"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +150,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/phone_number"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edlGender" />
+            app:layout_constraintTop_toBottomOf="@id/edlAddress" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edlNumberPhone"
@@ -183,13 +215,12 @@
             style="@style/TextContent.Body.PopReg"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginStart="40dp"
             android:layout_marginBottom="20dp"
             android:text="@string/have_account"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textRegister"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/buttonRegister"
             app:layout_constraintTop_toBottomOf="@id/buttonRegister"
             app:layout_constraintVertical_bias="0" />
 
@@ -199,12 +230,23 @@
             android:layout_marginTop="80dp"
             android:layout_marginBottom="20dp"
             android:text="@string/enter_here"
+            android:layout_marginEnd="45dp"
             android:textColor="@color/deep_green"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/buttonRegister"
             app:layout_constraintStart_toEndOf="@id/textHaveAccount"
             app:layout_constraintTop_toBottomOf="@id/buttonRegister"
             app:layout_constraintVertical_bias="0" />
+
+        <ProgressBar
+            android:id="@+id/progressCircular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

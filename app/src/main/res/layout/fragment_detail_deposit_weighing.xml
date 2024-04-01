@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.admin.menu.deposit_weighing.DetailDepositWeighingFragment">
+
+    <LinearLayout
+        android:id="@+id/containerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/viewAppbar"
+            layout="@layout/custom_app_bar_button_and_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textTitle"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/name" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/example_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtName"
+                style="@style/EditTextContent"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textDate"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/date" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/example_date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtDate"
+                style="@style/EditTextContent"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textTypeWaste"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/type_waste" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlTypeWaste"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/example_type_waste"
+            app:hintTextColor="@color/grey">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTypeWaste"
+                style="@style/EditTextContent"
+                android:inputType="text"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textWeight"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/weight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edlTypeWaste" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:textColorHint="@color/grey"
+            android:hint="@string/input_waste_weight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textWeight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtWeight"
+                style="@style/EditTextContent"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textAddTypeWaste"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_height="20dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_type_waste" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="162dp"
+            android:layout_height="1.5dp"
+            android:layout_marginHorizontal="24dp"
+            app:dividerColor="@color/black" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textPhoto"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/photo" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPhoto"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
+
+            <TextView
+                android:id="@+id/textAddPhoto"
+                style="@style/TextContent.Body.PopReg"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:text="@string/enter_your_waste_photo" />
+
+            <ImageView
+                android:id="@+id/imageWaste"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/waste_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/example_news" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textTotal"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/total_result_deposit"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardPhoto" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edlTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="40dp"
+            android:hint="@string/example_balance"
+            android:visibility="gone"
+            app:hintTextColor="@color/grey"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTotal"
+            app:layout_constraintVertical_bias="0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtTotal"
+                style="@style/EditTextContent"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSave"
+            style="@style/ButtonContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/save"
+            app:cornerRadius="20dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="0" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

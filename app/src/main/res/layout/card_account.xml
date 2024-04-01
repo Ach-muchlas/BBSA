@@ -3,50 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="275dp"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCardAccount"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/cardProfile"
-            layout="@layout/item_content_menu_card"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/cardChangePassword"
-            layout="@layout/item_content_menu_card"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/cardProfile" />
-
-        <include
-            android:id="@+id/cardLanguage"
-            layout="@layout/item_content_menu_card"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/cardChangePassword" />
-
-        <include
-            android:id="@+id/cardLogout"
-            layout="@layout/item_content_menu_card"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/cardLanguage" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_content_menu_card" />
 </com.google.android.material.card.MaterialCardView>

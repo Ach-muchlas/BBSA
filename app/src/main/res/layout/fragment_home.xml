@@ -27,40 +27,40 @@
     <include
         android:id="@+id/menuDeposit"
         layout="@layout/custom_menu"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="42dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="@id/cardBalance"
         app:layout_constraintTop_toBottomOf="@id/cardBalance" />
 
     <include
         android:id="@+id/menuWithdrawBalance"
         layout="@layout/custom_menu"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="42dp"
+        android:layout_width="100dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@id/menuPickUpWaste"
         app:layout_constraintStart_toEndOf="@id/menuDeposit"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/cardBalance" />
 
     <include
         android:id="@+id/menuPickUpWaste"
         layout="@layout/custom_menu"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
+        android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="42dp"
-        app:layout_constraintStart_toEndOf="@id/menuWithdrawBalance"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="@id/cardBalance"
         app:layout_constraintTop_toBottomOf="@id/cardBalance" />
 
     <include
         android:id="@+id/menuHistoryDeposit"
         layout="@layout/custom_menu"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toStartOf="@id/menuWithdrawBalance"
         app:layout_constraintStart_toStartOf="@id/menuDeposit"
         app:layout_constraintTop_toBottomOf="@id/menuDeposit" />
@@ -68,21 +68,23 @@
     <include
         android:id="@+id/menuTypeWaste"
         layout="@layout/custom_menu"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="70dp"
         app:layout_constraintEnd_toEndOf="@id/menuPickUpWaste"
         app:layout_constraintStart_toEndOf="@id/menuWithdrawBalance"
         app:layout_constraintTop_toBottomOf="@id/menuDeposit" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewNews"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="6dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menuHistoryDeposit"
         tools:itemCount="2"
         tools:listitem="@layout/item_content_news" />

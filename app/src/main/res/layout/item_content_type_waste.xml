@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginBottom="30dp"
+    android:layout_marginBottom="15dp"
     android:layout_height="145dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,13 +33,12 @@
             style="@style/TextContent.Body.PopMedium"
             android:layout_height="20dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="30dp"
             android:text="@string/example_type_waste"
             app:layout_constraintStart_toEndOf="@id/cardImage"
             app:layout_constraintTop_toTopOf="@id/cardImage" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textPriceWaste"
+            android:id="@+id/textPrice"
             style="@style/TextContent.Body.PopBold"
             android:layout_marginStart="12dp"
             android:text="@string/example_price"
@@ -48,5 +47,32 @@
             app:layout_constraintStart_toEndOf="@id/cardImage"
             app:layout_constraintTop_toBottomOf="@id/textTypeWaste" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textCategory"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="12dp"
+            android:text="@string/category"
+            app:layout_constraintStart_toEndOf="@id/cardImage"
+            app:layout_constraintTop_toBottomOf="@id/textPrice" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:backgroundTint="@color/deep_green"
+            android:text="@string/Edit"
+            app:layout_constraintStart_toEndOf="@id/cardImage"
+            app:layout_constraintTop_toBottomOf="@id/textCategory" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/red"
+            android:text="@string/delete"
+            app:layout_constraintStart_toEndOf="@id/buttonEdit"
+            app:layout_constraintTop_toBottomOf="@id/textCategory" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

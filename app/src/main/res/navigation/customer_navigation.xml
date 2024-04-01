@@ -9,7 +9,23 @@
         android:id="@+id/navigation_home"
         android:name="com.am.bbsa.ui.customers.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_wasteDepositFragment"
+            app:destination="@id/wasteDepositFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_pickUpWasteFragment"
+            app:destination="@id/pickUpWasteFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_historyDepositWasteFragment"
+            app:destination="@id/historyDepositWasteFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_typeWasteFragment"
+            app:destination="@id/typeWasteFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_withdrawBalanceFragment"
+            app:destination="@id/withdrawBalanceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_notification"
         android:name="com.am.bbsa.ui.customers.notifikasi.NotificationFragment"
@@ -25,4 +41,30 @@
         android:name="com.am.bbsa.ui.customers.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/wasteDepositFragment"
+        android:name="com.am.bbsa.ui.customers.home.waste_deposit.WasteDepositFragment"
+        android:label="fragment_waste_deposit"
+        tools:layout="@layout/fragment_waste_deposit" />
+    <fragment
+        android:id="@+id/pickUpWasteFragment"
+        android:name="com.am.bbsa.ui.customers.home.pick_up_waste.PickUpWasteFragment"
+        android:label="fragment_pick_up_waste"
+        tools:layout="@layout/fragment_pick_up_waste" />
+    <fragment
+        android:id="@+id/historyDepositWasteFragment"
+        android:name="com.am.bbsa.ui.customers.home.history_deposit.HistoryDepositWasteFragment"
+        android:label="fragment_history_deposit_waste"
+        tools:layout="@layout/fragment_history_deposit_waste" />
+    <fragment
+        android:id="@+id/typeWasteFragment"
+        android:name="com.am.bbsa.ui.customers.home.type_waste.TypeWasteFragment"
+        android:label="fragment_type_waste"
+        tools:layout="@layout/fragment_type_waste" />
+    <fragment
+        android:id="@+id/withdrawBalanceFragment"
+        android:name="com.am.bbsa.ui.customers.home.withdraw_balance.WithdrawBalanceFragment"
+        android:label="fragment_withdraw_balance"
+        tools:layout="@layout/fragment_withdraw_balance" />
+
 </navigation>

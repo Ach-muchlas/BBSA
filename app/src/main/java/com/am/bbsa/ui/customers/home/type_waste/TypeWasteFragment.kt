@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.am.bbsa.R
 
 class TypeWasteFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

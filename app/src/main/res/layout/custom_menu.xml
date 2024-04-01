@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="80dp"
+    android:layout_width="70dp"
     android:id="@+id/cardMenu"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
+        android:layout_marginTop="5dp"
         android:id="@+id/iconMenu"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="top|center_horizontal"
         android:contentDescription="@string/icon_menu"
         android:src="@drawable/icon_trash_deposit" />
@@ -20,6 +21,6 @@
         android:layout_marginTop="6dp"
         android:textAlignment="center"
         android:text="@string/deposit"
-        android:textSize="12sp"
+        android:textSize="14sp"
         />
 </LinearLayout>
