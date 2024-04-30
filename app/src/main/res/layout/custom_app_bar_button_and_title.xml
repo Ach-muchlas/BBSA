@@ -2,15 +2,15 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="46dp"
+    android:layout_height="55dp"
     android:elevation="10dp"
     app:cardElevation="10dp"
     app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
         android:id="@+id/buttonBack"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="24dp"
         android:contentDescription="@string/icon"

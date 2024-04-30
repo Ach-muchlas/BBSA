@@ -10,169 +10,295 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_marginBottom="30dp"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textName"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/full_name"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textValueName"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/example_full_name"
-            android:textSize="14sp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/buttonNextName"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toEndOf="@id/textName"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/buttonNextName"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:contentDescription="@string/icon_next"
-            android:src="@drawable/icon_arrow_left"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dividerName"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardName"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="10dp"
-            app:dividerColor="@color/grey"
-            app:layout_constraintTop_toBottomOf="@id/textValueName" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textNIK"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/nik"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerName" />
+            <TextView
+                android:id="@+id/textName"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_width="130dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/full_name"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textValueNIK"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginTop="12dp"
-            android:text="@string/example_nik"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/textValueName"
-            app:layout_constraintTop_toBottomOf="@id/dividerName" />
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerContainerName"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/buttonNextName"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/textName"
+                app:layout_constraintTop_toTopOf="@id/textName">
 
-        <ImageView
-            android:id="@+id/buttonNextNIK"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:contentDescription="@string/icon_next"
-            android:src="@drawable/icon_arrow_left"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerName" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/deep_grey" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dividerNIK"
+            <TextView
+                android:id="@+id/textValueName"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/example_name"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/buttonNextName"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/textName"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/buttonNextName"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/icon_next"
+                android:src="@drawable/icon_arrow_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerName"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/grey"
+                app:layout_constraintTop_toBottomOf="@id/textValueName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="12dp"
+            android:id="@+id/cardNIK"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:dividerColor="@color/grey"
-            app:layout_constraintTop_toBottomOf="@id/textValueNIK" />
+            app:layout_constraintTop_toBottomOf="@id/cardName">
 
-        <TextView
-            android:id="@+id/textNumberPhone"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/phone_number"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerNIK" />
+            <TextView
+                android:id="@+id/textNIK"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_width="130dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/nik"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textValueNumberPhone"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginTop="12dp"
-            android:text="@string/example_number_phone"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/textValueName"
-            app:layout_constraintTop_toBottomOf="@id/dividerNIK" />
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerContainerNIK"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/buttonNextNIK"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/textNIK"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/buttonNextNumberPhone"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:contentDescription="@string/icon_next"
-            android:src="@drawable/icon_arrow_left"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerNIK" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/deep_grey" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dividerNumberPhone"
+            <TextView
+                android:id="@+id/textValueNIK"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/example_nik"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/textNIK"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/buttonNextNIK"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/icon_next"
+                android:src="@drawable/icon_arrow_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerNIK"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/grey"
+                app:layout_constraintTop_toBottomOf="@id/textValueNIK" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardNumberPhone"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="12dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:dividerColor="@color/grey"
-            app:layout_constraintTop_toBottomOf="@id/textValueNumberPhone" />
+            app:layout_constraintTop_toBottomOf="@id/cardNIK">
 
-        <TextView
-            android:id="@+id/textNumberRegis"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/no_regis"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerNumberPhone" />
+            <TextView
+                android:id="@+id/textNumberPhone"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_width="130dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/phone_number"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textValueNumberRegis"
-            style="@style/TextContent.Body.PopLight"
-            android:layout_marginTop="12dp"
-            android:text="@string/example_no_regis"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/textValueName"
-            app:layout_constraintTop_toBottomOf="@id/dividerNumberPhone" />
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerContainerPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/buttonNextNumberPhone"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/textNumberPhone"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/buttonNextNumberRegis"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:contentDescription="@string/icon_next"
-            android:src="@drawable/icon_arrow_left"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerNumberPhone" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/deep_grey" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dividerNumberRegis"
+            <TextView
+                android:id="@+id/textValueNumberPhone"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/example_number_phone"
+                android:textSize="14sp"
+                android:layout_marginStart="30dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/textNumberPhone"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/buttonNextNumberPhone"
+                android:layout_marginStart="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/icon_next"
+                android:src="@drawable/icon_arrow_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerNumberPhone"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/grey"
+                app:layout_constraintTop_toBottomOf="@id/textValueNumberPhone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardNumberRegis"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="10dp"
-            app:dividerColor="@color/grey"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintTop_toBottomOf="@id/textValueNumberRegis"
-            app:layout_constraintVertical_bias="0" />
+            android:paddingTop="10dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cardNumberPhone">
+
+            <TextView
+                android:layout_width="130dp"
+                android:id="@+id/textNumberRegis"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/no_regis"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerContainerNumberRegis"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/buttonNextNumberRegis"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/textNumberRegis"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/deep_grey" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <TextView
+                android:id="@+id/textValueNumberRegis"
+                style="@style/TextContent.Body.PopLight"
+                android:layout_marginTop="12dp"
+                android:text="@string/example_no_regis"
+                android:textSize="14sp"
+                android:layout_marginStart="33dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/textNumberRegis"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/buttonNextNumberRegis"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/icon_next"
+                android:src="@drawable/icon_arrow_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerNumberRegis"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintTop_toBottomOf="@id/textValueNumberRegis"
+                app:layout_constraintVertical_bias="0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

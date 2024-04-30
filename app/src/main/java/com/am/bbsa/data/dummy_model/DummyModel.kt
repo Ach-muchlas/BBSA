@@ -1,6 +1,8 @@
 package com.am.bbsa.data.dummy_model
 
+import android.os.Parcelable
 import android.provider.ContactsContract.CommonDataKinds.StructuredName
+import kotlinx.parcelize.Parcelize
 
 sealed class DummyModel {
     data class DataCard(

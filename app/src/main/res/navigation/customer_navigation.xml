@@ -40,7 +40,17 @@
         android:id="@+id/navigation_account"
         android:name="com.am.bbsa.ui.customers.account.AccountFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_navigation_account_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_navigation_account_to_changePasswordAdminFragment"
+            app:destination="@id/changePasswordAdminFragment" />
+        <action
+            android:id="@+id/action_navigation_account_to_changeLanguageFragment2"
+            app:destination="@id/changeLanguageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/wasteDepositFragment"
         android:name="com.am.bbsa.ui.customers.home.waste_deposit.WasteDepositFragment"
@@ -66,5 +76,32 @@
         android:name="com.am.bbsa.ui.customers.home.withdraw_balance.WithdrawBalanceFragment"
         android:label="fragment_withdraw_balance"
         tools:layout="@layout/fragment_withdraw_balance" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.am.bbsa.ui.customers.account.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordAdminFragment"
+        android:name="com.am.bbsa.ui.admin.account.change_password.ChangePasswordAdminFragment"
+        android:label="ChangePasswordAdminFragment" />
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.am.bbsa.ui.customers.account.profile.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" >
+        <argument
+            android:name="tag_title_update"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeLanguageFragment"
+        android:name="com.am.bbsa.ui.customers.account.change_language.ChangeLanguageFragment"
+        android:label="fragment_change_language"
+        tools:layout="@layout/fragment_change_language" />
 
 </navigation>

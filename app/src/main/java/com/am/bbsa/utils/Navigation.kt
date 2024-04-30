@@ -26,6 +26,7 @@ object Navigation {
                 Destination.MENU_TO_DEPOSIT_WEIGHING -> it.navigate(R.id.action_navigation_admin_menu_to_depositWeighing)
                 Destination.MENU_TO_HISTORY_DEPOSIT -> it.navigate(R.id.action_navigation_admin_menu_to_historyDepositAdminFragment)
                 Destination.MENU_TO_NEWS -> it.navigate(R.id.action_navigation_admin_menu_to_newsFragment)
+                Destination.MENU_TO_UPDATE_PRICE -> it.navigate(R.id.action_navigation_admin_menu_to_update_price_waste)
 
                 Destination.NASABAH_TO_DETAIL_NASABAH -> it.navigate(
                     R.id.action_nasabahFragment_to_detailNasabahFragment,
@@ -54,10 +55,18 @@ object Navigation {
                     args
                 )
 
+                Destination.ACCOUNT_TO_PROFILE -> it.navigate(R.id.action_navigation_account_to_profileFragment)
+                Destination.ACCOUNT_TO_CHANGE_PASSWORD -> it.navigate(R.id.action_navigation_account_to_changePasswordAdminFragment)
+                Destination.ACCOUNT_TO_CHANGE_LANGUAGE -> it.navigate(R.id.action_navigation_account_to_changeLanguageFragment2)
+                Destination.PROFILE_TO_UPDATE_PROFILE -> it.navigate(R.id.action_profileFragment_to_updateProfileFragment, args)
+
+
                 Destination.ACCOUNT_ADMIN_TO_PROFILE_ADMIN -> it.navigate(R.id.action_navigation_admin_account_to_profileAdminFragment)
                 Destination.ACCOUNT_ADMIN_TO_CHANGE_LANGUAGE -> it.navigate(R.id.action_navigation_admin_account_to_changeLanguageFragment)
                 Destination.ACCOUNT_ADMIN_TO_CHANGE_PASSWORD -> it.navigate(R.id.action_navigation_admin_account_to_changePasswordFragment)
 
+                Destination.MENU_TO_SCHEDULING_PICK_UP -> it.navigate(R.id.action_navigation_admin_menu_to_schedulingWastePickUpFragment)
+                Destination.SCHEDULING_PICK_UP_TO_ADD_SCHEDULE -> it.navigate(R.id.action_schedulingWastePickUpFragment_to_addSchedulingWastePickUpFragment)
             }
         }
     }
@@ -70,6 +79,10 @@ enum class Destination {
     HOME_TO_TYPE_WASTE,
     HOME_TO_HISTORY_DEPOSIT,
     HOME_TO_PICKUP_WASTE,
+    ACCOUNT_TO_PROFILE,
+    ACCOUNT_TO_CHANGE_PASSWORD,
+    ACCOUNT_TO_CHANGE_LANGUAGE,
+    PROFILE_TO_UPDATE_PROFILE,
 
     /*Admin*/
     MENU_TO_WASTE_TYPE_INFORMATION,
@@ -78,6 +91,8 @@ enum class Destination {
     MENU_TO_DEPOSIT_WEIGHING,
     MENU_TO_HISTORY_DEPOSIT,
     MENU_TO_NEWS,
+    MENU_TO_UPDATE_PRICE,
+    MENU_TO_SCHEDULING_PICK_UP,
     NASABAH_TO_DETAIL_NASABAH,
     WASTE_TYPE_INFORMATION_TO_UPDATE_WASTE_TYPE,
     WASTE_TYPE_INFORMATION_TO_ADD_WASTE_TYPE,
@@ -88,5 +103,5 @@ enum class Destination {
     ACCOUNT_ADMIN_TO_PROFILE_ADMIN,
     ACCOUNT_ADMIN_TO_CHANGE_LANGUAGE,
     ACCOUNT_ADMIN_TO_CHANGE_PASSWORD,
-
+    SCHEDULING_PICK_UP_TO_ADD_SCHEDULE
 }

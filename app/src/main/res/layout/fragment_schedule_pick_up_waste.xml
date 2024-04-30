@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.admin.menu.scheduling_waste_pick_up.SchedulePickUpWasteFragment">
+
+    <include
+        android:id="@+id/viewAppBar"
+        layout="@layout/custom_app_bar_button_and_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textSchedulingPickUp"
+        style="@style/TextContent.Body.PopSemiBold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/scheduling_pick_up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewAppBar" />
+
+    <TextView
+        android:id="@+id/textValueScheduling"
+        style="@style/TextContent.Body.PopSemiBold"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/example_date"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/viewAppBar" />
+
+    <include
+        android:id="@+id/cardListRegisNasabah"
+        layout="@layout/card_customer_scheduling_pick_up"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textValueScheduling" />
+
+    <include
+        android:id="@+id/cardApproveRegis"
+        layout="@layout/card_customer_scheduling_pick_up"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@id/cardListRegisNasabah" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonAdd"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="@string/button_add"
+        android:scaleType="centerInside"
+        app:backgroundTint="@color/deep_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="30dp"
+        app:srcCompat="@drawable/icon_plus"
+        app:tint="@color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,9 +22,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textBalance1"
             style="@style/TextContent.Body.PopMedium"
             android:layout_marginStart="9dp"
-            android:text="@string/actual_balance"
+            android:text="@string/balance"
             android:textColor="@color/deep_green"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iconBalance"
@@ -81,9 +82,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textPredict"
             style="@style/TextContent.Body.PopMedium"
             android:layout_marginStart="9dp"
-            android:text="@string/temporary_balance"
+            android:text="@string/deposit_predict_balance"
             android:textColor="@color/deep_green"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iconWallet"
@@ -110,7 +112,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
-            android:id="@+id/textTemporaryBalance"
+            android:id="@+id/textValuePredict"
             style="@style/TextContent.Body.PopBold"
             android:text="@string/example_balance"
             app:layout_constraintEnd_toEndOf="parent"

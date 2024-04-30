@@ -19,6 +19,13 @@ data class DataItemNasabah(
     @field:SerializedName("saldo_aktual")
     val balance: String? = null,
 
+    @field:SerializedName("jenis_kelamin")
+    val gender: String? = null,
+
+    @field:SerializedName("foto_profil")
+    val photoProfile: String? = null,
+
+
     @field:SerializedName("name")
     val name: String? = null,
 

@@ -2,12 +2,14 @@ package com.am.bbsa.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.am.bbsa.data.response.LoginResult
 import com.am.bbsa.databinding.ActivityLoginBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.main.AdminMainActivity
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.auth.forgot_password.ForgotPasswordActivity
 import com.am.bbsa.ui.auth.register.RegisterActivity
 import com.am.bbsa.ui.customers.main.CustomersMainActivity
 import com.am.bbsa.utils.UiHandler
@@ -33,6 +35,9 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonEnter.setOnClickListener {
             login()
         }
+        binding.textForgotPassword.setOnClickListener {
+            goToActivity(ForgotPasswordActivity())
+        }
     }
 
     private fun login() {
@@ -51,10 +56,6 @@ class LoginActivity : AppCompatActivity() {
                         val token = LoginResult(role = resource.data?.data?.role, token = resource.data?.data?.token)
                         viewModel.saveCredentialUser(token)
                         viewModel.setSessionTimeout()
-                        UiHandler.toastSuccessMessage(
-                            this@LoginActivity,
-                            resource.data?.message.toString()
-                        )
                         if (resource.data?.data?.role.equals("Nasabah")) {
                             Intent(this, CustomersMainActivity::class.java).finish(this)
                         } else if (resource.data?.data?.role.equals("Admin")) {

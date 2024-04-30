@@ -2,6 +2,7 @@ package com.am.bbsa.ui.customers.home.waste_deposit
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
-import com.am.bbsa.adapter.menu.SelectNasabahWasteDepositAdapter
 import com.am.bbsa.data.response.UserResponse
 import com.am.bbsa.databinding.FragmentWasteDepositBinding
 import com.am.bbsa.service.source.Status
@@ -31,7 +31,6 @@ class WasteDepositFragment : Fragment() {
     private var _binding: FragmentWasteDepositBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by inject()
-    private lateinit var adapter: SelectNasabahWasteDepositAdapter
 
     /*instantiation of firebase storage object to send images*/
     private lateinit var storage: FirebaseStorage
@@ -99,29 +98,32 @@ class WasteDepositFragment : Fragment() {
     /*fungsi ini berjalan akan mengirim image ke firebase
     setelah itu akan akan mendowload url dan dimasukkan kedalam viewmodel*/
     private fun uploadImageToFirebaseAndPostApiForDatabase() {
-        imageUri?.let { filePath ->
-            val ref = storageReference.child("Images/SetoranSampah/${UUID.randomUUID()}")
+        if (imageUri != null) {
+            imageUri?.let { filePath ->
+                val ref = storageReference.child("Images/SetoranSampah/${UUID.randomUUID()}")
 
-            ref.putFile(filePath).addOnSuccessListener {
-                UiHandler.toastSuccessMessage(
-                    requireContext(),
-                    "Berhasil Mengirim foto ke Firebase!!"
-                )
-                ref.downloadUrl.addOnSuccessListener { url ->
-                    imageUrl = url.toString()
-                    /*pada fungsi ini akan mengirimkan data ke dalam database*/
-                    setupPostDataToApi(imageUrl)
+                ref.putFile(filePath).addOnSuccessListener {
+                    UiHandler.toastSuccessMessage(
+                        requireContext(),
+                        "Berhasil Mengirim foto ke Firebase!!"
+                    )
+                    ref.downloadUrl.addOnSuccessListener { url ->
+                        imageUrl = url.toString()
+                        /*pada fungsi ini akan mengirimkan data ke dalam database*/
+                        setupPostDataToApi(imageUrl)
+                    }
+                }.addOnFailureListener { e ->
+                    UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
                 }
-            }.addOnFailureListener { e ->
-                UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
             }
+        } else {
+            imageUrl = "null"
+            setupPostDataToApi(imageUrl)
         }
     }
 
     private fun setupPostDataToApi(imageUrl: String) {
-        val date = LocalDateTime.now().toString()
-        val userId = selectedIdNasabah ?: 0
-        viewModel.createDepositWaste(token, userId, date, imageUrl)
+        viewModel.createDepositWaste(token, imageUrl)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {}
@@ -131,6 +133,7 @@ class WasteDepositFragment : Fragment() {
                     }
 
                     Status.ERROR -> {
+                        Log.e("CHECK_IMAGE_URL", imageUrl)
                         UiHandler.toastErrorMessage(
                             requireContext(),
                             resource.message.toString()
@@ -139,7 +142,6 @@ class WasteDepositFragment : Fragment() {
                 }
             }
     }
-
 
     private fun setupDataUser() {
         homeViewModel.showDataUser(token).observe(viewLifecycleOwner) { resource ->

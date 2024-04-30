@@ -10,18 +10,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.am.bbsa.adapter.account.AccountCardAdapter
 import com.am.bbsa.data.dummy_data.DummyData
+import com.am.bbsa.data.response.UserResponse
 import com.am.bbsa.databinding.FragmentAccountBinding
+import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.auth.login.LoginActivity
+import com.am.bbsa.ui.customers.account.AccountViewModel
 import com.am.bbsa.utils.Destination
 import com.am.bbsa.utils.Navigation
+import com.am.bbsa.utils.UiHandler
 import com.am.bbsa.utils.finish
+import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
 
 class AccountAdminFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private val authViewModel: AuthViewModel by inject()
+    private val viewModel: AccountViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +35,31 @@ class AccountAdminFragment : Fragment() {
     ): View {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         setupAdapter()
+        setupView()
         return binding.root
+    }
+
+    private fun setupView() {
+        val token = authViewModel.getCredentialUser()?.token.toString()
+        viewModel.showDataUser(token).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {
+                    showShimmer(true)
+                }
+
+                Status.SUCCESS -> {
+                    showShimmer(false)
+                    setupIsVisibilityView()
+                    setupViewCredentialUser(resource.data)
+                }
+
+                Status.ERROR -> {
+                    showShimmer(false)
+                    setupIsVisibilityView()
+                    UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
+                }
+            }
+        }
     }
 
     private fun setupAdapter() {
@@ -63,6 +93,27 @@ class AccountAdminFragment : Fragment() {
         binding.cardMenuAccount.recyclerViewCardAccount.let {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun setupIsVisibilityView() {
+        binding.viewAppBar.apply {
+            textName.visibility = View.VISIBLE
+            imageProfile.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setupViewCredentialUser(data: UserResponse?) {
+        Glide.with(requireContext()).load(data?.data?.fotoProfil)
+            .into(binding.viewAppBar.imageProfile)
+        binding.viewAppBar.textHai.text = data?.data?.name
+        binding.viewAppBar.textName.text = data?.data?.nomorTelephone
+    }
+
+    private fun showShimmer(isVisible: Boolean) {
+        with(binding.viewAppBar) {
+            UiHandler.manageShimmer(shimmerContainerImage, isVisible)
+            UiHandler.manageShimmer(shimmerContainerName, isVisible)
         }
     }
 }

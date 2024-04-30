@@ -45,7 +45,7 @@ class NasabahFragment : Fragment() {
     }
 
     private fun displayNasabah() {
-        viewModel.showAllNasabah(token.toString()).observe(viewLifecycleOwner) { resource ->
+        viewModel.showAllNasabah(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
@@ -60,7 +60,6 @@ class NasabahFragment : Fragment() {
     }
 
     private fun setupAdapter(data: NasabahResponse) {
-
         val adapter = ListNasabahAdapter().apply {
             submitList(data.data)
             callbackOnclick = { nasabah_id ->

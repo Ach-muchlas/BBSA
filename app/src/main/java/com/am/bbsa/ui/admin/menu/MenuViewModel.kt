@@ -29,8 +29,11 @@ class MenuViewModel(private val repository: Repository) : ViewModel() {
         repository.deleteInformationWaste(id, token)
 
     fun showAllDepositWaste(token: String) = repository.getAllWasteDeposit(token)
-    fun createDepositWaste(token: String, userId: Int, date: String, photo: String) =
-        repository.createWasteDeposit(token, userId, date, photo)
+    fun createDepositWaste(token: String, photo: String) =
+        repository.createWasteDeposit(token, photo)
+
+    fun createDepositWasteAdmin(token: String, userId: Int, photo: String) =
+        repository.createWasteDepositAdmin(token, userId, photo)
 
     fun showAllHistoryDeposit(token: String) = repository.getAllHistoryDeposit(token)
 
@@ -45,4 +48,6 @@ class MenuViewModel(private val repository: Repository) : ViewModel() {
     fun showAllNews(token: String) = repository.getALlNews(token)
     fun createNews(token: String, title: String, description: String, photo: String) =
         repository.createNews(token, title, description, photo)
+
+    fun showSchedulePickupWaste(token: String) = repository.getSchedulePickUpWaste(token)
 }

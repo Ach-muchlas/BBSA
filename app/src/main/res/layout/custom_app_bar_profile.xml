@@ -28,7 +28,6 @@
         android:layout_height="65dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/me"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

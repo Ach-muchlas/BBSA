@@ -122,9 +122,7 @@ class WasteDepositAdminFragment : Fragment() {
 
     private fun setupPostDataToApi(imageUrl: String) {
         val userId: Int = selectedIdNasabah ?: 0
-        val date = LocalDateTime.now().toString()
-
-        viewModel.createDepositWaste(token, userId, date, imageUrl)
+        viewModel.createDepositWasteAdmin(token, userId, imageUrl)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {}

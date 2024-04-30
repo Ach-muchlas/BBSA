@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imagePhoto"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/me"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textValueName"
+            style="@style/TextContent.Body.PopSemiBold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/example_name"
+            app:layout_constraintStart_toEndOf="@id/imagePhoto"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textValueDate"
+            style="@style/TextContent.Body.PopReg"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/example_name"
+            app:layout_constraintStart_toEndOf="@id/imagePhoto"
+            app:layout_constraintTop_toBottomOf="@id/textValueName" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/deep_green"
+            android:text="@string/approve"
+            app:layout_constraintStart_toEndOf="@id/imagePhoto"
+            app:layout_constraintTop_toBottomOf="@id/textValueDate" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/red"
+            android:text="@string/reject"
+            app:layout_constraintStart_toEndOf="@id/buttonEdit"
+            app:layout_constraintTop_toBottomOf="@id/textValueDate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

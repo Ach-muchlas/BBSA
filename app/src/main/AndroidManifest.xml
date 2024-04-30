@@ -11,40 +11,43 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BBSA"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.auth.forgot_password.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.otp.OtpForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.forgot_password.ForgotPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.admin.main.AdminMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.auth.otp.OtpActivity"
+            android:name=".ui.auth.otp.OtpRegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.login.LoginActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ui.customers.main.CustomersMainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

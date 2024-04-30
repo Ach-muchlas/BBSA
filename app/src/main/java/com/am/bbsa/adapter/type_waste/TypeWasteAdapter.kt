@@ -1,6 +1,7 @@
 package com.am.bbsa.adapter.type_waste
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,8 @@ import com.am.bbsa.databinding.ItemContentTypeWasteBinding
 import com.am.bbsa.utils.Formatter
 import com.bumptech.glide.Glide
 
-class TypeWasteAdapter : ListAdapter<DataItemSampah, TypeWasteAdapter.ViewHolder>(DIFF_CALLBACK){
+class TypeWasteAdapter(private var hideButtonEditAndDelete: Boolean) :
+    ListAdapter<DataItemSampah, TypeWasteAdapter.ViewHolder>(DIFF_CALLBACK) {
     var callbackOnclickEdit: ((DataItemSampah) -> Unit)? = null
     var callbackOnclickDelete: ((Int) -> Unit)? = null
 
@@ -19,13 +21,17 @@ class TypeWasteAdapter : ListAdapter<DataItemSampah, TypeWasteAdapter.ViewHolder
         fun bind(dataTypeWaste: DataItemSampah) {
             Glide.with(binding.root).load(dataTypeWaste.photo).into(binding.imageWaste)
             binding.textTypeWaste.text = dataTypeWaste.name
-            binding.textPrice.text = Formatter.formatCurrency(dataTypeWaste.price!!)
+            binding.textPrice.text = Formatter.formatCurrency(dataTypeWaste.price ?: 0)
             binding.textCategory.text = dataTypeWaste.type
             binding.buttonEdit.setOnClickListener {
                 callbackOnclickEdit?.invoke(dataTypeWaste)
             }
             binding.buttonDelete.setOnClickListener {
                 callbackOnclickDelete?.invoke(dataTypeWaste.id)
+            }
+            if (hideButtonEditAndDelete) {
+                binding.buttonEdit.visibility = View.GONE
+                binding.buttonDelete.visibility = View.GONE
             }
         }
     }

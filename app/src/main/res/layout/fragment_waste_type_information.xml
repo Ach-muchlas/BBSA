@@ -7,15 +7,16 @@
 
     <ImageView
         android:id="@+id/buttonBack"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
         android:backgroundTint="@color/transparent"
         android:contentDescription="@string/button_back"
         android:src="@drawable/icon_back_black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/edtSearch"
+        app:layout_constraintTop_toTopOf="@id/edtSearch" />
+
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edtSearch"
@@ -25,9 +26,10 @@
         android:layout_marginEnd="20dp"
         android:hint="@string/input_nasabah_name"
         android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/buttonBack"
-        app:layout_constraintTop_toTopOf="@id/buttonBack" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textFilter"
@@ -48,7 +50,7 @@
         android:text="@string/waste"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonBack" />
+        app:layout_constraintTop_toBottomOf="@id/edtSearch" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTypeWaste"

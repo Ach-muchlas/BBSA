@@ -17,7 +17,7 @@ data class RegisterResponse(
 data class DataItemRegister(
 
 	@field:SerializedName("foto_profil")
-	val photoProfile: Any? = null,
+	val photoProfile: String? = null,
 
 	@field:SerializedName("role")
 	val role: String? = null,
