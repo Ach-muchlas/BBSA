@@ -5,10 +5,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.am.bbsa.R
+import com.am.bbsa.data.response.DataItemRegister
 import com.am.bbsa.databinding.ActivityRegisterBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.auth.login.LoginActivity
+import com.am.bbsa.ui.auth.otp.OtpRegisterActivity
 import com.am.bbsa.utils.UiHandler
 import com.am.bbsa.utils.goToActivity
 import org.koin.android.ext.android.inject
@@ -47,7 +49,6 @@ class RegisterActivity : AppCompatActivity() {
         /*Intent to OTP*/
         binding.buttonRegister.setOnClickListener {
             register()
-//            goToActivity(OtpActivity())
         }
     }
 
@@ -70,7 +71,9 @@ class RegisterActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
                         UiHandler.setupVisibilityProgressBar(binding.progressCircular, false)
                         UiHandler.toastSuccessMessage(this, resource.data?.message.toString())
-                        goToActivity(LoginActivity())
+                        val data: DataItemRegister? = resource.data?.data
+                        viewModel.saveCredentialRegister(data!!)
+                        goToActivity(OtpRegisterActivity())
                     }
 
                     Status.ERROR -> {
@@ -79,5 +82,10 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+
+    companion object {
+        const val KEY_USER_ID = "key_user_id"
     }
 }

@@ -33,6 +33,12 @@
         <action
             android:id="@+id/action_navigation_admin_menu_to_historyDepositAdminFragment"
             app:destination="@id/historyDepositAdminFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_update_price_waste"
+            app:destination="@id/updatePriceWasteFragment" />
+        <action
+            android:id="@+id/action_navigation_admin_menu_to_schedulingWastePickUpFragment"
+            app:destination="@id/schedulingWastePickUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_admin_account"
@@ -78,6 +84,12 @@
         <argument
             android:name="nasabah_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailNasabahFragment_to_updateNasabahFragment"
+            app:destination="@id/updateNasabahFragment" />
+        <action
+            android:id="@+id/action_detailNasabahFragment_to_updatePhotoProfileFragment"
+            app:destination="@id/updatePhotoProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateWasteTypeFragment"
@@ -172,7 +184,35 @@
         tools:layout="@layout/fragment_change_language" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.am.bbsa.ui.customers.account.change_password.ChangePasswordFragment"
+        android:name="com.am.bbsa.ui.admin.account.change_password.ChangePasswordAdminFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/updatePriceWasteFragment"
+        android:name="com.am.bbsa.ui.admin.menu.update_price.UpdatePriceWasteFragment"
+        android:label="fragment_update_price_waste"
+        tools:layout="@layout/fragment_update_price_waste" />
+    <fragment
+        android:id="@+id/schedulingWastePickUpFragment"
+        android:name="com.am.bbsa.ui.admin.menu.scheduling_waste_pick_up.SchedulePickUpWasteFragment"
+        android:label="fragment_scheduling_waste_pick_up"
+        tools:layout="@layout/fragment_schedule_pick_up_waste" >
+        <action
+            android:id="@+id/action_schedulingWastePickUpFragment_to_addSchedulingWastePickUpFragment"
+            app:destination="@id/addSchedulingWastePickUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSchedulingWastePickUpFragment"
+        android:name="com.am.bbsa.ui.admin.menu.scheduling_waste_pick_up.AddSchedulePickUpWasteFragment"
+        android:label="fragment_add_scheduling_waste_pick_up"
+        tools:layout="@layout/fragment_add_schedule_pick_up_waste" />
+    <fragment
+        android:id="@+id/updateNasabahFragment"
+        android:name="com.am.bbsa.ui.admin.menu.nasabah.UpdateNasabahFragment"
+        android:label="UpdateNasabahFragment" />
+    <fragment
+        android:id="@+id/updatePhotoProfileFragment"
+        android:name="com.am.bbsa.ui.admin.menu.nasabah.UpdatePhotoProfileFragment"
+        android:label="fragment_update_photo_profile"
+        tools:layout="@layout/fragment_update_photo_profile" />
 </navigation>

@@ -32,13 +32,13 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="5dp"
         android:autofillHints="phone"
-        android:hint="@string/example_number_phone"
         android:textColorHint="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textNumberPhone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtNumberPhone"
+            android:hint="@string/example_number_phone"
             style="@style/EditTextContent"
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,7 +69,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="5dp"
         android:autofillHints="password"
-        android:hint="@string/input_your_password"
+
         android:textColorHint="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textPassword"
@@ -78,6 +78,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtPassword"
+            android:hint="@string/input_your_password"
             style="@style/EditTextContent"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +93,6 @@
         app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edlPassword" />
-
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textHaveAccount"

@@ -51,7 +51,6 @@ class WasteTypeInformationFragment : Fragment() {
     }
 
     private fun displayWasteInformation() {
-
         viewModel.showAllInformationWaste(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
@@ -67,7 +66,6 @@ class WasteTypeInformationFragment : Fragment() {
     }
 
     private fun setupDeleteWaste(id: Int) {
-
         viewModel.deleteInformationWaste(id, token)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
@@ -106,7 +104,7 @@ class WasteTypeInformationFragment : Fragment() {
     }
 
     private fun setupAdapter(data: SampahResponse?) {
-        val adapter = TypeWasteAdapter().apply {
+        val adapter = TypeWasteAdapter(false).apply {
             submitList(data?.data)
             callbackOnclickEdit = {
                 val bundle = Bundle().apply {

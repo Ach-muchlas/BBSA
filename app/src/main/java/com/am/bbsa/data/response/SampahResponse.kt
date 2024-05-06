@@ -37,6 +37,6 @@ data class DataItemSampah(
 	@field:SerializedName("id")
 	val id: Int,
 
-	@field:SerializedName("harga_per_kg")
+	@field:SerializedName("harga")
 	val price: Int? = null
 ) : Parcelable

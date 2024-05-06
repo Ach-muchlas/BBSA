@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.am.bbsa.R
 import com.am.bbsa.data.response.DataItemNasabah
 import com.am.bbsa.databinding.ItemContentNasabahBinding
+import com.bumptech.glide.Glide
 
 class ListNasabahAdapter :
     ListAdapter<DataItemNasabah, ListNasabahAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -17,11 +18,12 @@ class ListNasabahAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(dataNasabah: DataItemNasabah) {
             binding.root.setOnClickListener { callbackOnclick?.invoke(dataNasabah.id) }
-//            Glide.with(binding.root.context).load(R.drawable.).into()
             binding.imageProfile.setImageResource(R.drawable.icon_profile_man)
             binding.textName.text = dataNasabah.name
             binding.textNumberPhone.text = dataNasabah.phoneNumber
             binding.textStatusAccount.text = dataNasabah.status
+            val icon = if (dataNasabah.gender.equals("Laki-Laki")) R.drawable.icon_profile_man else R.drawable.icon_profile_women
+            Glide.with(binding.root.context).load(dataNasabah.photoProfile ?: icon).into(binding.imageProfile)
         }
     }
 

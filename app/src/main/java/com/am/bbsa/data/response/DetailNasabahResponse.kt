@@ -22,7 +22,7 @@ data class DataItemDetailNasabah(
     @field:SerializedName("saldo_aktual")
 	val balance: Int? = null,
 
-    @field:SerializedName("saldo_sementara")
+    @field:SerializedName("saldo_prediksi")
 	val temporaryBalance: Int? = null,
 
     @field:SerializedName("user_id")
@@ -32,7 +32,7 @@ data class DataItemDetailNasabah(
 	val createdAt: String? = null,
 
     @field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
     @field:SerializedName("nomor_register")
 	val noRegis: String? = null,

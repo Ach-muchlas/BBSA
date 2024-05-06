@@ -4,28 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.otp.OtpActivity">
-
-    <ImageView
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="14dp"
-        android:contentDescription="@string/button_back"
-        android:src="@drawable/icon_arrow_right"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.auth.otp.OtpRegisterActivity">
 
     <TextView
         android:id="@+id/textViewInputOtp"
         style="@style/TextContent.Headline"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="150dp"
         android:text="@string/input_otp"
         android:textColor="@color/deep_green"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonBack" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewSixDigit"
@@ -53,6 +42,7 @@
         android:layout_marginTop="30dp"
         android:autofillHints="postalCode"
         android:hint="@string/_0"
+        app:layout_constraintEnd_toStartOf="@id/edtOtp2"
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +53,7 @@
         style="@style/EditTextContentOtp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toStartOf="@id/edtOtp3"
         android:autofillHints="postalCode"
         android:hint="@string/_0"
         android:maxLength="1"
@@ -73,6 +64,7 @@
 
     <EditText
         android:id="@+id/edtOtp3"
+        app:layout_constraintEnd_toStartOf="@id/edtOtp4"
         style="@style/EditTextContentOtp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
@@ -86,6 +78,7 @@
 
     <EditText
         android:id="@+id/edtOtp4"
+        app:layout_constraintEnd_toStartOf="@id/edtOtp5"
         style="@style/EditTextContentOtp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
@@ -97,8 +90,11 @@
         app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
         tools:ignore="LabelFor" />
 
+    `
+
     <EditText
         android:id="@+id/edtOtp5"
+        app:layout_constraintEnd_toStartOf="@id/edtOtp6"
         style="@style/EditTextContentOtp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
@@ -116,6 +112,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="22dp"
+        app:layout_constraintHorizontal_bias="0"
         android:autofillHints="postalCode"
         android:hint="@string/_0"
         android:maxLength="1"
@@ -126,16 +123,33 @@
         tools:ignore="LabelFor" />
 
     <TextView
+        android:id="@+id/textResendingOtp"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_marginTop="20dp"
+        android:text="@string/resending_otp"
+        android:textColor="@color/deep_green"
+        app:layout_constraintStart_toStartOf="@id/edtOtp1"
+        app:layout_constraintTop_toBottomOf="@id/edtOtp1" />
+
+    <TextView
+        android:id="@+id/textTimeExpiredOtp"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_marginStart="5dp"
+        android:text="@string/example_time"
+        android:textColor="@color/deep_green"
+        app:layout_constraintStart_toEndOf="@id/textResendingOtp"
+        app:layout_constraintTop_toTopOf="@id/textResendingOtp" />
+
+    <TextView
         android:id="@+id/textViewRequestNewCode"
         style="@style/TextContent.Body.PopBold"
         android:layout_marginHorizontal="0dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="@string/request_new_code"
         android:textColor="@color/deep_green"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtOtp1" />
-
+        app:layout_constraintTop_toBottomOf="@id/textResendingOtp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

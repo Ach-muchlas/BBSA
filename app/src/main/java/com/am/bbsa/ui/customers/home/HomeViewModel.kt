@@ -5,6 +5,8 @@ import com.am.bbsa.service.source.Repository
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
     fun showDataUser(token: String) = repository.getDataUser(token)
+    fun showNews(token: String) = repository.getALlNews(token)
+    fun showAllTypeWaste(token: String) = repository.getAllWaste(token)
 
-    fun showNews(token: String) =repository.getALlNews(token)
+    fun showSchedulePickUpWaste(token: String) = repository.getSchedulePickUpWaste(token)
 }

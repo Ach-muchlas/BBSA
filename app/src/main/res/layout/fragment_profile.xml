@@ -16,16 +16,31 @@
             android:layout_width="match_parent"
             android:layout_height="48dp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageProfile"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerProfile"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/me"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewAppbar">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="100dp"
+            android:src="@color/light_grey"
+            android:layout_height="100dp"
+            android:visibility="invisible"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewAppbar" />
-
 
         <include
             android:id="@+id/cardPersonalInformation"
@@ -43,8 +58,20 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
+            app:layout_constrainedHeight="true"
             app:layout_constraintTop_toBottomOf="@id/cardPersonalInformation" />
 
+        <include
+            android:id="@+id/cardPersonalBalance"
+            layout="@layout/card_personal_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toBottomOf="@id/cardPersonalIdentity" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

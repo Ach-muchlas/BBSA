@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setupMenu()
+        setupNavigation()
         displayHome()
         displayNews()
         return binding.root
@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
                 Status.SUCCESS -> {
                     showShimmer(false)
                     setupIsVisibilityView()
-                    setupViewBalanceCustomers(resource.data)
+                    setupViewCredentialUser(resource.data)
                 }
 
                 Status.ERROR -> {
@@ -78,13 +78,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupViewBalanceCustomers(data: UserResponse?) {
+    private fun setupViewCredentialUser(data: UserResponse?) {
         Glide.with(requireContext()).load(data?.data?.fotoProfil)
             .into(binding.viewAppBar.imageProfile)
         binding.viewAppBar.textName.text = data?.data?.name
         binding.cardBalance.textBalance.text =
             Formatter.formatCurrency(data?.data?.nasabah?.balance ?: 0)
-        binding.cardBalance.textTemporaryBalance.text =
+        binding.cardBalance.textValuePredict.text =
             Formatter.formatCurrency(data?.data?.nasabah?.temporaryBalance ?: 0)
     }
 
@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
         }
         binding.cardBalance.apply {
             textBalance.visibility = View.VISIBLE
-            textTemporaryBalance.visibility = View.VISIBLE
+            textValuePredict.visibility = View.VISIBLE
         }
     }
 
@@ -110,7 +110,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupMenu() {
+    private fun setupNavigation() {
         binding.menuDeposit.cardMenu.setOnClickListener {
             navigationFragment(Destination.HOME_TO_DEPOSIT_WASTE, findNavController())
         }

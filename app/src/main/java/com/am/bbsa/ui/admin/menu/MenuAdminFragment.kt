@@ -31,12 +31,25 @@ class MenuAdminFragment : Fragment() {
         adapter.callbackOnclick = { id ->
             when (id) {
                 1 -> Navigation.navigationFragment(Destination.MENU_TO_NASABAH, findNavController())
-                3 -> Navigation.navigationFragment(Destination.MENU_TO_WASTE_DEPOSIT_ADMIN, findNavController())
+                2 -> Navigation.navigationFragment(
+                    Destination.MENU_TO_UPDATE_PRICE,
+                    findNavController()
+                )
+
+                3 -> Navigation.navigationFragment(
+                    Destination.MENU_TO_WASTE_DEPOSIT_ADMIN,
+                    findNavController()
+                )
                 4 -> Navigation.navigationFragment(Destination.MENU_TO_DEPOSIT_WEIGHING, findNavController())
                 5 -> Navigation.navigationFragment(Destination.MENU_TO_HISTORY_DEPOSIT, findNavController())
                 7 -> Navigation.navigationFragment(Destination.MENU_TO_NEWS, findNavController())
                 8 -> Navigation.navigationFragment(
                     Destination.MENU_TO_WASTE_TYPE_INFORMATION, findNavController()
+                )
+
+                10 -> Navigation.navigationFragment(
+                    Destination.MENU_TO_SCHEDULING_PICK_UP,
+                    findNavController()
                 )
             }
         }
