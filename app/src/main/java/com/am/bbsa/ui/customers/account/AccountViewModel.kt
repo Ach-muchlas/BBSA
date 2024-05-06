@@ -16,8 +16,7 @@ class AccountViewModel(private val repository: Repository) : ViewModel() {
     fun updateNameUser(token: String, name: String) = repository.updateNameUser(token, name)
     fun updateNIKUser(token: String, nik: String) = repository.updateNIKUser(token, nik)
     fun updatePhoneNumberUser(token: String, phoneNumber: String) =
-        repository.updateNameUser(token, phoneNumber)
-
+        repository.updatePhoneNumberUser(token, phoneNumber)
     fun updateAddressUser(token: String, address: String) =
         repository.updateAddressUser(token, address)
     fun updateGenderUser(token: String, gender : String)= repository.updateGenderUser(token, gender)

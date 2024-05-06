@@ -160,7 +160,8 @@
     <string name="description_type_waste">Deskripsi Jenis Sampah</string>
     <string name="status">Status</string>
     <string name="scheduling_pick_up">Jadwal penjemputan</string>
-    <string name="list_nasabah_scheduling">Daftar Nasabah</string>
+    <string name="list_nasabah_scheduling">Nasabah pendaftar</string>
+    <string name="list_nasabah_approved">Nasabah yang diterima</string>
     <string name="approve">Setujui</string>
     <string name="reject">Tolak</string>
     <string name="icon_back">icon back</string>
@@ -170,4 +171,12 @@
     <string name="input_your_phone_number">Masukan nomor telephone anda</string>
     <string name="new_password">Password Baru</string>
     <string name="reset_password">Reset Password Anda</string>
+    <string name="empty_schedule_pick_up">Tidak ada jadwal penjemputan</string>
+    <string name="add_scheduling_pick_up">Tambah jadwal jemput sampah</string>
+    <string name="photo_profile">Foto Profil</string>
+    <string name="edit">edit</string>
+    <string name="choose_gallery">Pilih Foto</string>
+    <string name="choose_camera">Ambil Foto</string>
+    <string name="icon_close">Icon close</string>
+    <string name="text_cancel">Batal</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
+import com.am.bbsa.data.response.DataItemSampah
 import com.am.bbsa.databinding.FragmentUpdatePriceWasteBinding
 import com.am.bbsa.utils.UiHandler
 
@@ -24,4 +25,17 @@ class UpdatePriceWasteFragment : Fragment() {
         binding.viewAppBar.buttonBack.setOnClickListener { findNavController().popBackStack() }
         return binding.root
     }
+
+    private fun setupAdapter(data : DataItemSampah){
+        // TODO :: membuat adapter untuk data sampah dan harga sampah
+    }
+
+    private fun setupGetData(){
+        // TODO :: membuat function untuk mengambil data dari backend
+    }
+
+    private fun updatePrice(){
+        // TODO :: setup function update price
+    }
+
 }

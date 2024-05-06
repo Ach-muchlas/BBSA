@@ -41,7 +41,6 @@ class UpdateProfileFragment : Fragment() {
         binding.text.text = bundleData
 
         binding.buttonSave.setOnClickListener {
-            Log.e("CHECK", "value : $textValue")
             if (bundleData.toString() == "Nama") {
                 setupUpdateNameUser(textValue.toString())
             } else if (bundleData.toString() == "NIK") {
@@ -115,5 +114,4 @@ class UpdateProfileFragment : Fragment() {
                 }
             }
     }
-
 }

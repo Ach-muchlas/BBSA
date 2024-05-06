@@ -12,7 +12,6 @@ import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.bottom_sheet.ChooseGenderBottomSheet
-import com.am.bbsa.ui.customers.account.profile.ProfileFragment
 import com.am.bbsa.utils.Destination
 import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.Navigation
@@ -25,68 +24,30 @@ class DetailNasabahFragment : Fragment() {
     private val binding get() = _binding!!
     private val authViewModel: AuthViewModel by inject()
     private val viewModel: MenuViewModel by inject()
-    private val token by lazy {
-        authViewModel.getCredentialUser()?.token.toString()
+
+    private val token by lazy { authViewModel.getCredentialUser()?.token.toString() }
+    private val receiveArgsIdNasabah: Int by lazy {
+        arguments?.getInt(NasabahFragment.KEY_NASABAH_ID) ?: 0
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailNasabahBinding.inflate(inflater, container, false)
-        setupView()
-        UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
-        setupNavigation()
+        initialize()
+        setupGetDataDetailProfileNasabahFromApi()
         return binding.root
     }
 
-    private fun setupNavigation() {
-        // variable bundle untuk pengiriman sebuah data dri fragment ke fragment
-        val bundle = Bundle()
-
+    private fun initialize() {
+        UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
         binding.viewAppbar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        // berpindah kehalaman update profile dengan ada nya data
-        with(binding.cardPersonalInformation) {
-            cardName.setOnClickListener {
-                bundle.putString(ProfileFragment.KEY_TEXT_VIEW_BAR_UPDATE_PROFILE, "Nama")
-                Navigation.navigationFragment(
-                    Destination.PROFILE_TO_UPDATE_PROFILE, findNavController(), bundle
-                )
-            }
-            cardNIK.setOnClickListener {
-                bundle.putString(ProfileFragment.KEY_TEXT_VIEW_BAR_UPDATE_PROFILE, "NIK")
-                Navigation.navigationFragment(
-                    Destination.PROFILE_TO_UPDATE_PROFILE, findNavController(), bundle
-                )
-            }
-            cardNumberPhone.setOnClickListener {
-                bundle.putString(ProfileFragment.KEY_TEXT_VIEW_BAR_UPDATE_PROFILE, "Nomer Telephone")
-                Navigation.navigationFragment(
-                    Destination.PROFILE_TO_UPDATE_PROFILE, findNavController(), bundle
-                )
-            }
-        }
-
-        with(binding.cardPersonalIdentity) {
-            cardAddress.setOnClickListener {
-                bundle.putString(ProfileFragment.KEY_TEXT_VIEW_BAR_UPDATE_PROFILE, "Alamat")
-                Navigation.navigationFragment(
-                    Destination.PROFILE_TO_UPDATE_PROFILE, findNavController(), bundle
-                )
-            }
-            cardGender.setOnClickListener {
-                val bottomSheet = ChooseGenderBottomSheet()
-                bottomSheet.show(childFragmentManager, bottomSheet.tag)
-            }
-        }
     }
 
-    private fun setupView() {
-        /*mengambil data yang dikirimkan dari nasabah page*/
-        val receive = arguments
-        val data = receive?.getInt(NasabahFragment.KEY_NASABAH_ID)
-        viewModel.showDetailNasabahById(data!!, token)
+    private fun setupGetDataDetailProfileNasabahFromApi() {
+        viewModel.showDetailNasabahById(receiveArgsIdNasabah, token)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {
@@ -97,6 +58,7 @@ class DetailNasabahFragment : Fragment() {
                         showShimmer(false)
                         setupIsVisibilityView()
                         setupViewCredentialUser(resource.data?.data)
+                        setupNavigationToEditFragment(resource.data?.data)
                     }
 
                     Status.ERROR -> {
@@ -105,23 +67,6 @@ class DetailNasabahFragment : Fragment() {
                     }
                 }
             }
-    }
-
-    private fun setupIsVisibilityView() {
-        with(binding.cardPersonalIdentity) {
-            textValueAddress.visibility = View.VISIBLE
-            textValueGender.visibility = View.VISIBLE
-        }
-        with(binding.cardPersonalInformation) {
-            textValueName.visibility = View.VISIBLE
-            textValueNIK.visibility = View.VISIBLE
-            textValueNumberPhone.visibility = View.VISIBLE
-            textValueNumberRegis.visibility = View.VISIBLE
-        }
-        with(binding.cardPersonalBalance) {
-            textValueBalance.visibility = android.view.View.VISIBLE
-            textValuePredict.visibility = android.view.View.VISIBLE
-        }
     }
 
     private fun setupViewCredentialUser(data: DataItemDetailNasabah?) {
@@ -140,9 +85,88 @@ class DetailNasabahFragment : Fragment() {
             textValueBalance.text = Formatter.formatCurrency(data?.balance ?: 0)
             textValuePredict.text = Formatter.formatCurrency(data?.temporaryBalance ?: 0)
         }
+        with(binding.cardStatusNasabah) {
+            textValueStatus.text = data?.status
+        }
+    }
+
+    private fun setupNavigationToEditFragment(data: DataItemDetailNasabah?) {
+        data?.let { nasabah ->
+            binding.imageProfile.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putInt(KEY_BUNDLE_ID_NASABAH, nasabah.id)
+                    putString(KEY_BUNDLE_VALUE, nasabah.user?.photoProfile.toString())
+                }
+                Navigation.navigationFragment(
+                    Destination.DETAIL_NASABAH_TO_UPDATE_PHOTO_PROFILE,
+                    findNavController(),
+                    bundle
+                )
+            }
+            with(binding.cardPersonalInformation) {
+                cardName.setOnClickListener {
+                    setupCredentialNavigateToEditFragment(
+                        nasabah.id,
+                        KEY_NAME,
+                        nasabah.user?.name.toString()
+                    )
+                }
+                cardNIK.setOnClickListener {
+                    setupCredentialNavigateToEditFragment(
+                        nasabah.id,
+                        KEY_NIK,
+                        nasabah.NIK.toString()
+                    )
+                }
+                cardNumberPhone.setOnClickListener {
+                    setupCredentialNavigateToEditFragment(
+                        nasabah.id,
+                        KEY_PHONE_NUMBER,
+                        nasabah.user?.phoneNumber.toString()
+                    )
+                }
+                cardNumberRegis.setOnClickListener {
+                    setupCredentialNavigateToEditFragment(
+                        nasabah.id,
+                        KEY_NO_REGIS,
+                        nasabah.noRegis.toString()
+                    )
+                }
+            }
+
+            with(binding.cardPersonalIdentity) {
+                cardGender.setOnClickListener {
+                    val bottomSheet = ChooseGenderBottomSheet()
+                    bottomSheet.show(childFragmentManager, bottomSheet.tag)
+                }
+                cardAddress.setOnClickListener {
+                    setupCredentialNavigateToEditFragment(
+                        nasabah.id,
+                        KEY_ADDRESS,
+                        nasabah.user?.address.toString()
+                    )
+                }
+            }
+        }
+    }
+
+    private fun setupCredentialNavigateToEditFragment(
+        bundleIdNasabah: Int,
+        bundleTitle: String,
+        bundleValueContent: String
+    ) {
+        val bundle = Bundle().apply {
+            putInt(KEY_BUNDLE_ID_NASABAH, bundleIdNasabah)
+            putString(KEY_BUNDLE, bundleTitle)
+            putString(KEY_BUNDLE_VALUE, bundleValueContent)
+        }
+        Navigation.navigationFragment(
+            Destination.DETAIL_NASABAH_TO_UPDATE_NASABAH, findNavController(), bundle
+        )
     }
 
     private fun showShimmer(isVisible: Boolean) {
+        UiHandler.manageShimmer(binding.shimmerContainerImageProfile, isVisible)
         with(binding.cardPersonalIdentity) {
             UiHandler.manageShimmer(shimmerContainerAddress, isVisible)
             UiHandler.manageShimmer(shimmerContainerGender, isVisible)
@@ -157,10 +181,46 @@ class DetailNasabahFragment : Fragment() {
             UiHandler.manageShimmer(shimmerContainerBalance, isVisible)
             UiHandler.manageShimmer(shimmerContainerPredictBalance, isVisible)
         }
+        with(binding.cardStatusNasabah) {
+            UiHandler.manageShimmer(shimmerContainerStatus, isVisible)
+        }
+    }
+
+    private fun setupIsVisibilityView() {
+        binding.imageProfile.visibility = View.VISIBLE
+        with(binding.cardPersonalIdentity) {
+            textValueAddress.visibility = View.VISIBLE
+            textValueGender.visibility = View.VISIBLE
+        }
+        with(binding.cardPersonalInformation) {
+            textValueName.visibility = View.VISIBLE
+            textValueNIK.visibility = View.VISIBLE
+            textValueNumberPhone.visibility = View.VISIBLE
+            textValueNumberRegis.visibility = View.VISIBLE
+        }
+        with(binding.cardPersonalBalance) {
+            textValueBalance.visibility = View.VISIBLE
+            textValuePredict.visibility = View.VISIBLE
+        }
+        with(binding.cardStatusNasabah) {
+            textValueStatus.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+    companion object {
+        const val KEY_BUNDLE = "bundle"
+        const val KEY_BUNDLE_VALUE = "value"
+        const val KEY_BUNDLE_ID_NASABAH = "id_nasabah"
+        const val KEY_NAME = "Nama"
+        const val KEY_NIK = "NIK"
+        const val KEY_PHONE_NUMBER = "Nomor Telephone"
+        const val KEY_ADDRESS = "Alamat"
+        const val KEY_NO_REGIS = "Nomor Registrasi"
+    }
+
 }

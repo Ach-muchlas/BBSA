@@ -67,6 +67,9 @@ object Navigation {
 
                 Destination.MENU_TO_SCHEDULING_PICK_UP -> it.navigate(R.id.action_navigation_admin_menu_to_schedulingWastePickUpFragment)
                 Destination.SCHEDULING_PICK_UP_TO_ADD_SCHEDULE -> it.navigate(R.id.action_schedulingWastePickUpFragment_to_addSchedulingWastePickUpFragment)
+
+                Destination.DETAIL_NASABAH_TO_UPDATE_NASABAH -> it.navigate(R.id.action_detailNasabahFragment_to_updateNasabahFragment, args)
+                Destination.DETAIL_NASABAH_TO_UPDATE_PHOTO_PROFILE -> it.navigate(R.id.action_detailNasabahFragment_to_updatePhotoProfileFragment, args)
             }
         }
     }
@@ -94,6 +97,8 @@ enum class Destination {
     MENU_TO_UPDATE_PRICE,
     MENU_TO_SCHEDULING_PICK_UP,
     NASABAH_TO_DETAIL_NASABAH,
+    DETAIL_NASABAH_TO_UPDATE_NASABAH,
+    DETAIL_NASABAH_TO_UPDATE_PHOTO_PROFILE,
     WASTE_TYPE_INFORMATION_TO_UPDATE_WASTE_TYPE,
     WASTE_TYPE_INFORMATION_TO_ADD_WASTE_TYPE,
     DEPOSIT_WEIGHING_TO_DETAIL_DEPOSIT_WEIGHING,

@@ -22,14 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ViewBar" />
 
-    <!--    <include-->
-    <!--        android:id="@+id/cardRegis"-->
-    <!--        layout="@layout/card_daftar_jemput_sampah"-->
-    <!--        android:layout_height="150dp"-->
-    <!--        android:layout_marginHorizontal="30dp"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/text" />-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardRegis"
         android:layout_width="match_parent"
@@ -62,13 +54,13 @@
             <TextView
                 android:id="@+id/textDate"
                 style="@style/TextContent.Body.PopSemiBold"
-                android:text="@string/example_date"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/textRegister"
                 app:layout_constraintTop_toBottomOf="@id/textRegister"
                 app:layout_constraintVertical_bias="0" />
 
             <com.google.android.material.button.MaterialButton
+                android:enabled="false"
                 android:id="@+id/buttonRegister"
                 style="@style/ButtonContent"
                 android:layout_width="230dp"

@@ -212,6 +212,24 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
+    fun searchNasabah(token: String, name: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.searchNasabah("Bearer $token", name)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val jsonObject = JSONObject(it.string())
+                    val errorMessage = jsonObject.getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+
     fun getDetailNasabah(id: Int, token: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         try {
@@ -228,6 +246,113 @@ class Repository(private val apiService: ApiService) {
             emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
         }
     }
+
+    fun changeNameNasabah(token: String, nasabahId: Int, name: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.changeNameNasabah("Bearer $token", nasabahId, name)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+    fun changeNoRegisterNasabah(token: String, nasabahId: Int, noRegister: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.changeNameNasabah("Bearer $token", nasabahId, noRegister)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+    fun changeAddressNasabah(token: String, nasabahId: Int, address: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.changeAddressNasabah("Bearer $token", nasabahId, address)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+
+    fun changePhoneNumberNasabah(token: String, nasabahId: Int, phoneNumber: String) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            try {
+                val response =
+                    apiService.changePhoneNumberNasabah("Bearer $token", nasabahId, phoneNumber)
+                if (response.isSuccessful) {
+                    emit(Resource.success(response.body()))
+                } else {
+                    response.errorBody()?.let {
+                        val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                        emit(Resource.error(null, errorMessage))
+                    }
+                }
+            } catch (exception: Exception) {
+                emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+            }
+        }
+
+    fun changeNIKNasabah(token: String, nasabahId: Int, NIK: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.changeNIKNasabah("Bearer $token", nasabahId, NIK)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+
+    fun changePhotoProfileNasabah(token: String, nasabahId: Int, urlPhotoProfile: String) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            try {
+                val response = apiService.changePhotoProfileNasabah(
+                    "Bearer $token",
+                    nasabahId,
+                    urlPhotoProfile
+                )
+                if (response.isSuccessful) {
+                    emit(Resource.success(response.body()))
+                } else {
+                    response.errorBody()?.let {
+                        val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                        emit(Resource.error(null, errorMessage))
+                    }
+                }
+            } catch (exception: Exception) {
+                emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+            }
+        }
 
     fun updateNameUser(token: String, name: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
@@ -673,6 +798,66 @@ class Repository(private val apiService: ApiService) {
             emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
         }
     }
+
+    fun getNasabahRegistrantPickupWaste(token: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.getNasabahRegistrantPickupWaste("Bearer $token")
+            if (response.isSuccessful) {
+                val filteredData = response.body()?.data?.filter { it?.status == "Menunggu" }
+                emit(Resource.success(filteredData))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+
+    fun getApprovedNasabahRegistrantPickupWaste(token: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiService.getApprovedNasabahRegistrantPickupWaste("Bearer $token")
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+
+    fun changeStatusRegistrantPickupWaste(token: String, idPickupWaste: Int, status: String) =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            try {
+                val response = apiService.changeStatusRegistrantPickupWaste(
+                    "Bearer $token",
+                    idPickupWaste,
+                    status
+                )
+
+                if (response.isSuccessful) {
+                    emit(Resource.success(response.body()))
+                } else {
+                    response.errorBody()?.let {
+                        val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                        emit(Resource.error(null, errorMessage))
+                    }
+                }
+            } catch (exception: Exception) {
+                emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+            }
+        }
 
     companion object {
         const val MESSAGE = "message"

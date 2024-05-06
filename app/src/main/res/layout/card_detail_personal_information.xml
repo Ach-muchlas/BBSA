@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="10dp"
             android:id="@+id/cardName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +82,6 @@
                 android:layout_marginTop="10dp"
                 app:dividerColor="@color/grey"
                 app:layout_constraintTop_toBottomOf="@id/textValueName" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

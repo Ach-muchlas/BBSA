@@ -13,6 +13,7 @@ import com.am.bbsa.data.response.DetailNasabahResponse
 import com.am.bbsa.data.response.GeneralResponse
 import com.am.bbsa.data.response.HistoryDepositResponse
 import com.am.bbsa.data.response.LoginResponse
+import com.am.bbsa.data.response.NasabahRegistrantPickupWasteResponse
 import com.am.bbsa.data.response.NasabahResponse
 import com.am.bbsa.data.response.NewsResponse
 import com.am.bbsa.data.response.NotificationResponse
@@ -99,10 +100,63 @@ interface ApiService {
         @Header("Authorization") bearer: String
     ): Response<DetailNasabahResponse>
 
+    @FormUrlEncoded
+    @POST("nasabah/edit/{id}")
+    suspend fun changeNameNasabah(
+        @Header("Authorization") bearer: String,
+        @Path("id") nasabahId : Int,
+        @Field("name") name : String
+    ) : Response<GeneralResponse>
+    @FormUrlEncoded
+    @POST("nasabah/edit/{id}")
+    suspend fun changeNIKNasabah(
+        @Header("Authorization") bearer: String,
+        @Path("id") nasabahId : Int,
+        @Field("NIK") NIK : String
+    ): Response<GeneralResponse>
+
+    @FormUrlEncoded
+    @POST("nasabah/edit/{id}")
+    suspend fun changePhoneNumberNasabah(
+        @Header("Authorization") bearer: String,
+        @Path("id") nasabahId : Int,
+        @Field("nomor_telephone") phoneNumber : String
+    ): Response<GeneralResponse>
+    @FormUrlEncoded
+    @POST("nasabah/edit/{id}")
+    suspend fun changePhotoProfileNasabah(
+        @Header("Authorization") bearer: String,
+        @Path("id") nasabahId : Int,
+        @Field("foto_profil") photoProfile : String
+    ): Response<GeneralResponse>
+
+    @FormUrlEncoded
+    @POST("nasabah/edit/{id}")
+    suspend fun changeAddressNasabah(
+        @Header("Authorization") bearer: String,
+        @Path("id") nasabahId : Int,
+        @Field("alamat") address : String
+    ): Response<GeneralResponse>
+
+    @FormUrlEncoded
+    @POST("tambah-nomer-register/{id}")
+    suspend fun changeNoRegisterNasabah(
+        @Header("Authorization") bearer: String,
+        @Path("id") nasabahId : Int,
+        @Field("nomor_register") address : String
+    ): Response<GeneralResponse>
+
     @GET("nasabah/total-saldo")
     suspend fun getTotalBalance(
         @Header("Authorization") bearer: String
     ): Response<TotalSaldoResponse>
+
+    @FormUrlEncoded
+    @POST("nasabah/search")
+    suspend fun searchNasabah(
+        @Header("Authorization") bearer: String,
+        @Field("name") name: String
+    ) : Response<NasabahResponse>
 
     /*digunakan untuk mengambil informasi sampah*/
     @GET("sampah")
@@ -165,6 +219,8 @@ interface ApiService {
         @Header("Authorization") bearer: String,
         @Body depositWeighing: DepositWeighingBody
     ): Response<GeneralResponse>
+
+
 
     @GET("berita")
     suspend fun getNews(
@@ -254,4 +310,23 @@ interface ApiService {
     suspend fun getSchedulePickUpWaste(
         @Header("Authorization") bearer: String,
     ): Response<SchedulePickUpWasteResponse>
+
+    @GET("pendaftar-jemput-sampah")
+    suspend fun getNasabahRegistrantPickupWaste(
+        @Header("Authorization") bearer: String,
+    ): Response<NasabahRegistrantPickupWasteResponse>
+
+
+    @GET("pendaftar-jemput-sampah/approved")
+    suspend fun getApprovedNasabahRegistrantPickupWaste(
+        @Header("Authorization") bearer: String,
+    ): Response<NasabahRegistrantPickupWasteResponse>
+
+    @FormUrlEncoded
+    @PUT("status-jemput-sampah/{id}")
+    suspend fun changeStatusRegistrantPickupWaste(
+        @Header("Authorization") bearer: String,
+        @Path("id") id: Int,
+        @Field("status") status: String
+    ): Response<GeneralResponse>
 }

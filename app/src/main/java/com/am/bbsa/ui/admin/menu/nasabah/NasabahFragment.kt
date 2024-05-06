@@ -1,6 +1,8 @@
 package com.am.bbsa.ui.admin.menu.nasabah
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +36,34 @@ class NasabahFragment : Fragment() {
         _binding = FragmentNasabahBinding.inflate(inflater, container, false)
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
         displayNasabah()
+        searchNasabah()
         setupNavigation()
         return binding.root
+    }
+
+    private fun setupSearchNasabahByName(name: String) {
+        viewModel.searchNasabahByName(token, name).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    setupAdapter(resource.data)
+                }
+
+                Status.ERROR -> {}
+            }
+        }
+    }
+
+    private fun searchNasabah() {
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(text: Editable?) {
+                setupSearchNasabahByName(text.toString())
+            }
+        })
     }
 
     private fun setupNavigation() {
@@ -49,7 +77,18 @@ class NasabahFragment : Fragment() {
             when (resource.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
-                    setupAdapter(resource.data!!)
+                    setupAdapter(resource.data)
+                }
+
+                Status.ERROR -> {}
+            }
+        }
+
+        viewModel.showAllNasabah(token).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    setupAdapter(resource.data)
                 }
 
                 Status.ERROR -> {
@@ -59,9 +98,9 @@ class NasabahFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter(data: NasabahResponse) {
+    private fun setupAdapter(data: NasabahResponse?) {
         val adapter = ListNasabahAdapter().apply {
-            submitList(data.data)
+            submitList(data?.data)
             callbackOnclick = { nasabah_id ->
                 /*go to detail nasabah page*/
                 Navigation.navigationFragment(
@@ -71,6 +110,7 @@ class NasabahFragment : Fragment() {
                         putInt(KEY_NASABAH_ID, nasabah_id)
                     }
                 )
+                binding.edtSearch.setText("")
             }
         }
         binding.recyclerViewNasabah.let {

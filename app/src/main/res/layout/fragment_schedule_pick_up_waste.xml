@@ -36,7 +36,7 @@
         android:id="@+id/cardListRegisNasabah"
         layout="@layout/card_customer_scheduling_pick_up"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/textValueScheduling" />
@@ -45,9 +45,11 @@
         android:id="@+id/cardApproveRegis"
         layout="@layout/card_customer_scheduling_pick_up"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonAdd"
         app:layout_constraintTop_toBottomOf="@id/cardListRegisNasabah" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

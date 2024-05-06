@@ -120,6 +120,7 @@ class ProfileAdminFragment : Fragment() {
     }
 
     private fun setupIsVisibilityView() {
+        binding.imageProfile.visibility = View.VISIBLE
         with(binding.cardPersonalIdentity) {
             textValueAddress.visibility = View.VISIBLE
             textValueGender.visibility = View.VISIBLE
@@ -147,6 +148,7 @@ class ProfileAdminFragment : Fragment() {
     }
 
     private fun showShimmer(isVisible: Boolean) {
+        UiHandler.manageShimmer(binding.shimmerContainerProfile, isVisible)
         with(binding.cardPersonalIdentity) {
             UiHandler.manageShimmer(shimmerContainerAddress, isVisible)
             UiHandler.manageShimmer(shimmerContainerGender, isVisible)

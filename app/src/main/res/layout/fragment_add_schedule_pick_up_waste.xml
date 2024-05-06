@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.admin.menu.scheduling_waste_pick_up.AddSchedulePickUpWasteFragment">
 
-
     <include
         android:id="@+id/viewAppBar"
         layout="@layout/custom_app_bar_button_and_title"
@@ -48,6 +47,5 @@
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

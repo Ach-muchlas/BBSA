@@ -1,11 +1,12 @@
 package com.am.bbsa.ui.customers.home.pick_up_waste
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.am.bbsa.R
 import com.am.bbsa.data.response.SchedulePickUpWasteResponse
 import com.am.bbsa.databinding.FragmentPickUpWasteBinding
 import com.am.bbsa.service.source.Status
@@ -30,20 +31,38 @@ class PickUpWasteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPickUpWasteBinding.inflate(inflater, container, false)
-        dataSetup()
+        UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
+        setupGetDataSchedulePickupFromApi()
+        setupGetDataHistoryPickUpFromApi()
+        setupNavigation()
         return binding.root
     }
 
-    private fun setupView(data: SchedulePickUpWasteResponse?) {
-        binding.textDate.text = Formatter.formatDate2(data?.data?.tanggal.toString())
+    private fun setupGetDataHistoryPickUpFromApi() {
+
     }
 
-    private fun dataSetup() {
+    private fun setupNavigation() {
+        binding.ViewBar.buttonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun setupView(data: SchedulePickUpWasteResponse?) {
+        val date = data?.data?.tanggal.toString()
+        val textDate = date.ifEmpty { "" }
+        val registerText =
+            if (date.isNotEmpty()) getString(R.string.register_pick_up_waste) else getString(R.string.empty_schedule_pick_up)
+        binding.textRegister.text = registerText
+        binding.textDate.text = Formatter.formatDate2(textDate)
+        binding.buttonRegister.isEnabled = date.isNotEmpty()
+    }
+
+    private fun setupGetDataSchedulePickupFromApi() {
         viewModel.showSchedulePickUpWaste(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
-                    UiHandler.toastSuccessMessage(requireContext(), resource.data?.message.toString())
                     setupView(resource.data)
                 }
 
@@ -54,4 +73,9 @@ class PickUpWasteFragment : Fragment() {
         }
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UiHandler.setupVisibilityBottomNavigationNasabah(activity, false)
+    }
 }

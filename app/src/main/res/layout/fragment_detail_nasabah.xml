@@ -16,16 +16,30 @@
             android:layout_width="match_parent"
             android:layout_height="48dp" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerImageProfile"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewAppbar">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageProfile"
+            android:visibility="invisible"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/me"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewAppbar" />
-
 
         <include
             android:id="@+id/cardPersonalInformation"
@@ -56,6 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/cardPersonalIdentity" />
 
         <include
+            android:id="@+id/cardStatusNasabah"
             layout="@layout/card_personal_active_or_non_active"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

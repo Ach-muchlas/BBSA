@@ -30,7 +30,6 @@ import java.util.UUID
 class WasteDepositAdminFragment : Fragment() {
     private var _binding: FragmentWasteDepositAdminBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var adapter: SelectNasabahWasteDepositAdapter
 
     /*instantiation of firebase storage object to send images*/
