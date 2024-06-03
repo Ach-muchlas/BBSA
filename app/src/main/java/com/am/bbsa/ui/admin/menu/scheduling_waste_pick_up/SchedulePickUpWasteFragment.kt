@@ -68,18 +68,29 @@ class SchedulePickUpWasteFragment : Fragment() {
 
 
     private fun setupView(data: SchedulePickUpWasteResponse?) {
-        binding.textValueScheduling.text = Formatter.formatDate2(data?.data?.tanggal.toString())
+        if (data?.data?.tanggal == null) {
+            binding.textValueScheduling.text = ""
+        } else {
+            binding.textValueScheduling.text = Formatter.formatDate2(data.data.tanggal.toString())
+        }
     }
 
     private fun setupGetDataSchedulePickupFromApi() {
         viewModel.showSchedulePickupWaste(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    UiHandler.manageShimmer(binding.shimmerContainerTextDate, true)
+                }
+
                 Status.SUCCESS -> {
+                    UiHandler.manageShimmer(binding.shimmerContainerTextDate, false)
+                    binding.textValueScheduling.visibility = View.VISIBLE
                     setupView(resource.data)
                 }
 
                 Status.ERROR -> {
+                    binding.textValueScheduling.visibility = View.VISIBLE
+                    UiHandler.manageShimmer(binding.shimmerContainerTextDate, false)
                     UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
                 }
             }
@@ -120,11 +131,21 @@ class SchedulePickUpWasteFragment : Fragment() {
     private fun setupAdapterNasabahRegistrantPickup(data: List<DataItemNasabahRegistrantPickupWaste>?) {
         val adapter = NasabahRegistrantPickupWasteAdapter(false).apply {
             submitList(data)
-            callbackOnclickApprove = { id ->
+            setOnApprovedListener { id ->
                 changeStatusRegistrantPickupWaste(id, "Diterima")
             }
-            callbackOnclickReject = { id ->
+            setOnRejectListener { id ->
                 changeStatusRegistrantPickupWaste(id, "Ditolak")
+            }
+            setOnclickListener { id ->
+                val bundle = Bundle().apply {
+                    putInt(BUNDLE_ID, id)
+                }
+                Navigation.navigationFragment(
+                    Destination.SCHEDULE_PICK_UP_WASTE_TO_DETAIL_SCHEDULE_PICK_UP_WASTE,
+                    findNavController(),
+                    bundle
+                )
             }
         }
         binding.cardListRegisNasabah.recyclerViewNasabahRegistrant.let {
@@ -136,6 +157,16 @@ class SchedulePickUpWasteFragment : Fragment() {
     private fun setupAdapterApproveNasabahPickup(data: NasabahRegistrantPickupWasteResponse?) {
         val adapter = NasabahRegistrantPickupWasteAdapter(true).apply {
             submitList(data?.data)
+            setOnclickListener { id ->
+                val bundle = Bundle().apply {
+                    putInt(BUNDLE_ID, id)
+                }
+                Navigation.navigationFragment(
+                    Destination.SCHEDULE_PICK_UP_WASTE_TO_DETAIL_SCHEDULE_PICK_UP_WASTE,
+                    findNavController(),
+                    bundle
+                )
+            }
         }
         binding.cardApproveRegis.recyclerViewNasabahRegistrant.let {
             it.adapter = adapter
@@ -164,6 +195,10 @@ class SchedulePickUpWasteFragment : Fragment() {
             }
     }
 
+
+    companion object {
+        const val BUNDLE_ID = "id"
+    }
 
     override fun onDestroy() {
         super.onDestroy()

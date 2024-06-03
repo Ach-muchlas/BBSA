@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
@@ -16,6 +15,7 @@ import com.am.bbsa.databinding.FragmentWasteDepositAdminBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.UiHandler
 import com.google.firebase.Firebase
@@ -38,9 +38,8 @@ class WasteDepositAdminFragment : Fragment() {
     private lateinit var firebaseFirestore: FirebaseFirestore
 
     /*instantiation of the object to store the image uri*/
-    private var imageUri: Uri? = null
+    private lateinit var currentImageUri: Uri
     private var selectedIdNasabah: Int? = null
-    private lateinit var imageUrl: String
 
     /*initialize view model*/
     private val viewModel: MenuViewModel by inject()
@@ -55,7 +54,6 @@ class WasteDepositAdminFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWasteDepositAdminBinding.inflate(inflater, container, false)
-
         setupDataNasabah()
         setupNavigation()
         initVars()
@@ -76,12 +74,6 @@ class WasteDepositAdminFragment : Fragment() {
         binding.edtDate.setText(Formatter.formatDateTime(LocalDateTime.now()))
     }
 
-    /*intent to object foto*/
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        binding.imageWaste.setImageURI(it)
-    }
-
     private fun setupNavigation() {
         /*return to previous page*/
         binding.viewAppBar.buttonBack.setOnClickListener {
@@ -89,48 +81,56 @@ class WasteDepositAdminFragment : Fragment() {
         }
 
         binding.cardValuePhoto.setOnClickListener {
-            resultLauncher.launch("image/*")
+            ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
+                currentImageUri = uri
+                binding.imageWaste.setImageURI(uri)
+            }
         }
 
         binding.buttonDeposit.setOnClickListener {
-            uploadImageToFirebaseAndPostApiForDatabase()
+            if (currentImageUri != null) {
+                uploadImageToFirebase(currentImageUri)
+            } else {
+                setupPostDataToApi("photo")
+            }
         }
     }
 
     /*fungsi ini berjalan akan mengirim image ke firebase
     setelah itu akan akan mendowload url dan dimasukkan kedalam viewmodel*/
-    private fun uploadImageToFirebaseAndPostApiForDatabase() {
-        imageUri?.let { filePath ->
-            val ref = storageReference.child("Images/SetoranSampah/${UUID.randomUUID()}")
-
-            ref.putFile(filePath).addOnSuccessListener {
-                UiHandler.toastSuccessMessage(
-                    requireContext(),
-                    "Berhasil Mengirim foto ke Firebase!!"
-                )
-                ref.downloadUrl.addOnSuccessListener { url ->
-                    imageUrl = url.toString()
-                    /*pada fungsi ini akan mengirimkan data ke dalam database*/
-                    setupPostDataToApi(imageUrl)
-                }
-            }.addOnFailureListener { e ->
-                UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val ref = storageReference.child("Images/Setoran Sampah/${UUID.randomUUID()}")
+        ref.putFile(imageUri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { url ->
+                val imageUrl = url.toString()
+                setupPostDataToApi(imageUrl)
             }
+        }.addOnFailureListener { e ->
+            UiHandler.toastErrorMessage(requireContext(), "Upload failed: ${e.message}")
         }
     }
+
 
     private fun setupPostDataToApi(imageUrl: String) {
         val userId: Int = selectedIdNasabah ?: 0
         viewModel.createDepositWasteAdmin(token, userId, imageUrl)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
-                    Status.LOADING -> {}
+                    Status.LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.textLoading.visibility = View.VISIBLE
+                    }
+
                     Status.SUCCESS -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.textLoading.visibility = View.GONE
                         UiHandler.toastSuccessMessage(requireContext(), "Berhasil Setor sampah")
                         findNavController().popBackStack()
                     }
 
                     Status.ERROR -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.textLoading.visibility = View.GONE
                         UiHandler.toastErrorMessage(
                             requireContext(),
                             resource.message.toString()
@@ -148,10 +148,10 @@ class WasteDepositAdminFragment : Fragment() {
         autoComplete.setAdapter(adapter)
         autoComplete.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             val selectedNasabah = adapter.getItem(i)
-            selectedIdNasabah = selectedNasabah.id
+            selectedIdNasabah = selectedNasabah.userId
 
             binding.autoCompleteName.setText(buildString {
-                append(selectedNasabah.id)
+                append(selectedNasabah.userId)
                 append(". ")
                 append(selectedNasabah.name)
             })
@@ -162,14 +162,19 @@ class WasteDepositAdminFragment : Fragment() {
     private fun setupDataNasabah() {
         viewModel.showAllNasabah(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
-                Status.LOADING -> {}
+                Status.LOADING -> {
+
+                }
+
                 Status.SUCCESS -> {
                     val data = resource.data?.data as List<DataItemNasabah>
                     setupDropDown(data)
                     adapter.notifyDataSetChanged()
                 }
 
-                Status.ERROR -> {}
+                Status.ERROR -> {
+                    UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
+                }
             }
         }
     }

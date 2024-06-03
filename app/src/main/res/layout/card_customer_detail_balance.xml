@@ -9,14 +9,190 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerPhotoProfile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageProfile"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/me"
+            android:visibility="invisible"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerName"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/imageProfile"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_grey" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/textName"
+            style="@style/TextContent.Body.PopBold"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/example_name"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/imageProfile"
+            app:layout_constraintStart_toEndOf="@id/imageProfile"
+            app:layout_constraintTop_toTopOf="@id/imageProfile" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageProfile"
+            app:layout_constraintTop_toBottomOf="@id/shimmerContainerName">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_grey" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <TextView
+            android:id="@+id/textPhone"
+            android:visibility="invisible"
+            style="@style/TextContent.Body.PopSemiBold"
+            android:text="@string/example_number_phone"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@id/textName" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/imageProfile" />
+
+        <ImageView
+            android:id="@+id/iconWallet"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/icon_wallet"
+            android:src="@drawable/wallet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <TextView
+            android:id="@+id/textBalance"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="10dp"
+            android:text="@string/balance"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconWallet"
+            app:layout_constraintStart_toEndOf="@id/iconWallet"
+            app:layout_constraintTop_toTopOf="@id/iconWallet" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerBalance"
+            android:layout_width="100dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="@id/textBalance">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_grey" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/textValueBalance"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginEnd="16dp"
+            android:text="@string/example_balance"
+            android:visibility="invisible"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textBalance" />
+
+        <ImageView
+            android:id="@+id/iconPredict"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/icon_wallet"
+            android:src="@drawable/wallet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iconWallet" />
+
+        <TextView
+            android:id="@+id/textPredict"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="10dp"
+            android:text="@string/deposit_predict_balance"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconPredict"
+            app:layout_constraintStart_toEndOf="@id/iconPredict"
+            app:layout_constraintTop_toTopOf="@id/iconPredict" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerPredict"
+            android:layout_width="100dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="@id/textPredict">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_grey" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <TextView
+            android:id="@+id/textValuePredict"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginEnd="16dp"
+            android:text="@string/example_balance"
+            android:visibility="invisible"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textPredict" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

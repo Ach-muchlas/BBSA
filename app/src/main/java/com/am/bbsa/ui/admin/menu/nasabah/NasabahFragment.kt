@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.am.bbsa.adapter.menu.ListNasabahAdapter
+import com.am.bbsa.data.response.DataItemNasabah
 import com.am.bbsa.data.response.NasabahResponse
 import com.am.bbsa.databinding.FragmentNasabahBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.FilterNasabahBottomSheet
 import com.am.bbsa.utils.Destination
 import com.am.bbsa.utils.Navigation
 import com.am.bbsa.utils.UiHandler
@@ -35,18 +37,19 @@ class NasabahFragment : Fragment() {
     ): View {
         _binding = FragmentNasabahBinding.inflate(inflater, container, false)
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
-        displayNasabah()
+        setupGetDataAllNasabah()
         searchNasabah()
         setupNavigation()
         return binding.root
     }
+
 
     private fun setupSearchNasabahByName(name: String) {
         viewModel.searchNasabahByName(token, name).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
-                    setupAdapter(resource.data)
+                    setupAdapterFilter(resource.data?.data)
                 }
 
                 Status.ERROR -> {}
@@ -61,34 +64,49 @@ class NasabahFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(text: Editable?) {
-                setupSearchNasabahByName(text.toString())
+                if (text.isNullOrEmpty()) {
+                    setupGetDataAllNasabah()
+                } else {
+                    setupSearchNasabahByName(text.toString())
+                }
             }
         })
     }
+
 
     private fun setupNavigation() {
         binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
-    }
-
-    private fun displayNasabah() {
-        viewModel.showAllNasabah(token).observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {
-                    setupAdapter(resource.data)
-                }
-
-                Status.ERROR -> {}
+        binding.textFilter.setOnClickListener {
+            FilterNasabahBottomSheet.show(childFragmentManager) { isCheckedCreated, isCheckedName ->
+                setupFilter(isCheckedCreated, isCheckedName)
             }
         }
+    }
 
+    private fun setupFilter(isCheckedCreated: String, isCheckedName: String) {
+        viewModel.showNasabahFilterCreated(token, isCheckedCreated, isCheckedName)
+            .observe(viewLifecycleOwner) { resource ->
+                when (resource.status) {
+                    Status.LOADING -> {}
+                    Status.SUCCESS -> {
+                        setupAdapterFilter(resource.data)
+                    }
+
+                    Status.ERROR -> {
+                        UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
+                    }
+                }
+            }
+    }
+
+    private fun setupGetDataAllNasabah() {
         viewModel.showAllNasabah(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
-                    setupAdapter(resource.data)
+                    setupAdapterFilter(resource.data?.data)
                 }
 
                 Status.ERROR -> {
@@ -98,9 +116,9 @@ class NasabahFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter(data: NasabahResponse?) {
+    private fun setupAdapterFilter(data: List<DataItemNasabah?>?) {
         val adapter = ListNasabahAdapter().apply {
-            submitList(data?.data)
+            submitList(data)
             callbackOnclick = { nasabah_id ->
                 /*go to detail nasabah page*/
                 Navigation.navigationFragment(

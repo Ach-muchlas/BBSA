@@ -14,8 +14,10 @@ import com.am.bbsa.data.response.UserResponse
 import com.am.bbsa.databinding.FragmentHomeBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.IsActiveAccountBottomSheet
 import com.am.bbsa.utils.Destination
 import com.am.bbsa.utils.Formatter
+import com.am.bbsa.utils.Navigation
 import com.am.bbsa.utils.Navigation.navigationFragment
 import com.am.bbsa.utils.UiHandler
 import com.bumptech.glide.Glide
@@ -23,7 +25,6 @@ import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by inject()
     private val authViewModel: AuthViewModel by inject()
@@ -36,28 +37,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setupNavigation()
-        displayHome()
-        displayNews()
+        setupView()
+        setupGetDataDisplayHomeFromApi()
         return binding.root
     }
 
-    private fun displayNews() {
-        viewModel.showNews(token).observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {
-                    setupAdapter(resource.data)
-                }
-
-                Status.ERROR -> {
-                    UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
-                }
-            }
-        }
-    }
-
-    private fun displayHome() {
+    private fun setupGetDataDisplayHomeFromApi() {
         viewModel.showDataUser(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {
@@ -76,11 +61,33 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.showNews(token).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    setupAdapter(resource.data)
+                }
+
+                Status.ERROR -> {
+                    UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
+                }
+            }
+        }
     }
 
     private fun setupViewCredentialUser(data: UserResponse?) {
-        Glide.with(requireContext()).load(data?.data?.fotoProfil)
-            .into(binding.viewAppBar.imageProfile)
+        if (data?.data?.nasabah?.status == "Aktif") setupNavigation(true) else setupNavigation(false)
+        if (data?.data?.fotoProfil.isNullOrEmpty()) {
+            if (data?.data?.jenisKelamin == "Perempuan") {
+                binding.viewAppBar.imageProfile.setImageResource(R.drawable.icon_profile_women)
+            } else {
+                binding.viewAppBar.imageProfile.setImageResource(R.drawable.icon_profile_man)
+            }
+        } else {
+            Glide.with(requireContext()).load(data?.data?.fotoProfil)
+                .into(binding.viewAppBar.imageProfile)
+        }
         binding.viewAppBar.textName.text = data?.data?.name
         binding.cardBalance.textBalance.text =
             Formatter.formatCurrency(data?.data?.nasabah?.balance ?: 0)
@@ -110,54 +117,99 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupNavigation() {
+
+    private fun setupNavigation(isActive: Boolean) {
         binding.menuDeposit.cardMenu.setOnClickListener {
-            navigationFragment(Destination.HOME_TO_DEPOSIT_WASTE, findNavController())
+            if (isActive) navigationFragment(
+                Destination.HOME_TO_DEPOSIT_WASTE, findNavController()
+            )
+            else
+                showBottomSheet()
+
+        }
+        binding.menuWithdrawBalance.cardMenu.setOnClickListener {
+            if (isActive)
+                navigationFragment(Destination.HOME_T0_WITHDRAW_BALANCE, findNavController())
+            else
+                showBottomSheet()
+        }
+        binding.menuPickUpWaste.cardMenu.setOnClickListener {
+            if (isActive)
+                navigationFragment(Destination.HOME_TO_PICKUP_WASTE, findNavController())
+            else
+                showBottomSheet()
+        }
+        binding.menuHistoryDeposit.cardMenu.setOnClickListener {
+            if (isActive)
+                navigationFragment(Destination.HOME_TO_HISTORY_DEPOSIT, findNavController())
+            else
+                showBottomSheet()
+        }
+        binding.menuTypeWaste.cardMenu.setOnClickListener {
+            if (isActive)
+                navigationFragment(Destination.HOME_TO_TYPE_WASTE, findNavController())
+            else
+                showBottomSheet()
+        }
+
+    }
+
+    private fun showBottomSheet() {
+        val bottomSheet = IsActiveAccountBottomSheet()
+        bottomSheet.show(childFragmentManager, tag)
+    }
+
+    private fun setupView() {
+        binding.cardBalance.root.setOnClickListener {
+            navigationFragment(Destination.HOME_TO_DETAIL_BALANCE, findNavController())
         }
         /*menu withdraw*/
         binding.menuWithdrawBalance.apply {
             iconMenu.setImageResource(R.drawable.icon_widrawal_balance)
             textTitleMenu.text = getString(R.string.withdraw_balance)
-            cardMenu.setOnClickListener {
-                navigationFragment(Destination.HOME_T0_WITHDRAW_BALANCE, findNavController())
-            }
         }
 
         /*menu pickup*/
         binding.menuPickUpWaste.apply {
             iconMenu.setImageResource(R.drawable.icon_trash_pickup)
             textTitleMenu.text = getString(R.string.pick_up_waste)
-            cardMenu.setOnClickListener {
-                navigationFragment(Destination.HOME_TO_PICKUP_WASTE, findNavController())
-            }
         }
 
         /*menu history deposit waste*/
         binding.menuHistoryDeposit.apply {
             iconMenu.setImageResource(R.drawable.icon_waste_deposit_history)
             textTitleMenu.text = getString(R.string.history_deposit)
-            cardMenu.setOnClickListener {
-                navigationFragment(Destination.HOME_TO_HISTORY_DEPOSIT, findNavController())
-            }
         }
 
         /*menu data waste*/
         binding.menuTypeWaste.apply {
             iconMenu.setImageResource(R.drawable.icon_type_waste)
             textTitleMenu.text = getString(R.string.type_waste)
-            cardMenu.setOnClickListener {
-                navigationFragment(Destination.HOME_TO_TYPE_WASTE, findNavController())
-            }
         }
     }
 
     private fun setupAdapter(data: NewsResponse?) {
         val newsAdapter = NewsAdapter().apply {
             submitList(data?.data)
+            onclickListener { data ->
+                val bundle = Bundle().apply {
+                    putParcelable(KEY_DATA_NEWS, data)
+                }
+
+                Navigation.navigationFragment(
+                    Destination.HOME_TO_DETAIL_NEWS,
+                    findNavController(),
+                    bundle
+                )
+            }
         }
         binding.recyclerViewNews.let {
             it.layoutManager = LinearLayoutManager(requireContext())
             it.adapter = newsAdapter
         }
+    }
+
+    companion object {
+        const val KEY_DATA_NEWS = "data_news"
     }
 }

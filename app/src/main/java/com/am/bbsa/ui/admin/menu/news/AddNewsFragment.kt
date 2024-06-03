@@ -88,15 +88,9 @@ class AddNewsFragment : Fragment() {
     private fun uploadImageToFirebaseAndPostApiForDatabase() {
         imageUri?.let { filePath ->
             val ref = storageReference.child("Images/Sampah/${UUID.randomUUID()}")
-
             ref.putFile(filePath).addOnSuccessListener {
-                UiHandler.toastSuccessMessage(
-                    requireContext(),
-                    "Berhasil Mengirim foto ke Firebase!!"
-                )
                 ref.downloadUrl.addOnSuccessListener { url ->
                     imageUrl = url.toString()
-                    /*pada fungsi ini akan mengirimkan data ke dalam database*/
                     setupPostDataToApi(imageUrl)
                 }
             }.addOnFailureListener { e ->
@@ -111,8 +105,14 @@ class AddNewsFragment : Fragment() {
 
         viewModel.createNews(token, title, desc, imageUrl).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.textLoading.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
                 Status.SUCCESS -> {
+                    binding.textLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     UiHandler.toastSuccessMessage(
                         requireContext(),
                         resource.data?.message.toString()
@@ -121,6 +121,8 @@ class AddNewsFragment : Fragment() {
                 }
 
                 Status.ERROR -> {
+                    binding.textLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
                 }
             }

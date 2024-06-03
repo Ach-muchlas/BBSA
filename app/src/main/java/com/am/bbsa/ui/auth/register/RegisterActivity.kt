@@ -1,6 +1,8 @@
 package com.am.bbsa.ui.auth.register
-
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -19,15 +21,44 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private val viewModel: AuthViewModel by inject()
     private var selectedGender: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setupView()
+        setupDropdown()
+        setupErrorEditText()
         setupNavigation()
         setContentView(binding.root)
     }
 
-    private fun setupView() {
+    private fun setupErrorEditText() {
+        binding.edtNIK.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val length = text?.length ?: 0
+                when {
+                    length < 16 -> {
+                        val remaining = 16 - length
+                        binding.edtNIK.error = "NIK kurang $remaining digit!!"
+                    }
+
+                    length > 16 -> {
+                        val excess = length - 16
+                        binding.edtNIK.error = "NIK kelebihan $excess digit!!"
+                    }
+
+                    else -> {
+                        binding.edtNIK.error = null
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+    }
+
+    private fun setupDropdown() {
         val genderOption = listOf(getString(R.string.men), getString(R.string.women))
         /*view dropdown*/
         val autoComplete = binding.autoCompleteGender
@@ -59,8 +90,26 @@ class RegisterActivity : AppCompatActivity() {
         val noTelephone = binding.edtNumberPhone.text.toString()
         val password = binding.edtPassword.text.toString()
         val address = binding.edtAddress.text.toString()
+        if (!validateField(name, "Name")) {
+            return
+        } else if (!validateField(noNIK, "NIK")) {
+            return
+        } else if (!validateField(noTelephone, "Nomor Telephone")) {
+            return
+        } else if (!validateField(password, "Password")) {
+            return
+        } else if (!validateField(address, "Alamat")) {
+            return
+        }
 
-        viewModel.register(name, noNIK, selectedGender.toString(), address, noTelephone, password)
+        viewModel.register(
+            name,
+            noNIK,
+            selectedGender.toString(),
+            address,
+            noTelephone,
+            password
+        )
             .observe(this@RegisterActivity)
             { resource ->
                 when (resource.status) {
@@ -84,8 +133,11 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-
-    companion object {
-        const val KEY_USER_ID = "key_user_id"
+    private fun validateField(field: String, fieldName: String): Boolean {
+        if (field.isEmpty()) {
+            UiHandler.toastErrorMessage(this, "$fieldName tidak boleh kosong.")
+            return false
+        }
+        return true
     }
 }

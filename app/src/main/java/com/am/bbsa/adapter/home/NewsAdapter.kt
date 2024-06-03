@@ -9,8 +9,12 @@ import com.am.bbsa.data.response.DataItemNews
 import com.am.bbsa.databinding.ItemContentNewsBinding
 import com.bumptech.glide.Glide
 
-class NewsAdapter : ListAdapter<DataItemNews, NewsAdapter.ViewHolder>(DIFF_CALLBACK) {
-    var callbackOnclick: ((DataItemNews) -> Unit)? = null
+class NewsAdapter(var callbackOnclick: ((DataItemNews) -> Unit)? = null) :
+    ListAdapter<DataItemNews, NewsAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    fun onclickListener(listener: (DataItemNews) -> Unit) {
+        callbackOnclick = listener
+    }
 
     inner class ViewHolder(private val binding: ItemContentNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {

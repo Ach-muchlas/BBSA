@@ -10,4 +10,10 @@
     <color name="deep_grey">#808080</color>
     <color name="transparent">#00000000</color>
     <color name="red">#FF0000</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="purple_200">#0F9D58</color>
+    <color name="blue">#8ecae6</color>
+    <color name="charcoal_blue">#264653</color>
+    <color name="sage_green">#ccd5ae</color>
+    <color name="gun_metal">#343a40</color>
 </resources>

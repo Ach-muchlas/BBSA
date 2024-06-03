@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_corner_top"
+    tools:context=".ui.bottom_sheet.FilterNasabahBottomSheet">
+
+    <ImageView
+        android:id="@+id/buttonClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/icon_close"
+        android:src="@drawable/icon_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textFilter"
+        style="@style/TextContent.HeadlineMon"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/filter"
+        android:textColor="@color/deep_green"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonClose" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        style="@style/TextContent.Body.PopSemiBold"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/filter_nasabah_by_created"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/buttonClose"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/textFilter"
+        app:layout_constraintTop_toBottomOf="@id/textFilter" />
+
+    <CheckBox
+        android:id="@+id/checkboxOldNasabah"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/old_nasabah"
+        app:layout_constraintStart_toStartOf="@id/textTitle"
+        app:layout_constraintTop_toBottomOf="@id/checkboxNewNasabah" />
+
+    <CheckBox
+        android:id="@+id/checkboxNewNasabah"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_nasabah"
+        app:layout_constraintStart_toStartOf="@id/textTitle"
+        app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+    <TextView
+        android:id="@+id/textTitle2"
+        style="@style/TextContent.Body.PopSemiBold"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/filter_nasabah_by_name"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/buttonClose"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/textFilter"
+        app:layout_constraintTop_toBottomOf="@id/checkboxOldNasabah" />
+
+    <CheckBox
+        android:id="@+id/checkboxAsc"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/a_z"
+        app:layout_constraintStart_toStartOf="@id/textTitle"
+        app:layout_constraintTop_toBottomOf="@id/textTitle2" />
+
+    <CheckBox
+        android:id="@+id/checkboxDesc"
+        style="@style/TextContent.Body.PopMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/z_a"
+        app:layout_constraintStart_toStartOf="@id/textTitle"
+        app:layout_constraintTop_toBottomOf="@id/checkboxAsc" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSave"
+        style="@style/ButtonContent.Reg"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/pop_medium"
+        android:text="@string/save"
+        android:textSize="18sp"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkboxDesc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

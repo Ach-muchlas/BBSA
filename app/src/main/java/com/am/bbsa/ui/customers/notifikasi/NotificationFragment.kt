@@ -11,6 +11,7 @@ import com.am.bbsa.data.response.NotificationResponse
 import com.am.bbsa.databinding.FragmentNotificationBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.utils.NotificationHelper
 import com.am.bbsa.utils.UiHandler
 import org.koin.android.ext.android.inject
 
@@ -30,6 +31,7 @@ class NotificationFragment : Fragment() {
     ): View {
         _binding = FragmentNotificationBinding.inflate(inflater, container, false)
         displayNotification()
+
         return binding.root
     }
 
@@ -45,7 +47,6 @@ class NotificationFragment : Fragment() {
                     UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
                 }
             }
-
         }
     }
 
@@ -56,6 +57,10 @@ class NotificationFragment : Fragment() {
         binding.recyclerViewNews.let {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        if (data?.data.isNullOrEmpty()){
+            binding.textResult.visibility = View.VISIBLE
         }
     }
 

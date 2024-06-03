@@ -103,13 +103,6 @@ class AccountFragment : Fragment() {
                     }
 
                     3 -> {
-                        Navigation.navigationFragment(
-                            Destination.ACCOUNT_TO_CHANGE_LANGUAGE,
-                            findNavController()
-                        )
-                    }
-
-                    4 -> {
                         Intent(
                             requireContext(),
                             LoginActivity::class.java

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40dp"
+    android:background="@drawable/custom_corner_top"
+    tools:context=".ui.bottom_sheet.IsActiveAccountBottomSheet">
+
+    <ImageView
+        android:id="@+id/buttonClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/icon_close"
+        android:src="@drawable/icon_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewOppps"
+        style="@style/TextContent.Headline"
+        android:layout_marginTop="50dp"
+        android:text="Oopps!!"
+        android:textColor="@color/deep_green"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonClose" />
+
+    <ImageView
+        android:id="@+id/vectorLogin"
+        android:layout_width="150dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_is_active_account"
+        app:layout_constraintEnd_toEndOf="@id/textViewOppps"
+        app:layout_constraintStart_toStartOf="@id/textViewOppps"
+        app:layout_constraintTop_toBottomOf="@id/textViewOppps" />
+
+    <TextView
+        android:id="@+id/textViewLoginRequired"
+        style="@style/TextContent.Body.MonMedium"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+        android:text="Maaf, Akun anda masih belom aktif. tunggu admin sedang memverifikasi data anda"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vectorLogin"
+        app:layout_constraintVertical_bias="0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

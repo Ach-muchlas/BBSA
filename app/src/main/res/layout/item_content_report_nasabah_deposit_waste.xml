@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:background="@drawable/custom_divider_table"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="0dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.5dp">
+
+        <TextView
+            android:id="@+id/textDate"
+            style="@style/TextContent.Body.PopReg.SmallSp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:text="@string/deposit_date" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTypeWasteAndWeight"
+        tools:listitem="@layout/item_content_detail_report_deposit_waste"
+        android:layout_width="match_parent"
+        tools:itemCount="2"
+        android:layout_height="wrap_content" />
+</TableRow>

@@ -32,7 +32,7 @@
             layout="@layout/custom_menu"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="@id/cardBalance"
             app:layout_constraintTop_toBottomOf="@id/cardBalance" />
@@ -42,8 +42,8 @@
             layout="@layout/custom_menu"
             android:layout_width="100dp"
             android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toStartOf="@id/menuPickUpWaste"
-            app:layout_constraintStart_toEndOf="@id/menuDeposit"
+            app:layout_constraintStart_toStartOf="@id/menuDeposit"
+            app:layout_constraintEnd_toEndOf="@id/menuPickUpWaste"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/cardBalance" />
 
@@ -53,7 +53,7 @@
             android:layout_width="100dp"
             android:layout_marginTop="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="@id/cardBalance"
             app:layout_constraintTop_toBottomOf="@id/cardBalance" />
 

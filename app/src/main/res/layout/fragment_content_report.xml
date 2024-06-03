@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textReport"
+        style="@style/TextContent.Body.PopBold"
+        android:layout_marginTop="16dp"
+        android:text="@string/report_customer"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="150dp"
+        app:dividerColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textName"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/name"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textReport" />
+
+
+    <TextView
+        style="@style/TextContent.Body.PopReg"
+        android:text="@string/tanda_pemisah"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textName" />
+
+    <TextView
+        android:id="@+id/textValueName"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textName" />
+
+    <TextView
+        android:id="@+id/textNoRegis"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/no_regis"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textValueName" />
+
+    <TextView
+        style="@style/TextContent.Body.PopReg"
+        android:text="@string/tanda_pemisah"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textNoRegis" />
+
+    <TextView
+        android:id="@+id/textValueNoRegis"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textNoRegis" />
+
+
+    <TextView
+        android:id="@+id/textNoTelephone"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/phone_number"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textValueNoRegis" />
+
+    <TextView
+        style="@style/TextContent.Body.PopReg"
+        android:text="@string/tanda_pemisah"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textNoTelephone" />
+
+    <TextView
+        android:id="@+id/textValueNoTelephone"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textNoTelephone" />
+
+    <TextView
+        android:id="@+id/textBalance"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/balance"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textValueNoTelephone" />
+
+    <TextView
+        style="@style/TextContent.Body.PopReg"
+        android:text="@string/tanda_pemisah"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textBalance" />
+
+    <TextView
+        android:id="@+id/textValueBalance"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginStart="16dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/textBalance" />
+
+    <TextView
+        android:id="@+id/textDepositWaste"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginTop="20dp"
+        android:text="@string/waste_deposit"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/textBalance"
+        app:layout_constraintTop_toBottomOf="@id/textValueBalance" />
+
+    <TableLayout
+        android:id="@+id/tableHeaderDepositWaste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_divider_table"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/textDepositWaste"
+        app:layout_constraintTop_toBottomOf="@id/textDepositWaste">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopSemiBold.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/deposit_date"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopSemiBold.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/type_waste"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopSemiBold.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/weight_waste"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+        </TableRow>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDepositWaste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_content_report_nasabah_deposit_waste" />
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textWithdrawBalance"
+        style="@style/TextContent.Body.PopReg"
+        android:layout_marginTop="20dp"
+        android:text="@string/withdraw_balance"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tableHeaderDepositWaste"
+        app:layout_constraintTop_toBottomOf="@id/tableHeaderDepositWaste" />
+
+    <TableLayout
+        android:id="@+id/tableHeaderWithdrawBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/textWithdrawBalance"
+        app:layout_constraintTop_toBottomOf="@id/textWithdrawBalance"
+        app:layout_constraintVertical_bias="0">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopSemiBold.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/date"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopReg.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/method"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopReg.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/account_name"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopReg.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/number_account"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/deep_green"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp">
+
+                <TextView
+                    style="@style/TextContent.Body.PopReg.SmallSp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/total"
+                    android:textColor="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </TableRow>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewWithdrawBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_content_report_nasabah_withdraw_balance" />
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

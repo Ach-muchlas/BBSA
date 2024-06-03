@@ -19,8 +19,7 @@ class AuthViewModel(private val repository: Repository) : ViewModel() {
         phoneNumber: String,
         password: String
     ) =
-        repository.register(name, NIK, gender, address, phoneNumber, gender)
-
+        repository.register(name, NIK, gender, address, phoneNumber, password)
 
     fun saveCredentialUser(token: LoginResult) = userPref.saveCredentialUser(token)
     fun getCredentialUser(): LoginResult? = userPref.getCredentialUser()

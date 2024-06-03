@@ -1,6 +1,8 @@
 package com.am.bbsa.ui.admin.menu.waste_type_information
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,7 @@ class WasteTypeInformationFragment : Fragment() {
         _binding = FragmentWasteTypeInformationBinding.inflate(inflater, container, false)
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
         setupNavigation()
+        searchWaste()
         displayWasteInformation()
         return binding.root
     }
@@ -64,6 +67,37 @@ class WasteTypeInformationFragment : Fragment() {
             }
         }
     }
+
+
+    private fun searchWaste() {
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(text: Editable?) {
+                if (text.isNullOrEmpty()) {
+                    displayWasteInformation()
+                } else {
+                    setupSearchWasteByName(text.toString())
+                }
+            }
+        })
+    }
+
+    private fun setupSearchWasteByName(name: String) {
+        viewModel.searchWasteByName(token, name).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    setupAdapter(resource.data)
+                }
+
+                Status.ERROR -> {}
+            }
+        }
+    }
+
 
     private fun setupDeleteWaste(id: Int) {
         viewModel.deleteInformationWaste(id, token)

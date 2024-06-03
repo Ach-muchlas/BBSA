@@ -1,14 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.customers.home.history_deposit.DetailHistoryDepositFragment">
+    tools:context=".ui.admin.menu.deposit_weighing.DetailDepositWeighingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <include
+            android:id="@+id/viewAppbar"
+            layout="@layout/custom_app_bar_button_and_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iconSuccess"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/icon_success"
+            android:src="@drawable/icon_success"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewAppbar" />
+
+        <TextView
+            android:id="@+id/textStatus"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginTop="10dp"
+            android:text="@string/example_status_deposit"
+            android:textColor="@color/deep_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iconSuccess" />
+
+        <TextView
+            android:id="@+id/textName"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/deposit_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textStatus" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerName"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textStatus">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/textValueName"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/deep_green"
+            android:visibility="invisible"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/textName"
+            app:layout_constraintTop_toTopOf="@id/textName" />
+
+        <TextView
+            android:id="@+id/textDate"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/deposit_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textName" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerDate"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textDate">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <TextView
+            android:id="@+id/textValueDate"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/deep_green"
+            android:visibility="invisible"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/textDate"
+            app:layout_constraintTop_toTopOf="@id/textDate" />
+
+        <TextView
+            android:id="@+id/textTotal"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/total_result_deposit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textDate" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerTotal"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTotal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/textValueTotal"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/deep_green"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/textTotal"
+            app:layout_constraintTop_toTopOf="@id/textTotal" />
+
+        <TextView
+            android:id="@+id/textAdminName"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/admin_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTotal" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerContainerAdminName"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textAdminName">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/deep_green" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/textValueAdminName"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/deep_green"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/textAdminName"
+            app:layout_constraintTop_toTopOf="@id/textAdminName" />
+
+        <TextView
+            android:id="@+id/textType"
+            style="@style/TextContent.Body.PopMedium"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/type_waste"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAdminName" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTypeWaste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textType"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_content_type_waste_history_deposit" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

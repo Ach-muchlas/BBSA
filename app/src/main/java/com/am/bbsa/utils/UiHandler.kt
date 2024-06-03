@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ProgressBar
 import com.am.bbsa.R
+import com.am.bbsa.service.source.Resource
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import io.github.muddz.styleabletoast.StyleableToast
@@ -16,13 +17,12 @@ object UiHandler {
             .Builder(context)
             .text(message)
             .textColor(Color.WHITE)
-            .backgroundColor(Color.GREEN)
+            .backgroundColor(Color.rgb(41, 127, 102))
             .cornerRadius(16)
             .font(R.font.pop_semi_bold)
             .textSize(18F)
             .show()
     }
-
     fun toastErrorMessage(context: Context, message: String) {
         StyleableToast
             .Builder(context)

@@ -76,6 +76,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="TextContent.Body.PopSemiBold.SmallSp">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="TextContent.Body.MonMedium.SmallSp">
         <item name="android:textSize">10sp</item>
     </style>

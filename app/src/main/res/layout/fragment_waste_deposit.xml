@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewAppBar" />
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edlName"
         android:layout_width="match_parent"
@@ -29,7 +28,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="5dp"
         android:autofillHints="name"
-        android:hint="@string/example_name"
+        android:hint="@string/input_your_name"
         android:textColorHint="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textName">
@@ -57,7 +56,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="5dp"
         android:autofillHints="creditCardExpirationDate"
-        android:hint="@string/example_date"
+        android:hint="@string/input_your_date"
         android:textColorHint="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textDate">
@@ -114,5 +113,25 @@
         app:cornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardValuePhoto" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:progressBackgroundTint="@color/deep_green"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/cardValuePhoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textLoading"
+        style="@style/TextContent.Body.MonMedium.SmallSp"
+        android:text="@string/loading"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toBottomOf="@id/progressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

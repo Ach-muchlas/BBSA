@@ -32,11 +32,11 @@ class ChangePasswordAdminFragment : Fragment() {
         _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
         setupView()
         setupNavigation()
-        changePasswordUser()
         return binding.root
     }
 
     private fun setupView() {
+        UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
         binding.viewAppBar.textTitleAppBar.setText(R.string.change_password)
     }
 
@@ -44,39 +44,49 @@ class ChangePasswordAdminFragment : Fragment() {
         binding.viewAppBar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.buttonChangePassword.setOnClickListener {
+            changePasswordUser()
+        }
     }
 
     private fun changePasswordUser() {
         val oldPassword = binding.edtOldPassword.text
         val newPassword = binding.edtNewPassword.text
         val repeatNewPassword = binding.edtRepeatPassword.text
-        binding.buttonChangePassword.setOnClickListener {
-            viewModel.changePassword(
-                token,
-                oldPassword.toString(),
-                newPassword.toString(),
-                repeatNewPassword.toString()
-            )
-                .observe(viewLifecycleOwner) { resource ->
-                    when (resource.status) {
-                        Status.LOADING -> {}
-                        Status.SUCCESS -> {
-                            findNavController().popBackStack()
-                            UiHandler.toastSuccessMessage(
-                                requireContext(),
-                                resource.message.toString()
-                            )
-                        }
 
-                        Status.ERROR -> {
-                            UiHandler.toastErrorMessage(
-                                requireContext(),
-                                resource.message.toString()
-                            )
-                        }
-                    }
+        viewModel.changePassword(
+            token, oldPassword.toString(), newPassword.toString(), repeatNewPassword.toString()
+        ).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    UiHandler.toastSuccessMessage(
+                        requireContext(), resource.data?.message.toString()
+                    )
+                    clearFocusEdt()
+                    findNavController().popBackStack()
                 }
+
+                Status.ERROR -> {
+                    UiHandler.toastErrorMessage(
+                        requireContext(), resource.message.toString()
+                    )
+                }
+            }
         }
     }
 
+    private fun clearFocusEdt() {
+        binding.edtOldPassword.clearFocus()
+        binding.edtNewPassword.clearFocus()
+        binding.edtRepeatPassword.clearFocus()
+        binding.edtOldPassword.setText("")
+        binding.edtNewPassword.setText("")
+        binding.edtRepeatPassword.setText("")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UiHandler.setupVisibilityBottomNavigationAdmin(activity, false)
+    }
 }

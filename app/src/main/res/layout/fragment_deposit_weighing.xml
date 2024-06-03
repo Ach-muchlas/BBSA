@@ -6,64 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.admin.menu.deposit_weighing.DepositWeighingFragment">
 
-    <ImageButton
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/transparent"
-        android:contentDescription="@string/button_back"
-        android:minHeight="48dp"
-        android:src="@drawable/icon_back_black"
-        app:layout_constraintStart_toStartOf="parent"
+    <include
+        android:id="@+id/viewAppbar"
+        layout="@layout/custom_app_bar_button_and_title"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edtSearch"
-        style="@style/EditTextContent.Search"
-        android:layout_width="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        android:hint="@string/input_nasabah_name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonBack"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textFilter"
-        style="@style/TextContent.Body.PopBold"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/filter"
-        android:textColor="@color/deep_green"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@id/edtSearch"
-        app:layout_constraintTop_toBottomOf="@id/edtSearch" />
-
-    <TextView
-        android:id="@+id/textDepositWeighing"
-        style="@style/TextContent.Body.PopBold"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/deposit_weighing"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonBack" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDepositWeighing"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textDepositWeighing"
+        app:layout_constraintTop_toBottomOf="@id/viewAppbar"
         tools:listitem="@layout/item_content_deposit_weighing" />
 
     <ProgressBar

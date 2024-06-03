@@ -1,5 +1,6 @@
 package com.am.bbsa.ui.auth.otp
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -8,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.am.bbsa.R
 import com.am.bbsa.databinding.ActivityOtpBinding
 import com.am.bbsa.service.source.Status
+import com.am.bbsa.ui.admin.main.AdminMainActivity
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.auth.forgot_password.ResetPasswordActivity
 import com.am.bbsa.utils.UiHandler
+import com.am.bbsa.utils.finish
 import com.am.bbsa.utils.goToActivity
 import org.koin.android.ext.android.inject
 
@@ -121,7 +124,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                             this,
                             resource.data?.message.toString()
                         )
-                        goToActivity(ResetPasswordActivity())
+                        Intent(this, ResetPasswordActivity::class.java).finish(this)
                     }
 
                     Status.ERROR -> {

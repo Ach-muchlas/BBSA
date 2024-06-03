@@ -16,9 +16,6 @@ data class NasabahRegistrantPickupWasteResponse(
 
 data class DataItemNasabahRegistrantPickupWaste(
 
-    @field:SerializedName("foto")
-    val foto: String? = null,
-
     @field:SerializedName("user_foto_profil")
     val photoProfile: String? = null,
 
@@ -36,9 +33,6 @@ data class DataItemNasabahRegistrantPickupWaste(
 
     @field:SerializedName("tanggal")
     val tanggal: String? = null,
-
-    @field:SerializedName("deskripsi")
-    val deskripsi: String? = null,
 
     @field:SerializedName("status")
     val status: String? = null

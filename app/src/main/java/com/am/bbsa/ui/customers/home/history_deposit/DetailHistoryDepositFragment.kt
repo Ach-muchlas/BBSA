@@ -1,60 +1,114 @@
 package com.am.bbsa.ui.customers.home.history_deposit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.am.bbsa.R
+import com.am.bbsa.adapter.menu.DetailHistoryDepositAdapter
+import com.am.bbsa.data.response.DetailHistoryDepositResponse
+import com.am.bbsa.databinding.FragmentDetailHistoryDepositBinding
+import com.am.bbsa.service.source.Status
+import com.am.bbsa.ui.admin.menu.history_deposit_admin.HistoryDepositAdminFragment
+import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.customers.home.HomeViewModel
+import com.am.bbsa.utils.Formatter
+import com.am.bbsa.utils.UiHandler
+import org.koin.android.ext.android.inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailHistoryDepositFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailHistoryDepositFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentDetailHistoryDepositBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: HomeViewModel by inject()
+    private val authViewModel: AuthViewModel by inject()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val token: String by lazy { authViewModel.getCredentialUser()?.token.toString() }
+    private val receiveIdHistoryDeposit: Int by lazy {
+        arguments?.getInt(HistoryDepositAdminFragment.BUNDLE_ID) ?: 0
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_history_deposit, container, false)
+    ): View {
+        _binding = FragmentDetailHistoryDepositBinding.inflate(inflater, container, false)
+        initialize()
+        setupNavigation()
+        setupGetDataFromApi()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailHistoryDepositFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailHistoryDepositFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun setupNavigation() {
+        binding.viewAppbar.buttonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+
+    private fun initialize() {
+        binding.viewAppbar.textTitleAppBar.text = getString(R.string.history_detail_deposit)
+        UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
+    }
+
+    private fun setupGetDataFromApi() {
+        viewModel.showDetailHistoryDeposit(receiveIdHistoryDeposit, token)
+            .observe(viewLifecycleOwner) { resource ->
+                when (resource.status) {
+                    Status.LOADING -> {
+                        showShimmer(true)
+                    }
+
+                    Status.SUCCESS -> {
+                        showShimmer(false)
+                        setupIsVisibilityView()
+                        setupView(resource.data)
+                        setupAdapter(resource.data)
+                    }
+
+                    Status.ERROR -> {
+                        showShimmer(false)
+                        setupIsVisibilityView()
+                        UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
+                    }
                 }
             }
     }
+
+    private fun setupView(data: DetailHistoryDepositResponse?) {
+        data?.data?.forEach { dataItem ->
+            binding.textValueName.text = dataItem?.username.toString()
+            binding.textValueDate.text = Formatter.formatDate(dataItem?.createdAt.toString())
+            binding.textValueTotal.text = Formatter.formatCurrency(dataItem?.totalSetoran ?: 0)
+            binding.textValueAdminName.text = dataItem?.admin_name.toString()
+        }
+    }
+
+    private fun setupIsVisibilityView() {
+        binding.textValueName.visibility = View.VISIBLE
+        binding.textValueTotal.visibility = View.VISIBLE
+        binding.textValueDate.visibility = View.VISIBLE
+        binding.textValueAdminName.visibility = View.VISIBLE
+    }
+
+    private fun showShimmer(isVisible: Boolean) {
+        UiHandler.manageShimmer(binding.shimmerContainerName, isVisible)
+        UiHandler.manageShimmer(binding.shimmerContainerDate, isVisible)
+        UiHandler.manageShimmer(binding.shimmerContainerTotal, isVisible)
+        UiHandler.manageShimmer(binding.shimmerContainerAdminName, isVisible)
+    }
+
+    private fun setupAdapter(data: DetailHistoryDepositResponse?) {
+        val adapter = DetailHistoryDepositAdapter().apply {
+            submitList(data?.data)
+        }
+        binding.recyclerViewTypeWaste.let {
+            it.adapter = adapter
+            it.layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+
 }

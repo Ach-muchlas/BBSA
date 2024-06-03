@@ -11,12 +11,21 @@ import com.am.bbsa.databinding.ItemContentNasabahRegistrantPickUpWasteBinding
 import com.am.bbsa.utils.Formatter
 import com.bumptech.glide.Glide
 
-class NasabahRegistrantPickupWasteAdapter(private var hideButtonApproveAndReject: Boolean) :
+class NasabahRegistrantPickupWasteAdapter(
+    private var hideButtonApproveAndReject: Boolean,
+    private var callbackOnclickToDetail: ((Int) -> Unit)? = null,
+    private var callbackOnclickApprove: ((Int) -> Unit)? = null,
+    private var callbackOnclickReject: ((Int) -> Unit)? = null
+) :
     ListAdapter<DataItemNasabahRegistrantPickupWaste, NasabahRegistrantPickupWasteAdapter.ViewHolder>(
         DIFF_CALLBACK
     ) {
-    var callbackOnclickApprove: ((Int) -> Unit)? = null
-    var callbackOnclickReject: ((Int) -> Unit)? = null
+    fun setOnclickListener(listener: (Int) -> Unit) {
+        callbackOnclickToDetail = listener
+    }
+
+    fun setOnApprovedListener(listener: (Int) -> Unit){callbackOnclickApprove = listener}
+    fun setOnRejectListener(listener: (Int) -> Unit){callbackOnclickReject = listener}
 
     inner class ViewHolder(private val binding: ItemContentNasabahRegistrantPickUpWasteBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -24,6 +33,9 @@ class NasabahRegistrantPickupWasteAdapter(private var hideButtonApproveAndReject
             Glide.with(binding.root.context).load(data.photoProfile).into(binding.imagePhotoProfile)
             binding.textName.text = data.userName
             binding.textDate.text = Formatter.formatDate2(data.tanggal.toString())
+            binding.cardRoot.setOnClickListener {
+                callbackOnclickToDetail?.invoke(data.id)
+            }
             binding.buttonApprove.setOnClickListener {
                 callbackOnclickApprove?.invoke(data.id)
             }

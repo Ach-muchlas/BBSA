@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BBSA</string>
+    <string name="app_name">BSSA</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter">Masuk</string>
@@ -13,7 +13,7 @@
     <string name="register">Daftar</string>
     <string name="full_name">Nama Lengkap</string>
     <string name="enter_full_name">Masukkan Nama Lengkap </string>
-    <string name="enter_citizen_identification_number">Masukkan Nomer NIK </string>
+    <string name="enter_citizen_identification_number">Masukkan Nomer NIK</string>
     <string name="citizen_identification_number">Nomer NIK</string>
     <string name="gender">Jenis Kelamin</string>
     <string name="example_gender">Laki-laki</string>
@@ -78,10 +78,11 @@
     <string name="method_withdraw">Metode yang digunakan</string>
     <string name="amount">Jumlah penarikan</string>
     <string name="example_rp">Rp 100.000</string>
+    <string name="example_0_rp">Rp 0</string>
     <string name="random_number">0182028</string>
     <string name="example_bank">Bank BNI</string>
     <string name="requirement">Syarat dan ketentuan berlaku</string>
-    <string name="example_requirement">1. saldo tidak boleh kurang dari Rp 25.000 \n2. penarikan tidak boleh kurang dari Rp 50.000 \n3. Biaya cash administrasi akan ditanggungkan ke nasabah</string>
+    <string name="example_requirement">1. saldo tidak boleh kurang dari Rp 10.000 \n2. Biaya cash administrasi akan ditanggungkan ke nasabah sebesar Rp. 2.500</string>
     <string name="withdraw">Tarik</string>
     <string name="total">Total</string>
     <string name="title_admin_menu">Menu</string>
@@ -104,7 +105,6 @@
     <string name="icon_edit">icon_edit</string>
     <string name="price">Harga</string>
     <string name="price_kg">Harga /kg</string>
-    <string name="photo_waste">Foto jenis sampah</string>
     <string name="title">Judul</string>
     <string name="input_title_news">Masukan judul berita</string>
     <string name="description">Deskripsi</string>
@@ -128,6 +128,7 @@
     <string name="no_regis">Nomor Registrasi</string>
     <string name="example_no_regis">WYG0801138271</string>
     <string name="weight">Berat Sampah /kg</string>
+    <string name="weight_waste">Berat</string>
     <string name="example_weight">6</string>
     <string name="add_type_waste">Tambah jenis sampah</string>
     <string name="enter_your_waste_photo">Masukan foto sampah mu</string>
@@ -152,7 +153,7 @@
     <string name="done">Selesai</string>
     <string name="icon_man">icon_man</string>
     <string name="icon_women">Icon Women</string>
-    <string name="example_type_waste_2">Majalah</string>
+    <string name="example_type_waste_2">Botol Air Mineral bersih</string>
     <string name="update_price_waste">Update Harga Sampah</string>
     <string name="icon_pick_up">Icon truck</string>
     <string name="register_pick_up_waste">Daftar Jemput Sampah tanggal</string>
@@ -168,7 +169,7 @@
     <string name="resending_otp">Kirim Ulang OTP dalam</string>
     <string name="example_time">50 detik</string>
     <string name="time_out">Waktu Habis</string>
-    <string name="input_your_phone_number">Masukan nomor telephone anda</string>
+    <string name="input_your_phone_number">Masukan nomor telephone</string>
     <string name="new_password">Password Baru</string>
     <string name="reset_password">Reset Password Anda</string>
     <string name="empty_schedule_pick_up">Tidak ada jadwal penjemputan</string>
@@ -179,4 +180,57 @@
     <string name="choose_camera">Ambil Foto</string>
     <string name="icon_close">Icon close</string>
     <string name="text_cancel">Batal</string>
+    <string name="history_withdrawal">Riwayat penarikan</string>
+    <string name="icon_valid">icon_valid</string>
+    <string name="example_history_withdrawal">Saldo berhasil ditarik</string>
+    <string name="example_no_ref">No. Ref 087859115482</string>
+    <string name="icon_success">icon_success</string>
+    <string name="example_status_deposit">Status penimbangan Dikonfimasi</string>
+    <string name="deposit_name">Nama Penyetor</string>
+    <string name="deposit_date">Tanggal Setoran</string>
+    <string name="example_weight_kg">106 Kg</string>
+    <string name="example_price_waste">Rp. 1.200</string>
+    <string name="history_detail_deposit">Detail riwayat setoran</string>
+    <string name="example_withdraw_method">BNI</string>
+    <string name="success_withdraw_balance">Penarikan Saldo Berhasil</string>
+    <string name="show_status_withdraw">Lihat Status Transaksi</string>
+    <string name="oke">Ok</string>
+    <string name="success_delivery_funds">Status : Berhasil</string>
+    <string name="history_deposit_waste">Riwayat Setoran Sampah</string>
+    <string name="register_pick_up">Daftar Jemput Sampah</string>
+    <string name="input_description_of_your_waste">Masukan deskripsi jenis sampah</string>
+    <string name="input_photo_type_waste">Masukan foto jenis sampah</string>
+    <string name="photo_waste">Foto Sampah</string>
+    <string name="input_price_waste_per_kg">Masukan harga sampah</string>
+    <string name="name_registrant_pick_up">Nama Pendaftar</string>
+    <string name="detail_registrant_pick_up_waste">Detail Pendaftar Penjemputan</string>
+    <string name="input_your_address">Masukan Alamat Anda Tinggal</string>
+    <string name="no_result">Anda belum melakukan transaksi.</string>
+    <string name="account_name">Nama Penerima</string>
+    <string name="number_account">Nomor Rekening Tujuan</string>
+    <string name="nasabah_name">Nama Nasabah</string>
+    <string name="detail_history_withdraw_balance">Detail Riwayat Penerikan Saldo</string>
+    <string name="notification_subtext">Reminder</string>
+    <string name="tanda_pemisah">:</string>
+    <string name="admin_name">Admin yang Penimbangan</string>
+    <string name="urutkan_sesuai_abjad">Urutkan sesuai abjad</string>
+    <string name="no_notification_result">Anda belum mempunyai notifikasi</string>
+    <string name="create_admin">Tambah Admin</string>
+    <string name="loading">memuat...</string>
+    <string name="method">Metode</string>
+    <string name="input_account_number">Masukan nomor rekening tujuan</string>
+    <string name="input_total_withdraw">Masukan jumlah penarikan</string>
+    <string name="update_news">Edit Berita</string>
+    <string name="name_waste">Nama Sampah</string>
+    <string name="input_waste_name">Masukan nama sampah</string>
+    <string name="foto_is_empty">Belum mempunyai foto</string>
+    <string name="input_your_data">Masukan data anda</string>
+    <string name="old_nasabah">Nasabah Terlama</string>
+    <string name="new_nasabah">Nasabah Baru</string>
+    <string name="filter_nasabah_by_created">Urutkan Sesuai dengan pendaftaran</string>
+    <string name="a_z">A ke Z</string>
+    <string name="filter_nasabah_by_name">Urukan sesuai nama</string>
+    <string name="z_a">Z ke A</string>
+    <string name="input_category_waste">Masukan jenis sampah</string>
+
 </resources>
