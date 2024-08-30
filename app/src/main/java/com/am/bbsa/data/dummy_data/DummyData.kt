@@ -42,11 +42,13 @@ object DummyData {
     val DataListBank = arrayListOf(
         DummyModel.DataBank(1, "Bank Negara Indonesia (BNI)", "BNI"),
         DummyModel.DataBank(2, "Bank Central Asia (BCA)", "BCA"),
-        DummyModel.DataBank(3, "BPD Jawa Timur", "BPD Jawa Timur"),
-        DummyModel.DataBank(4, "ShoppePay", "SHOPEEPAY"),
-        DummyModel.DataBank(5, "Dana", "DANA"),
-        DummyModel.DataBank(6, "Gopay", "GOPAY"),
-        DummyModel.DataBank(7, "OVO", "OVO"),
-
+        DummyModel.DataBank(3, "Bank Rakyat Indonesia (BRI)", "BRI"),
+        DummyModel.DataBank(4, "Bank Syariah Indonesia", "BSI"),
+        DummyModel.DataBank(5, "Bank Tabungan Negara (BTN)", "BTN"),
+        DummyModel.DataBank(6, "Bank Jago", "JAGO"),
+        DummyModel.DataBank(7, "ShoppePay", "SHOPEEPAY"),
+        DummyModel.DataBank(8, "Dana", "DANA"),
+        DummyModel.DataBank(9, "Gopay", "GOPAY"),
+        DummyModel.DataBank(10, "OVO", "OVO"),
     )
 }

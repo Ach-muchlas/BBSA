@@ -42,4 +42,10 @@ class AuthViewModel(private val repository: Repository) : ViewModel() {
 
     fun forgotPassword(phoneNumber: String) = repository.forgotPassword(phoneNumber)
     fun resetPassword(userId: Int, password: String) = repository.resetPassword(userId, password)
+
+    fun saveOtpStatus(isOtpPending: Boolean) = userPref.saveOtpStatus(isOtpPending)
+
+    fun isOtpPending(): Boolean = userPref.isOtpPending()
+
+
 }

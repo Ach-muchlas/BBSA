@@ -21,7 +21,7 @@ class ListNasabahAdapter :
             binding.imageProfile.setImageResource(R.drawable.icon_profile_man)
             binding.textName.text = dataNasabah.name
             binding.textNumberPhone.text = dataNasabah.phoneNumber
-            binding.textStatusAccount.text = dataNasabah.id.toString()
+            binding.textStatusAccount.text = dataNasabah.status.toString()
             val icon = if (dataNasabah.gender.equals("Perempuan")) R.drawable.icon_profile_women else R.drawable.icon_profile_man
             Glide.with(binding.root.context).load(dataNasabah.photoProfile ?: icon).into(binding.imageProfile)
         }

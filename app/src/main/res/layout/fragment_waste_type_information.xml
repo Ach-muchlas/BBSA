@@ -30,18 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/buttonBack"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textFilter"
-        style="@style/TextContent.Body.PopBold"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/filter"
-        android:textColor="@color/deep_green"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@id/edtSearch"
-        app:layout_constraintTop_toBottomOf="@id/edtSearch" />
-
+    
     <TextView
         android:id="@+id/textWaste"
         style="@style/TextContent.Body.PopBold"

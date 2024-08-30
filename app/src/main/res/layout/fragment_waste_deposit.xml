@@ -9,8 +9,8 @@
     <include
         android:id="@+id/viewAppBar"
         layout="@layout/custom_app_bar_button_and_title"
-        android:layout_width="match_parent"
-        android:layout_height="47dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/textName"

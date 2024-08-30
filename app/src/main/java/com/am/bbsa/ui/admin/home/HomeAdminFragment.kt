@@ -15,6 +15,7 @@ import com.am.bbsa.databinding.FragmentHomeAdminBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.utils.Formatter
+import com.am.bbsa.utils.PercentageValueFormatter
 import com.am.bbsa.utils.UiHandler
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.components.XAxis
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import org.koin.android.ext.android.inject
 
 class HomeAdminFragment : Fragment() {
@@ -77,6 +79,8 @@ class HomeAdminFragment : Fragment() {
 
         val barDataSet = BarDataSet(entries, "Weekly Data")
         barDataSet.colors = ArrayList(listOf(Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW))
+        barDataSet.valueTextSize = 12f
+
         barChart.data = BarData(barDataSet)
 
         // Pengaturan sumbu x
@@ -115,10 +119,15 @@ class HomeAdminFragment : Fragment() {
         colors.add(resources.getColor(R.color.gun_metal))
 
         dataSet.colors = colors
+        dataSet.valueFormatter = PercentageValueFormatter()
+        dataSet.valueTextSize = 14f
+        dataSet.valueTextColor = Color.WHITE
+
         val data = PieData(dataSet)
         pieChart.data = data
-        pieChart.description.isEnabled = false // Hide the description
-        pieChart.invalidate() // Refresh chart
+        pieChart.description.isEnabled = false
+        pieChart.setUsePercentValues(true)
+        pieChart.invalidate()
     }
 
     private fun displayAppBarView() {
@@ -248,4 +257,3 @@ class HomeAdminFragment : Fragment() {
             Formatter.formatKg(data?.data?.totalBeratSemuaSampah ?: 0)
     }
 }
-

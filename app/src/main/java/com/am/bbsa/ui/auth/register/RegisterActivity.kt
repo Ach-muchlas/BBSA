@@ -2,7 +2,6 @@ package com.am.bbsa.ui.auth.register
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -26,9 +25,21 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setupDropdown()
+        setupView()
         setupErrorEditText()
         setupNavigation()
         setContentView(binding.root)
+    }
+
+    private fun setupView() {
+        UiHandler.setHintBehavior(
+            binding.edlFullName,
+            binding.edlNIK,
+            binding.edlAddress,
+            binding.edlGender,
+            binding.edlPassword,
+            binding.edlNumberPhone
+        )
     }
 
     private fun setupErrorEditText() {
@@ -100,6 +111,8 @@ class RegisterActivity : AppCompatActivity() {
             return
         } else if (!validateField(address, "Alamat")) {
             return
+        } else if(!UiHandler.validatePassword(password, this)){
+            return
         }
 
         viewModel.register(
@@ -140,4 +153,5 @@ class RegisterActivity : AppCompatActivity() {
         }
         return true
     }
+
 }

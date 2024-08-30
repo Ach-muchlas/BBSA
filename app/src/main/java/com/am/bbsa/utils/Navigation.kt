@@ -130,6 +130,11 @@ object Navigation {
                     R.id.action_profileAdminFragment_to_updateProfileFragment,
                     args
                 )
+
+                Destination.WITHDRAW_TO_OTP_WITHDRAW -> it.navigate(
+                    R.id.action_withdrawBalanceFragment_to_OTPWithdrawBalanceFragment,
+                    args
+                )
             }
         }
     }
@@ -152,6 +157,7 @@ enum class Destination {
     PICK_UP_WASTE_TO_REGISTER_PICK_UP_WASTE,
     DETAIL_BALANCE_TO_DETAIL_HISTORY_WITHDRAW_BALANCE,
     HISTORY_WITHDRAW_BALANCE_ADMIN_TO_DETAIL_HISTORY_WITHDRAW_BALANCE,
+    WITHDRAW_TO_OTP_WITHDRAW,
 
     /*Admin*/
     MENU_TO_WASTE_TYPE_INFORMATION,

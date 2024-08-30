@@ -1,4 +1,4 @@
-package com.am.bbsa.ui.customers.account.add_admin
+package com.am.bbsa.ui.admin.account.add_admin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,13 +28,25 @@ class AddAdminFragment : Fragment() {
     ): View {
         _binding = FragmentAddAdminBinding.inflate(inflater, container, false)
         setupDropdown()
+        setupView()
         setupNavigation()
         initialize()
 
         return binding.root
     }
 
+    private fun setupView() {
+        UiHandler.setHintBehavior(
+            binding.edlFullName,
+            binding.edlAddress,
+            binding.edlGender,
+            binding.edlNumberPhone,
+            binding.edlPassword
+        )
+    }
+
     private fun initialize() {
+        binding.viewAppBar.textTitleAppBar.text = getString(R.string.add_admin)
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
     }
 

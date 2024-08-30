@@ -1,6 +1,8 @@
 package com.am.bbsa.ui.admin.account.change_password
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,11 +37,17 @@ class ChangePasswordAdminFragment : Fragment() {
         return binding.root
     }
 
+
     private fun setupView() {
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
         binding.viewAppBar.textTitleAppBar.setText(R.string.change_password)
-    }
+        UiHandler.setHintBehavior(
+            binding.edlOldPassword,
+            binding.edlNewPassword,
+            binding.edlRepeatNewPassword
+        )
 
+    }
     private fun setupNavigation() {
         binding.viewAppBar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
@@ -53,6 +61,16 @@ class ChangePasswordAdminFragment : Fragment() {
         val oldPassword = binding.edtOldPassword.text
         val newPassword = binding.edtNewPassword.text
         val repeatNewPassword = binding.edtRepeatPassword.text
+
+        if (!UiHandler.validatePassword(newPassword.toString(), requireContext())) {
+            return
+        } else if (repeatNewPassword.toString() != newPassword.toString()) {
+            UiHandler.toastErrorMessage(
+                requireContext(),
+                "Password baru dan konfirmasi ulangi password tidak cocok."
+            )
+            return
+        }
 
         viewModel.changePassword(
             token, oldPassword.toString(), newPassword.toString(), repeatNewPassword.toString()
@@ -84,6 +102,7 @@ class ChangePasswordAdminFragment : Fragment() {
         binding.edtNewPassword.setText("")
         binding.edtRepeatPassword.setText("")
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

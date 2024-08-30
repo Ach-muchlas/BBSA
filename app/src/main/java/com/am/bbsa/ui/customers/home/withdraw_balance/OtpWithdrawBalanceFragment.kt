@@ -1,37 +1,43 @@
-package com.am.bbsa.ui.auth.otp
+package com.am.bbsa.ui.customers.home.withdraw_balance
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
-import com.am.bbsa.databinding.ActivityOtpBinding
+import com.am.bbsa.data.body.TarikSaldoBody
+import com.am.bbsa.databinding.FragmentOtpWithdrawBalanceBinding
 import com.am.bbsa.service.source.Status
-import com.am.bbsa.ui.admin.main.AdminMainActivity
 import com.am.bbsa.ui.auth.AuthViewModel
-import com.am.bbsa.ui.auth.forgot_password.ResetPasswordActivity
+import com.am.bbsa.ui.bottom_sheet.SuccessWithdrawBalanceBottomSheetFragment
+import com.am.bbsa.ui.customers.home.HomeViewModel
+import com.am.bbsa.utils.KEY
 import com.am.bbsa.utils.UiHandler
-import com.am.bbsa.utils.finish
-import com.am.bbsa.utils.goToActivity
 import org.koin.android.ext.android.inject
 
-class OtpForgotPasswordActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOtpBinding
-    private val viewModel: AuthViewModel by inject()
+class OtpWithdrawBalanceFragment : Fragment() {
+    private var _binding: FragmentOtpWithdrawBalanceBinding? = null
+    private val binding get() = _binding!!
     private lateinit var countDownTimer: CountDownTimer
-
+    private val viewModel: AuthViewModel by inject()
+    private val homeViewModel: HomeViewModel by inject()
     private val interval: Long = 1000
     private val totalDuration: Long = 120000
 
     private var isTimeExpired: Boolean = false
 
-
+    private val token: String by lazy { viewModel.getCredentialUser()?.token.toString() }
     private val phoneNumber: String by lazy {
         viewModel.getCredentialRegister().phoneNumber.toString()
     }
-
     private val edtTextList by lazy {
         listOf(
             binding.edtOtp1,
@@ -43,36 +49,14 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOtpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupCountDown()
-        setupNavigation()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentOtpWithdrawBalanceBinding.inflate(inflater, container, false)
         setupView()
-    }
-
-    private fun setupNavigation() {
-        setupEditText()
-        binding.textViewRequestNewCode.setOnClickListener {
-            resetCountDown()
-            setupResendingOtp()
-        }
-    }
-
-    private fun setupResendingOtp() {
-        viewModel.resendingOtpForgotPassword(phoneNumber).observe(this) { resource ->
-            when (resource.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {
-                    UiHandler.toastSuccessMessage(this, resource.data?.message.toString())
-                }
-
-                Status.ERROR -> {
-                    UiHandler.toastErrorMessage(this, resource.message.toString())
-                }
-            }
-        }
+        setupCountDown()
+        return binding.root
     }
 
     private fun setupCountDown() {
@@ -88,13 +72,16 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             override fun onFinish() {
                 isTimeExpired = true
                 binding.textTimeExpiredOtp.text = getString(R.string.time_out)
-                UiHandler.toastErrorMessage(this@OtpForgotPasswordActivity, getString(R.string.time_up_request_new_code))
+                UiHandler.toastErrorMessage(
+                    requireContext(),
+                    getString(R.string.time_up_request_new_code)
+                )
             }
         }.start()
     }
 
     private fun setupView() {
-        binding.textViewDestinationOtp.text = phoneNumber
+        setupEditText()
     }
 
     private fun setupEditText() {
@@ -109,8 +96,8 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                         } else {
                             if (isTimeExpired) {
                                 UiHandler.toastErrorMessage(
-                                    this@OtpForgotPasswordActivity,
-                                    getString(R.string.time_up_request_new_code)
+                                    requireContext(),
+                                    "Waktu sudah habis. Silakan minta kode baru."
                                 )
                             } else {
                                 setupPostDataToApi()
@@ -127,22 +114,30 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun setupPostDataToApi() {
-        val userId = viewModel.getCredentialRegister().id
-        viewModel.verificationOtpForgotPassword(userId ?: 0, setupMergeOTP())
-            .observe(this) { resource ->
+        val argument = arguments?.getParcelable<TarikSaldoBody>(KEY.KEY_WITHDRAW_TO_OTP)
+        homeViewModel.createWithdrawBalance(
+            token,
+            argument?.bankCode.toString(),
+            argument?.accountName.toString(),
+            argument?.accountNumber.toString(),
+            argument?.amount ?: 0,
+            setupMergeOTP()
+        )
+            .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {}
                     Status.SUCCESS -> {
-                        UiHandler.toastSuccessMessage(
-                            this,
-                            resource.data?.message.toString()
+                        val dataExternalId = resource.data?.data?.externalId.toString()
+                        setFragmentResult(
+                            "withdraw_result",
+                            bundleOf("externalId" to dataExternalId)
                         )
-                        Intent(this, ResetPasswordActivity::class.java).finish(this)
+                        findNavController().popBackStack()
                     }
 
                     Status.ERROR -> {
                         UiHandler.toastErrorMessage(
-                            this,
+                            requireContext(),
                             resource.message.toString()
                         )
                     }
@@ -150,28 +145,17 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupMergeOTP(): String {
+    private fun setupMergeOTP(): Int {
         val otp = StringBuilder()
         for (i in edtTextList) {
             otp.append(i.text)
         }
-        return otp.toString()
+        return otp.toString().toInt()
     }
 
     private fun clearValueAllEditText() {
         for (i in edtTextList) {
             i.text.clear()
         }
-    }
-
-    private fun resetCountDown() {
-        countDownTimer.cancel()
-        isTimeExpired = false
-        setupCountDown()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        countDownTimer.cancel()
     }
 }

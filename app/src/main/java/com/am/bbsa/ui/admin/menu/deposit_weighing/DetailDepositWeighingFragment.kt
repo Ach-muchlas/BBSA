@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
@@ -85,6 +86,13 @@ class DetailDepositWeighingFragment : Fragment() {
         binding.edtDate.isFocusableInTouchMode = false
         binding.autoCompleteTypeWaste.isFocusable = false
         binding.autoCompleteTypeWaste.isFocusableInTouchMode = false
+        UiHandler.setHintBehavior(
+            binding.edlName,
+            binding.edlDate,
+            binding.edlTotal,
+            binding.edlWeight,
+            binding.edlTypeWaste
+        )
         setupDisplayInputDepositWeighing()
     }
 
@@ -209,7 +217,7 @@ class DetailDepositWeighingFragment : Fragment() {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         // add margin
-        params.setMargins(24, 5, 24, 0) // Set margin
+        params.setMargins(24.dp, 10.dp, 24.dp, 0.dp) // Set margin
 
         /*initialize text view type waste*/
         val newTextTypeWaste = TextView(contextThemeWrapper).apply {
@@ -237,7 +245,7 @@ class DetailDepositWeighingFragment : Fragment() {
             isFocusableInTouchMode = false
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                60.dp
+                80.dp
             )
 
         }
@@ -268,7 +276,7 @@ class DetailDepositWeighingFragment : Fragment() {
             inputType = InputType.TYPE_CLASS_NUMBER
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                60.dp
+                80.dp
             )
         }
 
@@ -287,6 +295,5 @@ class DetailDepositWeighingFragment : Fragment() {
         // add value to mutable list
         autoCompleteList.add(newAutoComplete)
         edtList.add(newEditText)
-
     }
 }

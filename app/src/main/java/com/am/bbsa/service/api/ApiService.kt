@@ -334,7 +334,7 @@ interface ApiService {
     @PUT("update-profil-user")
     suspend fun updatePhoneNumberUser(
         @Header("Authorization") bearer: String,
-        @Field("nomer_telephone") phoneNumber: String,
+        @Field("nomor_telephone") phoneNumber: String,
     ): Response<GeneralResponse>
 
     @FormUrlEncoded
@@ -429,6 +429,11 @@ interface ApiService {
     suspend fun getWithdrawBalance(
         @Header("Authorization") bearer: String,
     ): Response<WithdrawBalanceResponse>
+
+    @POST("tarik-saldo/send-otp")
+    suspend fun sendOTPWithdrawalBalance(
+        @Header("Authorization") bearer: String,
+    ) : Response<GeneralResponse>
 
     @POST("tarik-saldo/create")
     suspend fun createWithdrawBalance(

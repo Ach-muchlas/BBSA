@@ -20,18 +20,11 @@
         android:id="@+id/textViewSixDigit"
         style="@style/TextContent.Body.PopReg"
         android:layout_marginTop="24dp"
-        android:text="@string/the_6_digit_code_sent"
+        android:textAlignment="center"
+        android:text="@string/the_6_digit_code_sent_to_whatsapp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewInputOtp" />
-
-    <TextView
-        android:id="@+id/textViewDestinationOtp"
-        style="@style/TextContent.Body.PopMedium"
-        android:text="@string/example_destination_otp"
-        app:layout_constraintEnd_toEndOf="@id/textViewSixDigit"
-        app:layout_constraintStart_toStartOf="@id/textViewSixDigit"
-        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit" />
 
     <EditText
         android:id="@+id/edtOtp1"
@@ -45,7 +38,8 @@
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp" />
+        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/edtOtp2"
@@ -57,7 +51,7 @@
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp1"
-        app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
+        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -70,7 +64,7 @@
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp2"
-        app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
+        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -83,8 +77,8 @@
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp3"
-        app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/edtOtp5"
@@ -96,7 +90,7 @@
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp4"
-        app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
+        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -111,7 +105,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/edtOtp5"
-        app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
+        app:layout_constraintTop_toBottomOf="@id/textViewSixDigit"
         tools:ignore="LabelFor" />
 
     <TextView

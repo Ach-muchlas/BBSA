@@ -74,6 +74,7 @@ class SuccessWithdrawBalanceBottomSheetFragment(private val external_id: String)
         binding.textTotal.text = Formatter.formatCurrency(data?.data?.totalPenarikan ?: 0)
         binding.textMethod.text = buildString {
             append(textMethod)
+            append(" ")
             append(data?.data?.metodePenarikan)
         }
         binding.textStatus.text = buildString {

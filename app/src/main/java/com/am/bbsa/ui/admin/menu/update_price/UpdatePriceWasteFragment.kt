@@ -82,10 +82,11 @@ class UpdatePriceWasteFragment : Fragment() {
         viewModel.updatePriceWaste(token, data).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {
-                    UiHandler.toastSuccessMessage(requireContext(), "Mohon tunggu sebentar...")
+                    visibilityLoading(true)
                 }
 
                 Status.SUCCESS -> {
+                    visibilityLoading(false)
                     setupGetDataTypeWasteFromApi()
                     UiHandler.toastSuccessMessage(
                         requireContext(),
@@ -94,12 +95,25 @@ class UpdatePriceWasteFragment : Fragment() {
                 }
 
                 Status.ERROR -> {
+                    visibilityLoading(false)
                     UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
                 }
             }
         }
     }
 
+
+    private fun visibilityLoading(isVisible: Boolean) {
+        if (isVisible) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.textLoading.visibility = View.VISIBLE
+            binding.buttonSave.isEnabled = false
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.textLoading.visibility = View.GONE
+            binding.buttonSave.isEnabled = true
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

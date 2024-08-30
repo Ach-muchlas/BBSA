@@ -18,6 +18,7 @@ import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.UiHandler
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -38,7 +39,7 @@ class WasteDepositAdminFragment : Fragment() {
     private lateinit var firebaseFirestore: FirebaseFirestore
 
     /*instantiation of the object to store the image uri*/
-    private lateinit var currentImageUri: Uri
+    private var currentImageUri: Uri? = null
     private var selectedIdNasabah: Int? = null
 
     /*initialize view model*/
@@ -70,6 +71,7 @@ class WasteDepositAdminFragment : Fragment() {
 
     private fun setupView() {
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
+        UiHandler.setHintBehavior(binding.edlDate, binding.edlName)
         binding.viewAppBar.textTitleAppBar.text = getString(R.string.waste_deposit)
         binding.edtDate.setText(Formatter.formatDateTime(LocalDateTime.now()))
     }
@@ -83,13 +85,13 @@ class WasteDepositAdminFragment : Fragment() {
         binding.cardValuePhoto.setOnClickListener {
             ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
                 currentImageUri = uri
-                binding.imageWaste.setImageURI(uri)
+                Glide.with(requireContext()).load(uri).into(binding.imageWaste)
             }
         }
 
         binding.buttonDeposit.setOnClickListener {
             if (currentImageUri != null) {
-                uploadImageToFirebase(currentImageUri)
+                uploadImageToFirebase(currentImageUri!!)
             } else {
                 setupPostDataToApi("photo")
             }

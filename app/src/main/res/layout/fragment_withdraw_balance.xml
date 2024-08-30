@@ -9,7 +9,6 @@
     <include
         android:id="@+id/viewAppBar"
         layout="@layout/custom_app_bar_button_and_title"
-        android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

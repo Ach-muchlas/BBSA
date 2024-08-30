@@ -16,8 +16,17 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         bankCode: String,
         accountName: String,
         accountNumber: String,
-        amount: Int
-    ) = repository.createWithdrawBalance(token, bankCode, accountName, accountNumber, amount)
+        amount: Int,
+        numberOTP: Int
+    ) = repository.createWithdrawBalance(
+        token,
+        bankCode,
+        accountName,
+        accountNumber,
+        amount,
+        numberOTP
+    )
+    fun sendOTPWithdrawBalance(token: String) = repository.sendOTPWithdrawBalance(token)
 
     fun showDetailWithdrawBalance(
         token: String, external_id: String

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.am.bbsa.R
 import com.am.bbsa.databinding.ActivityOtpBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
@@ -22,6 +22,8 @@ class OtpRegisterActivity : AppCompatActivity() {
 
     private val interval: Long = 1000
     private val totalDuration: Long = 120000
+
+    private var isTimeExpired: Boolean = false
 
     private val phoneNumber: String by lazy {
         viewModel.getCredentialRegister().phoneNumber.toString()
@@ -58,7 +60,12 @@ class OtpRegisterActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                binding.textTimeExpiredOtp.text = "Waktu Habis"
+                isTimeExpired = true
+                binding.textTimeExpiredOtp.text = getString(R.string.time_out)
+                UiHandler.toastErrorMessage(
+                    this@OtpRegisterActivity,
+                    getString(R.string.time_up_request_new_code)
+                )
             }
         }.start()
     }
@@ -78,7 +85,14 @@ class OtpRegisterActivity : AppCompatActivity() {
                         if (i < edtTextList.size - 1) {
                             edtTextList[i + 1].requestFocus()
                         } else {
-                            setupPostDataToAPi()
+                            if (isTimeExpired) {
+                                UiHandler.toastErrorMessage(
+                                    this@OtpRegisterActivity,
+                                    "Waktu sudah habis. Silakan minta kode baru."
+                                )
+                            } else {
+                                setupPostDataToApi()
+                            }
                             clearValueAllEditText()
                             edtTextList[0].requestFocus()
                         }
@@ -92,6 +106,7 @@ class OtpRegisterActivity : AppCompatActivity() {
 
     private fun setupNavigation() {
         binding.textViewRequestNewCode.setOnClickListener {
+            resetCountDown()
             resendingOtp()
         }
     }
@@ -111,7 +126,7 @@ class OtpRegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupPostDataToAPi() {
+    private fun setupPostDataToApi() {
         val userId = viewModel.getCredentialRegister().id
         viewModel.verificationOtpRegister(userId ?: 0, setupMergeOTP())
             .observe(this@OtpRegisterActivity) { resource ->
@@ -148,6 +163,12 @@ class OtpRegisterActivity : AppCompatActivity() {
         for (i in edtTextList) {
             i.text.clear()
         }
+    }
+
+    private fun resetCountDown() {
+        countDownTimer.cancel()
+        isTimeExpired = false
+        setupCountDown()
     }
 
     override fun onDestroy() {

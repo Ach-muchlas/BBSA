@@ -36,7 +36,7 @@ class UpdateNewsFragment : Fragment() {
     private val token by lazy {
         authViewModel.getCredentialUser()?.token.toString()
     }
-    private lateinit var currentImageUri: Uri
+    private var currentImageUri: Uri? = null
     private val receiveBundle by lazy {
         arguments?.getParcelable<DataItemNews>(KEY.BUNDLE_PARCELABLE_NEWS)
     }
@@ -53,6 +53,7 @@ class UpdateNewsFragment : Fragment() {
 
     private fun setupView() {
         binding.viewAppbar.textTitleAppBar.text = getString(R.string.update_news)
+        UiHandler.setHintBehavior(binding.edlTitle, binding.edlDescription)
         Glide.with(requireContext()).load(receiveBundle?.photo).into(binding.imageNews)
         binding.edtTitle.setText(receiveBundle?.title ?: "")
         binding.edtDescription.setText(receiveBundle?.description)
@@ -62,7 +63,7 @@ class UpdateNewsFragment : Fragment() {
         binding.viewAppbar.buttonBack.setOnClickListener { findNavController().popBackStack() }
         binding.buttonSave.setOnClickListener {
             if (currentImageUri != null) {
-                uploadImageToFirebase(currentImageUri)
+                uploadImageToFirebase(currentImageUri!!)
             } else {
                 setupPostDataToApi(receiveBundle?.photo.toString())
             }

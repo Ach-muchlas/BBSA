@@ -39,13 +39,14 @@ class UpdateWasteTypeFragment : Fragment() {
     private val token by lazy {
         authViewModel.getCredentialUser()?.token.toString()
     }
-    private lateinit var currentImageUri: Uri
+    private var currentImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddOrUpdateWasteTypeBinding.inflate(inflater, container, false)
+        binding.viewAppbar.textTitleAppBar.text = "Update Jenis Sampah"
         setupNavigation()
         initVars()
         setupView()
@@ -55,7 +56,7 @@ class UpdateWasteTypeFragment : Fragment() {
     private fun setupNavigation() {
         binding.buttonSave.setOnClickListener {
             if (currentImageUri != null) {
-                uploadImageToFirebase(currentImageUri)
+                uploadImageToFirebase(currentImageUri!!)
             } else {
                 setupPostDataToApi(receive?.photo.toString())
             }

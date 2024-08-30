@@ -6,9 +6,9 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ProgressBar
 import com.am.bbsa.R
-import com.am.bbsa.service.source.Resource
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.textfield.TextInputLayout
 import io.github.muddz.styleabletoast.StyleableToast
 
 object UiHandler {
@@ -61,5 +61,36 @@ object UiHandler {
             shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
         }
+    }
+
+    fun setHintBehavior(vararg editLayout: TextInputLayout) {
+        for (edl in editLayout) {
+            edl.isHintEnabled = false
+        }
+    }
+
+    fun validatePassword(password: String, context: Context): Boolean {
+        if (password.length < 8) {
+            toastErrorMessage(context, "Password harus memiliki panjang minimal 8 karakter.")
+            return false
+        }
+
+        if (!password.any { it.isUpperCase() }) {
+            toastErrorMessage(context, "Password harus memiliki setidaknya satu huruf besar.")
+            return false
+        }
+
+        if (!password.any { it.isDigit() }) {
+            toastErrorMessage(context, "Password harus memiliki setidaknya satu angka.")
+            return false
+        }
+
+        val specialCharacters = "@\$!%*?&#"
+        if (!password.any { it in specialCharacters }) {
+            toastErrorMessage(context, "Password harus memiliki setidaknya satu karakter spesial (@\$!%*?&#).")
+            return false
+        }
+
+        return true
     }
 }

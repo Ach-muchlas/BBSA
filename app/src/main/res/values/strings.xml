@@ -22,6 +22,7 @@
     <string name="button_back">Button Back</string>
     <string name="input_otp">Masukan OTP</string>
     <string name="the_6_digit_code_sent">Ketik 6 digit kode yang dikirimkan ke</string>
+    <string name="the_6_digit_code_sent_to_whatsapp">Ketik 6 digit kode yang dikirimkan \nke nomor anda</string>
     <string name="example_destination_otp">+62872810112812</string>
     <string name="_0">0</string>
     <string name="_1">1</string>
@@ -75,7 +76,7 @@
     <string name="history_deposit">Riwayat Setoran</string>
     <string name="type_waste">Jenis Sampah</string>
     <string name="account_number">Nomor rekening tujuan</string>
-    <string name="method_withdraw">Metode yang digunakan</string>
+    <string name="method_withdraw">Metode yang digunakan </string>
     <string name="amount">Jumlah penarikan</string>
     <string name="example_rp">Rp 100.000</string>
     <string name="example_0_rp">Rp 0</string>
@@ -232,5 +233,10 @@
     <string name="filter_nasabah_by_name">Urukan sesuai nama</string>
     <string name="z_a">Z ke A</string>
     <string name="input_category_waste">Masukan jenis sampah</string>
+    <string name="total_all_deposit_waste">Total Setoran Semua Sampah</string>
+    <string name="total_deposit_waste_per_minggu">Jumlah Setoran Sampah per minggu</string>
+    <string name="time_up_request_new_code">Waktu Habis. Silakan minta kode baru.</string>
+    <string name="input_repeat_new_password">Masukan ulang password baru</string>
+    <string name="add_admin">Tambah Admin</string>
 
 </resources>

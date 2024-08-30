@@ -197,7 +197,7 @@
     </fragment>
     <fragment
         android:id="@+id/addAdminFragment"
-        android:name="com.am.bbsa.ui.customers.account.add_admin.AddAdminFragment"
+        android:name="com.am.bbsa.ui.admin.account.add_admin.AddAdminFragment"
         android:label="fragment_add_admin"
         tools:layout="@layout/fragment_add_admin" />
     <fragment

@@ -61,7 +61,7 @@ class HistoryDepositWasteFragment : Fragment() {
 
     private fun setupNavigation() {
         binding.viewAppBar.buttonBack.setOnClickListener {
-            findNavController()
+            findNavController().popBackStack()
         }
     }
 

@@ -12,8 +12,10 @@ import com.am.bbsa.R
 import com.am.bbsa.databinding.FragmentRegisterWastePickUpBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.ui.customers.home.HomeViewModel
 import com.am.bbsa.utils.UiHandler
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -39,27 +41,22 @@ class RegisterWastePickUpFragment : Fragment() {
     private lateinit var firebaseFirestore: FirebaseFirestore
 
     /*instantiation of the object to store the image uri*/
-    private var imageUri: Uri? = null
-    private lateinit var imageUrl: String
-
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        binding.imageWaste.setImageURI(it)
-    }
+    private var currentImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterWastePickUpBinding.inflate(inflater, container, false)
+        initVars()
         initialize()
+        setupNavigation()
         return binding.root
     }
 
     private fun initialize() {
-        initVars()
-        setupNavigation()
         UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
+        UiHandler.setHintBehavior(binding.edlDescription)
         binding.viewAppBar.textTitleAppBar.text = getString(R.string.register_pick_up)
     }
 
@@ -72,34 +69,31 @@ class RegisterWastePickUpFragment : Fragment() {
 
     private fun setupNavigation() {
         binding.viewAppBar.buttonBack.setOnClickListener { findNavController().popBackStack() }
-        binding.buttonSave.setOnClickListener { uploadImageToFirebaseAndPostApiForDatabase() }
-        binding.cardValuePhoto.setOnClickListener { resultLauncher.launch("image/*") }
+        binding.buttonSave.setOnClickListener {
+            if (currentImageUri != null) {
+                uploadImageToFirebase(currentImageUri!!)
+            } else {
+                UiHandler.toastErrorMessage(requireContext(), "Mohon masukan foto terlebih dahulu")
+            }
+        }
+
+        binding.cardValuePhoto.setOnClickListener {
+            ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
+                currentImageUri = uri
+                Glide.with(requireContext()).load(uri).into(binding.imageWaste)
+            }
+        }
     }
 
-    /*fungsi ini berjalan akan mengirim image ke firebase
-    setelah itu akan akan mendowload url dan dimasukkan kedalam viewmodel*/
-    private fun uploadImageToFirebaseAndPostApiForDatabase() {
-        if (imageUri != null) {
-            imageUri?.let { filePath ->
-                val ref = storageReference.child("Images/SetoranSampah/${UUID.randomUUID()}")
-
-                ref.putFile(filePath).addOnSuccessListener {
-                    UiHandler.toastSuccessMessage(
-                        requireContext(),
-                        "Berhasil Mengirim foto ke Firebase!!"
-                    )
-                    ref.downloadUrl.addOnSuccessListener { url ->
-                        imageUrl = url.toString()
-                        /*pada fungsi ini akan mengirimkan data ke dalam database*/
-                        setupPostDataToApi(imageUrl)
-                    }
-                }.addOnFailureListener { e ->
-                    UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
-                }
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val ref = storageReference.child("Images/Jemput Sampah/${UUID.randomUUID()}")
+        ref.putFile(imageUri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { url ->
+                val imageUrl = url.toString()
+                setupPostDataToApi(imageUrl)
             }
-        } else {
-            imageUrl = ""
-            setupPostDataToApi(imageUrl)
+        }.addOnFailureListener { e ->
+            UiHandler.toastErrorMessage(requireContext(), "Upload failed: ${e.message}")
         }
     }
 

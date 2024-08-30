@@ -17,4 +17,6 @@ object KEY {
     const val KEY_FILTER_NASABAH_BARU = "Terbaru"
     const val KEY_FILTER_ASC_NAME = "Ascending"
     const val KEY_FILTER_DESC_NAME = "Descending"
+
+    const val KEY_WITHDRAW_TO_OTP = "withdraw_balance_to_otp_withdraw"
 }

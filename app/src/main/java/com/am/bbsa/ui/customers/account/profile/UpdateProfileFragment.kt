@@ -40,7 +40,6 @@ class UpdateProfileFragment : Fragment() {
     }
 
     private fun setupDisplay() {
-        val textValue = binding.edtText.text
         binding.viewAppbar.textTitleAppBar.text = buildString {
             append("Ubah ")
             append(receiveTitleContent)
@@ -54,6 +53,7 @@ class UpdateProfileFragment : Fragment() {
         binding.text.text = receiveTitleContent
 
         binding.buttonSave.setOnClickListener {
+            val textValue = binding.edtText.text
             when (receiveTitleContent) {
                 KEY.KEY_TITLE_NAME_NAVIGATION_PROFILE_TO_UPDATE_PROFILE -> {
                     setupUpdateNameUser(textValue.toString())
@@ -86,7 +86,8 @@ class UpdateProfileFragment : Fragment() {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
                     UiHandler.toastSuccessMessage(
-                        requireContext(), resource.data?.message.toString()
+                        requireContext(),
+                        "Alamat berhasil diubah"
                     )
                     findNavController().popBackStack()
                 }
@@ -104,7 +105,7 @@ class UpdateProfileFragment : Fragment() {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {
                     UiHandler.toastSuccessMessage(
-                        requireContext(), resources.data?.message.toString()
+                        requireContext(), "Nama berhasil diubah"
                     )
                     findNavController().popBackStack()
                 }
@@ -123,7 +124,7 @@ class UpdateProfileFragment : Fragment() {
                 Status.SUCCESS -> {
                     UiHandler.toastSuccessMessage(
                         requireContext(),
-                        resources.data?.message.toString()
+                        "NIK berhasil diubah"
                     )
                     findNavController().popBackStack()
                 }
@@ -143,7 +144,7 @@ class UpdateProfileFragment : Fragment() {
                     Status.SUCCESS -> {
                         UiHandler.toastSuccessMessage(
                             requireContext(),
-                            resources.data?.message.toString()
+                            "Nomor telephone berhasil diubah"
                         )
                         findNavController().popBackStack()
                     }

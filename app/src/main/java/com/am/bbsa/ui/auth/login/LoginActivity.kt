@@ -23,7 +23,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setupNavigation()
+        setupView()
         setContentView(binding.root)
+    }
+
+    private fun setupView() {
+        UiHandler.setHintBehavior(binding.edlNumberPhone, binding.edlPassword)
     }
 
     private fun setupNavigation() {

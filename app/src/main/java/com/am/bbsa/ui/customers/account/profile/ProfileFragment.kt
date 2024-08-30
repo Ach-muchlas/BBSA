@@ -82,7 +82,7 @@ class ProfileFragment : Fragment() {
         with(binding.cardPersonalInformation) {
             cardName.setOnClickListener {
                 setupDataNavigationAndMoveToFragmentUpdateProfile(
-                    KEY.KEY_TITLE_NIK_NAVIGATION_PROFILE_TO_UPDATE_PROFILE,
+                    KEY.KEY_TITLE_NAME_NAVIGATION_PROFILE_TO_UPDATE_PROFILE,
                     data?.user?.name.toString()
                 )
             }

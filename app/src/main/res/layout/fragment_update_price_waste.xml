@@ -33,5 +33,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/deep_green"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recyclerView" />
+
+    <TextView
+        android:id="@+id/textLoading"
+        style="@style/TextContent.Body.MonMedium.SmallSp"
+        android:text="@string/loading"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

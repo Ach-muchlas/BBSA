@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.am.bbsa.R
 import com.am.bbsa.databinding.FragmentChangePasswordBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.auth.AuthViewModel
@@ -29,15 +30,40 @@ class ChangePasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
-        UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
-        displayChangePassword()
+        setupView()
+        setupNavigation()
         return binding.root
+    }
+
+    private fun setupView() {
+        UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
+        UiHandler.setHintBehavior(
+            binding.edlOldPassword,
+            binding.edlNewPassword,
+            binding.edlRepeatNewPassword
+        )
+        binding.viewAppBar.textTitleAppBar.setText(R.string.change_password)
+    }
+
+    private fun setupNavigation() {
+        binding.buttonChangePassword.setOnClickListener { displayChangePassword() }
     }
 
     private fun displayChangePassword() {
         val oldPassword = binding.edtOldPassword.text
         val newPassword = binding.edtNewPassword.text
         val repeatNewPassword = binding.edtRepeatPassword.text
+
+        if (!UiHandler.validatePassword(newPassword.toString(), requireContext())) {
+            return
+        } else if (repeatNewPassword.toString() != newPassword.toString()) {
+            UiHandler.toastErrorMessage(
+                requireContext(),
+                "Password baru dan konfirmasi ulangi password tidak cocok."
+            )
+            return
+        }
+
         viewModel.changePassword(
             token,
             oldPassword.toString(),
@@ -58,12 +84,13 @@ class ChangePasswordFragment : Fragment() {
                     Status.ERROR -> {
                         UiHandler.toastErrorMessage(
                             requireContext(),
-                            resource.data?.message.toString()
+                            resource.message.toString()
                         )
                     }
                 }
             }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

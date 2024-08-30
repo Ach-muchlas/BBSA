@@ -32,7 +32,7 @@ class AddWasteTypeFragment : Fragment() {
     private lateinit var storage: FirebaseStorage
     private lateinit var storageReference: StorageReference
     private lateinit var firebaseFirestore: FirebaseFirestore
-    private lateinit var currentImageUri: Uri
+    private var currentImageUri: Uri? = null
 
     private val token by lazy {
         authViewModel.getCredentialUser()?.token.toString()
@@ -43,6 +43,7 @@ class AddWasteTypeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddOrUpdateWasteTypeBinding.inflate(inflater, container, false)
+        binding.viewAppbar.textTitleAppBar.text = "Tambah Jenis Sampah"
         setupNavigation()
         initVars()
         return binding.root
@@ -51,7 +52,7 @@ class AddWasteTypeFragment : Fragment() {
     private fun setupNavigation() {
         binding.buttonSave.setOnClickListener {
             if (currentImageUri != null) {
-                uploadImageToFirebase(currentImageUri)
+                uploadImageToFirebase(currentImageUri!!)
             } else {
                 setupPostDataToApi("foto")
             }
@@ -80,6 +81,7 @@ class AddWasteTypeFragment : Fragment() {
         storage = Firebase.storage
         storageReference = storage.reference
         firebaseFirestore = FirebaseFirestore.getInstance()
+        UiHandler.setHintBehavior(binding.edlNameWaste, binding.edlTypeWaste, binding.edlPrice)
     }
 
     private fun setupPostDataToApi(imageUrl: String) {

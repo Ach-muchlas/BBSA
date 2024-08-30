@@ -52,7 +52,7 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_navigation_account_to_changePasswordAdminFragment"
-            app:destination="@id/changePasswordAdminFragment" />
+            app:destination="@id/changePasswordFragment" />
         <action
             android:id="@+id/action_navigation_account_to_changeLanguageFragment2"
             app:destination="@id/changeLanguageFragment" />
@@ -89,7 +89,11 @@
         android:id="@+id/withdrawBalanceFragment"
         android:name="com.am.bbsa.ui.customers.home.withdraw_balance.WithdrawBalanceFragment"
         android:label="fragment_withdraw_balance"
-        tools:layout="@layout/fragment_withdraw_balance" />
+        tools:layout="@layout/fragment_withdraw_balance" >
+        <action
+            android:id="@+id/action_withdrawBalanceFragment_to_OTPWithdrawBalanceFragment"
+            app:destination="@id/OTPWithdrawBalanceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.am.bbsa.ui.customers.account.profile.ProfileFragment"
@@ -103,9 +107,9 @@
             app:destination="@id/updatePhotoProfileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/changePasswordAdminFragment"
-        android:name="com.am.bbsa.ui.admin.account.change_password.ChangePasswordAdminFragment"
-        android:label="ChangePasswordAdminFragment" />
+        android:id="@+id/changePasswordFragment"
+        android:name="com.am.bbsa.ui.customers.account.change_password.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
     <fragment
         android:id="@+id/updateProfileFragment"
         android:name="com.am.bbsa.ui.customers.account.profile.UpdateProfileFragment"
@@ -117,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/changeLanguageFragment"
-        android:name="com.am.bbsa.ui.customers.account.add_admin.AddAdminFragment"
+        android:name="com.am.bbsa.ui.admin.account.add_admin.AddAdminFragment"
         android:label="fragment_change_language"
         tools:layout="@layout/fragment_add_admin" />
     <fragment
@@ -153,5 +157,14 @@
         android:id="@+id/detailNewsNasabahFragment"
         android:name="com.am.bbsa.ui.customers.home.DetailNewsNasabahFragment"
         android:label="DetailNewsNasabahFragment" />
+    <fragment
+        android:id="@+id/OTPWithdrawBalanceFragment"
+        android:name="com.am.bbsa.ui.customers.home.withdraw_balance.OtpWithdrawBalanceFragment"
+        tools:layout="@layout/fragment_otp_withdraw_balance"
+        android:label="OTPWithdrawBalanceFragment" >
+        <argument
+            android:name="tarik_saldo_body"
+            app:argType="com.am.bbsa.data.body.TarikSaldoBody" />
+    </fragment>
 
 </navigation>

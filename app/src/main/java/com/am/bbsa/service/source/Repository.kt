@@ -16,7 +16,7 @@ import com.am.bbsa.utils.KEY
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
 
-@Suppress("DUPLICATE_LABEL_IN_WHEN")
+
 class Repository(private val apiService: ApiService) {
     fun login(phoneNumber: String, password: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
@@ -1173,12 +1173,31 @@ class Repository(private val apiService: ApiService) {
             }
         }
 
-    fun createWithdrawBalance(
-        token: String, bankCode: String, accountName: String, accountNumber: String, amount: Int
+    fun sendOTPWithdrawBalance(
+        token: String,
     ) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         try {
-            val payload = TarikSaldoBody(bankCode, accountName, accountNumber, amount)
+            val response = apiService.sendOTPWithdrawalBalance("Bearer $token")
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+            } else {
+                response.errorBody()?.let {
+                    val errorMessage = JSONObject(it.string()).getString(MESSAGE)
+                    emit(Resource.error(null, errorMessage))
+                }
+            }
+        } catch (exception: Exception) {
+            emit(Resource.error(null, exception.message ?: "Error Occurred!!"))
+        }
+    }
+
+    fun createWithdrawBalance(
+        token: String, bankCode: String, accountName: String, accountNumber: String, amount: Int, otp: Int
+    ) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val payload = TarikSaldoBody(bankCode, accountName, accountNumber, amount, otp)
             val response = apiService.createWithdrawBalance("Bearer $token", payload)
             if (response.isSuccessful) {
                 emit(Resource.success(response.body()))

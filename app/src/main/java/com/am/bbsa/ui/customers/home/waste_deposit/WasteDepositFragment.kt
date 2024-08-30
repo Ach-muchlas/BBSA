@@ -16,6 +16,7 @@ import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.ui.customers.home.HomeViewModel
 import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.UiHandler
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -36,7 +37,7 @@ class WasteDepositFragment : Fragment() {
 
     /*instantiation of the object to store the image uri*/
     private var selectedIdNasabah: Int? = null
-    private lateinit var currentImageUri: Uri
+    private var currentImageUri: Uri? = null
 
     /*initialize view model*/
     private val viewModel: HomeViewModel by inject()
@@ -68,6 +69,8 @@ class WasteDepositFragment : Fragment() {
     private fun setupView(data: UserResponse?) {
         UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
         binding.viewAppBar.textTitleAppBar.text = getString(R.string.waste_deposit)
+        UiHandler.setHintBehavior(binding.edlName)
+        binding.edtDate.isEnabled = false
         binding.edtName.setText(data?.data?.name)
         binding.edtDate.setText(Formatter.formatDateTime(LocalDateTime.now()))
     }
@@ -79,7 +82,7 @@ class WasteDepositFragment : Fragment() {
 
         binding.buttonDeposit.setOnClickListener {
             if (currentImageUri != null) {
-                uploadImageToFirebase(currentImageUri)
+                uploadImageToFirebase(currentImageUri!!)
             } else {
                 setupPostDataToApi("photo")
             }
@@ -88,13 +91,11 @@ class WasteDepositFragment : Fragment() {
         binding.cardValuePhoto.setOnClickListener {
             ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
                 currentImageUri = uri
-                binding.imageWaste.setImageURI(uri)
+                Glide.with(requireContext()).load(uri).into(binding.imageWaste)
             }
         }
     }
 
-    /*fungsi ini berjalan akan mengirim image ke firebase
-    setelah itu akan akan mendowload url dan dimasukkan kedalam viewmodel*/
     private fun uploadImageToFirebase(imageUri: Uri) {
         val ref = storageReference.child("Images/Setoran Sampah/${UUID.randomUUID()}")
         ref.putFile(imageUri).addOnSuccessListener {
@@ -116,11 +117,15 @@ class WasteDepositFragment : Fragment() {
                         binding.progressBar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
+                        binding.textLoading.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         UiHandler.toastSuccessMessage(requireContext(), "Berhasil Setor sampah")
                         findNavController().popBackStack()
                     }
 
                     Status.ERROR -> {
+                        binding.textLoading.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         UiHandler.toastErrorMessage(
                             requireContext(),
                             resource.message.toString()
