@@ -55,7 +55,7 @@
             android:id="@+id/textBalance"
             android:visibility="gone"
             style="@style/TextContent.Body.PopBold"
-            android:text="@string/example_balance"
+            android:text="@string/example_0_rp"
             app:layout_constraintEnd_toEndOf="@id/divider"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/iconBalance"
@@ -114,7 +114,7 @@
         <TextView
             android:id="@+id/textValuePredict"
             style="@style/TextContent.Body.PopBold"
-            android:text="@string/example_balance"
+            android:text="@string/example_0_rp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             android:visibility="gone"

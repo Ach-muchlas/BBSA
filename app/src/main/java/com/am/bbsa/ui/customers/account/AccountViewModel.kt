@@ -17,7 +17,20 @@ class AccountViewModel(private val repository: Repository) : ViewModel() {
     fun updateNIKUser(token: String, nik: String) = repository.updateNIKUser(token, nik)
     fun updatePhoneNumberUser(token: String, phoneNumber: String) =
         repository.updatePhoneNumberUser(token, phoneNumber)
+
     fun updateAddressUser(token: String, address: String) =
         repository.updateAddressUser(token, address)
-    fun updateGenderUser(token: String, gender : String)= repository.updateGenderUser(token, gender)
+
+    fun updateGenderUser(token: String, gender: String) = repository.updateGenderUser(token, gender)
+
+    fun updatePhotoProfileUser(token: String, urlPhotoProfile: String) =
+        repository.updatePhotoProfileUser(token, urlPhotoProfile)
+
+    fun createAdmin(
+        name: String,
+        phoneNumber: String,
+        gender: String,
+        address: String,
+        password: String
+    ) = repository.createAdmin(name, phoneNumber, gender, address, password)
 }

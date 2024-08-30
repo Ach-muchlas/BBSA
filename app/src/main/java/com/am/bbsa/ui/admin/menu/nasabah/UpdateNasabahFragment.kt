@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.am.bbsa.R
 import com.am.bbsa.databinding.FragmentUpdateProfileBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
@@ -45,7 +46,12 @@ class UpdateNasabahFragment : Fragment() {
 
     private fun initialize() {
         UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
-        binding.edtText.setText(receiveArgsValueContent)
+        if (receiveArgsValueContent == "null") {
+            binding.edtText.setText("")
+            binding.edtText.hint = getString(R.string.input_your_data)
+        } else {
+            binding.edtText.setText(receiveArgsValueContent)
+        }
     }
 
     private fun setupPostEditDataProfileToApi() {
@@ -59,7 +65,6 @@ class UpdateNasabahFragment : Fragment() {
         binding.buttonSave.setOnClickListener {
             when (receiveArgsTitle) {
                 DetailNasabahFragment.KEY_NAME -> setupChangeNameNasabah(textValue.toString())
-
 
                 DetailNasabahFragment.KEY_NIK -> {
                     setupChangeNIKNasabah(textValue.toString())

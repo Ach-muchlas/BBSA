@@ -32,6 +32,10 @@ data class DataItemNasabah(
     @field:SerializedName("id")
     val id: Int,
 
+
+    @field:SerializedName("user_id")
+    val userId: Int,
+
     @field:SerializedName("nomor_telephone")
     val phoneNumber: String,
 
@@ -40,4 +44,7 @@ data class DataItemNasabah(
 
     @field:SerializedName("status")
     val status: String,
+
+    @field:SerializedName("created_at")
+    val createdAt: String? = null
 )

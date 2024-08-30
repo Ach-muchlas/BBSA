@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.am.bbsa.R
 import com.am.bbsa.data.response.DataItemDetailNasabah
 import com.am.bbsa.databinding.FragmentDetailNasabahBinding
 import com.am.bbsa.service.source.Status
@@ -20,11 +21,11 @@ import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
 
 class DetailNasabahFragment : Fragment() {
+
     private var _binding: FragmentDetailNasabahBinding? = null
     private val binding get() = _binding!!
     private val authViewModel: AuthViewModel by inject()
     private val viewModel: MenuViewModel by inject()
-
     private val token by lazy { authViewModel.getCredentialUser()?.token.toString() }
     private val receiveArgsIdNasabah: Int by lazy {
         arguments?.getInt(NasabahFragment.KEY_NASABAH_ID) ?: 0
@@ -70,7 +71,15 @@ class DetailNasabahFragment : Fragment() {
     }
 
     private fun setupViewCredentialUser(data: DataItemDetailNasabah?) {
-        Glide.with(requireContext()).load(data?.user?.photoProfile).into(binding.imageProfile)
+        if (data?.user?.photoProfile.isNullOrEmpty()) {
+            when (data?.user?.gender) {
+                "Perempuan" -> binding.imageProfile.setImageResource(R.drawable.icon_profile_women)
+                else -> binding.imageProfile.setImageResource(R.drawable.icon_profile_man)
+            }
+        } else {
+            Glide.with(requireContext()).load(data?.user?.photoProfile)
+                .into(binding.imageProfile)
+        }
         with(binding.cardPersonalIdentity) {
             textValueAddress.text = data?.user?.address.toString()
             textValueGender.text = data?.user?.gender.toString()
@@ -136,7 +145,7 @@ class DetailNasabahFragment : Fragment() {
 
             with(binding.cardPersonalIdentity) {
                 cardGender.setOnClickListener {
-                    val bottomSheet = ChooseGenderBottomSheet()
+                    val bottomSheet = ChooseGenderBottomSheet(true, data.id)
                     bottomSheet.show(childFragmentManager, bottomSheet.tag)
                 }
                 cardAddress.setOnClickListener {
@@ -148,6 +157,10 @@ class DetailNasabahFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun onGenderUpdated() {
+        setupGetDataDetailProfileNasabahFromApi()
     }
 
     private fun setupCredentialNavigateToEditFragment(

@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.databinding.FragmentAddOrUpdateNewsBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.utils.UiHandler
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -35,7 +36,7 @@ class AddNewsFragment : Fragment() {
 
     /*instantiation of the object to store the image uri*/
     private var imageUri: Uri? = null
-    private lateinit var imageUrl: String
+    private var currentImageUri: Uri? = null
 
     private val token by lazy {
         authViewModel.getCredentialUser()?.token.toString()
@@ -53,12 +54,6 @@ class AddNewsFragment : Fragment() {
         return binding.root
     }
 
-    /*intent to object foto*/
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        binding.imageNews.setImageURI(it)
-    }
-
     private fun initVars() {
         /*initialize object firebase*/
         storage = Firebase.storage
@@ -68,6 +63,8 @@ class AddNewsFragment : Fragment() {
 
     private fun setupView() {
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
+        binding.viewAppbar.textTitleAppBar.text = "Tambah berita"
+        UiHandler.setHintBehavior(binding.edlTitle, binding.edlDescription)
     }
 
     private fun setupNavigation() {
@@ -76,32 +73,31 @@ class AddNewsFragment : Fragment() {
         }
 
         binding.cardPhoto.setOnClickListener {
-            resultLauncher.launch("image/*")
+            ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
+                currentImageUri = uri
+                Glide.with(requireContext()).load(uri).into(binding.imageNews)
+            }
         }
         binding.buttonSave.setOnClickListener {
-            uploadImageToFirebaseAndPostApiForDatabase()
+            if (currentImageUri != null) {
+                uploadImageToFirebase(currentImageUri!!)
+            } else {
+                setupPostDataToApi("photo")
+            }
         }
     }
 
     //When this function runs it will send the image to firebase
     //after that it will download the url and enter it into the view model
-    private fun uploadImageToFirebaseAndPostApiForDatabase() {
-        imageUri?.let { filePath ->
-            val ref = storageReference.child("Images/Sampah/${UUID.randomUUID()}")
-
-            ref.putFile(filePath).addOnSuccessListener {
-                UiHandler.toastSuccessMessage(
-                    requireContext(),
-                    "Berhasil Mengirim foto ke Firebase!!"
-                )
-                ref.downloadUrl.addOnSuccessListener { url ->
-                    imageUrl = url.toString()
-                    /*pada fungsi ini akan mengirimkan data ke dalam database*/
-                    setupPostDataToApi(imageUrl)
-                }
-            }.addOnFailureListener { e ->
-                UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val ref = storageReference.child("Images/Berita/${UUID.randomUUID()}")
+        ref.putFile(imageUri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { url ->
+                val imageUrl = url.toString()
+                setupPostDataToApi(imageUrl)
             }
+        }.addOnFailureListener { e ->
+            UiHandler.toastErrorMessage(requireContext(), "Upload failed: ${e.message}")
         }
     }
 
@@ -111,8 +107,14 @@ class AddNewsFragment : Fragment() {
 
         viewModel.createNews(token, title, desc, imageUrl).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.textLoading.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
                 Status.SUCCESS -> {
+                    binding.textLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     UiHandler.toastSuccessMessage(
                         requireContext(),
                         resource.data?.message.toString()
@@ -121,6 +123,8 @@ class AddNewsFragment : Fragment() {
                 }
 
                 Status.ERROR -> {
+                    binding.textLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
                 }
             }

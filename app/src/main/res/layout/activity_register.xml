@@ -129,7 +129,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="5dp"
             android:autofillHints="phone"
-            android:hint="@string/example_address"
+            android:hint="@string/input_your_address"
 
             android:textColorHint="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +158,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="5dp"
             android:autofillHints="phone"
-            android:hint="@string/example_number_phone"
+            android:hint="@string/input_your_phone_number"
             android:textColorHint="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textNumberPhone">

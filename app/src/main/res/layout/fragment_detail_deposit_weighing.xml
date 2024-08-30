@@ -15,8 +15,7 @@
         <include
             android:id="@+id/viewAppbar"
             layout="@layout/custom_app_bar_button_and_title"
-            android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textTitle"

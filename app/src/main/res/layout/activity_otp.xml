@@ -41,7 +41,6 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="30dp"
         android:autofillHints="postalCode"
-        android:hint="@string/_0"
         app:layout_constraintEnd_toStartOf="@id/edtOtp2"
         android:maxLength="1"
         android:textAlignment="center"
@@ -55,7 +54,6 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toStartOf="@id/edtOtp3"
         android:autofillHints="postalCode"
-        android:hint="@string/_0"
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp1"
@@ -69,7 +67,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:autofillHints="postalCode"
-        android:hint="@string/_1"
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp2"
@@ -83,14 +80,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:autofillHints="postalCode"
-        android:hint="@string/_1"
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp3"
         app:layout_constraintTop_toBottomOf="@id/textViewDestinationOtp"
-        tools:ignore="LabelFor" />
-
-    `
+        />
 
     <EditText
         android:id="@+id/edtOtp5"
@@ -99,7 +93,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:autofillHints="postalCode"
-        android:hint="@string/_3"
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@id/edtOtp4"
@@ -114,7 +107,6 @@
         android:layout_marginEnd="22dp"
         app:layout_constraintHorizontal_bias="0"
         android:autofillHints="postalCode"
-        android:hint="@string/_0"
         android:maxLength="1"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"

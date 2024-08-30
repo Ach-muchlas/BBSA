@@ -31,13 +31,14 @@ class TypeWasteFragment : Fragment() {
     ): View {
         _binding = FragmentTypeWasteBinding.inflate(inflater, container, false)
         UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
+        binding.viewAppBar.textTitleAppBar.text = "Jenis Sampah"
         setupNavigation()
         displayTypeWaste()
         return binding.root
     }
 
     private fun setupNavigation() {
-        binding.buttonBack.setOnClickListener {
+        binding.viewAppBar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }

@@ -1,7 +1,6 @@
 package com.am.bbsa.ui.admin.menu.nasabah
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCameraBottomSheet
+import com.am.bbsa.utils.UiHandler
 import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
 
@@ -43,19 +43,34 @@ class UpdatePhotoProfileFragment : Fragment() {
     }
 
     private fun setupView() {
-        Glide.with(requireContext()).load(imageUrl ?: receiveArgsValueImagePhotoProfile)
-            .into(binding.imageProfile)
+        if (imageUrl.isNullOrEmpty() && receiveArgsValueImagePhotoProfile.isEmpty()) {
+            binding.textPhotoEmpty.visibility = View.VISIBLE
+        } else {
+            binding.textPhotoEmpty.visibility = View.INVISIBLE
+            Glide.with(requireContext()).load(imageUrl ?: receiveArgsValueImagePhotoProfile)
+                .into(binding.imageProfile)
+        }
+
     }
 
     private fun setupGetDataDetailNasabahFromApi() {
-        viewModel.showDetailNasabahById(receiveArgsNasabahId, token).observe(viewLifecycleOwner){
-            when(it.status){
-                Status.LOADING -> {}
-                Status.ERROR -> {}
-                Status.SUCCESS ->{
+        viewModel.showDetailNasabahById(receiveArgsNasabahId, token).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    setupVisibilityProgressBar(true)
+                }
+
+                Status.SUCCESS -> {
+                    setupVisibilityProgressBar(false)
                     imageUrl = it.data?.data?.user?.photoProfile.toString()
                     setupView()
                 }
+
+                Status.ERROR -> {
+                    setupVisibilityProgressBar(false)
+                    UiHandler.toastErrorMessage(requireContext(), it.message.toString())
+                }
+
             }
 
         }
@@ -76,7 +91,17 @@ class UpdatePhotoProfileFragment : Fragment() {
         }
     }
 
-    fun onImageProfileUpdated(){
+    private fun setupVisibilityProgressBar(isVisible: Boolean) {
+        if (isVisible) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.textLoading.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.textLoading.visibility = View.GONE
+        }
+    }
+
+    fun onImageProfileUpdated() {
         setupGetDataDetailNasabahFromApi()
     }
 

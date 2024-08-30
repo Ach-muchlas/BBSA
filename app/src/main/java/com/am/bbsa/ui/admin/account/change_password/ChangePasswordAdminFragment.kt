@@ -1,6 +1,8 @@
 package com.am.bbsa.ui.admin.account.change_password
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,17 +34,26 @@ class ChangePasswordAdminFragment : Fragment() {
         _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
         setupView()
         setupNavigation()
-        changePasswordUser()
         return binding.root
     }
 
-    private fun setupView() {
-        binding.viewAppBar.textTitleAppBar.setText(R.string.change_password)
-    }
 
+    private fun setupView() {
+        UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
+        binding.viewAppBar.textTitleAppBar.setText(R.string.change_password)
+        UiHandler.setHintBehavior(
+            binding.edlOldPassword,
+            binding.edlNewPassword,
+            binding.edlRepeatNewPassword
+        )
+
+    }
     private fun setupNavigation() {
         binding.viewAppBar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.buttonChangePassword.setOnClickListener {
+            changePasswordUser()
         }
     }
 
@@ -50,33 +61,51 @@ class ChangePasswordAdminFragment : Fragment() {
         val oldPassword = binding.edtOldPassword.text
         val newPassword = binding.edtNewPassword.text
         val repeatNewPassword = binding.edtRepeatPassword.text
-        binding.buttonChangePassword.setOnClickListener {
-            viewModel.changePassword(
-                token,
-                oldPassword.toString(),
-                newPassword.toString(),
-                repeatNewPassword.toString()
-            )
-                .observe(viewLifecycleOwner) { resource ->
-                    when (resource.status) {
-                        Status.LOADING -> {}
-                        Status.SUCCESS -> {
-                            findNavController().popBackStack()
-                            UiHandler.toastSuccessMessage(
-                                requireContext(),
-                                resource.message.toString()
-                            )
-                        }
 
-                        Status.ERROR -> {
-                            UiHandler.toastErrorMessage(
-                                requireContext(),
-                                resource.message.toString()
-                            )
-                        }
-                    }
+        if (!UiHandler.validatePassword(newPassword.toString(), requireContext())) {
+            return
+        } else if (repeatNewPassword.toString() != newPassword.toString()) {
+            UiHandler.toastErrorMessage(
+                requireContext(),
+                "Password baru dan konfirmasi ulangi password tidak cocok."
+            )
+            return
+        }
+
+        viewModel.changePassword(
+            token, oldPassword.toString(), newPassword.toString(), repeatNewPassword.toString()
+        ).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    UiHandler.toastSuccessMessage(
+                        requireContext(), resource.data?.message.toString()
+                    )
+                    clearFocusEdt()
+                    findNavController().popBackStack()
                 }
+
+                Status.ERROR -> {
+                    UiHandler.toastErrorMessage(
+                        requireContext(), resource.message.toString()
+                    )
+                }
+            }
         }
     }
 
+    private fun clearFocusEdt() {
+        binding.edtOldPassword.clearFocus()
+        binding.edtNewPassword.clearFocus()
+        binding.edtRepeatPassword.clearFocus()
+        binding.edtOldPassword.setText("")
+        binding.edtNewPassword.setText("")
+        binding.edtRepeatPassword.setText("")
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UiHandler.setupVisibilityBottomNavigationAdmin(activity, false)
+    }
 }

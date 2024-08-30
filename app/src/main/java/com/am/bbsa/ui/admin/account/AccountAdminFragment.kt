@@ -64,7 +64,7 @@ class AccountAdminFragment : Fragment() {
 
     private fun setupAdapter() {
         val adapter = AccountCardAdapter().apply {
-            submitList(DummyData.DummyDataCardAccount)
+            submitList(DummyData.DummyDataCardAccountAdmin)
         }
         adapter.callbackOnclick = { id ->
             when (id) {
@@ -77,10 +77,8 @@ class AccountAdminFragment : Fragment() {
                     Destination.ACCOUNT_ADMIN_TO_CHANGE_PASSWORD,
                     findNavController()
                 )
-
                 3 -> Navigation.navigationFragment(
-                    Destination.ACCOUNT_ADMIN_TO_CHANGE_LANGUAGE,
-                    findNavController()
+                    Destination.ACCOUNT_ADMIN_TO_ADD_ADMIN, findNavController()
                 )
 
                 4 -> {

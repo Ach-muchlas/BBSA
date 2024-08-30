@@ -2,7 +2,6 @@ package com.am.bbsa.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.am.bbsa.data.response.LoginResult
 import com.am.bbsa.databinding.ActivityLoginBinding
@@ -24,7 +23,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setupNavigation()
+        setupView()
         setContentView(binding.root)
+    }
+
+    private fun setupView() {
+        UiHandler.setHintBehavior(binding.edlNumberPhone, binding.edlPassword)
     }
 
     private fun setupNavigation() {
@@ -43,6 +47,11 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         val phoneEditText = binding.edtNumberPhone.text
         val password = binding.edtPassword.text
+
+        if (phoneEditText.toString().isEmpty() || password.toString().isEmpty()) {
+            UiHandler.toastErrorMessage(this, "Login failed. Nomor telephone dan password wajib diisi")
+            return
+        }
 
         viewModel.login(phoneEditText.toString(), password.toString())
             .observe(this@LoginActivity) { resource ->

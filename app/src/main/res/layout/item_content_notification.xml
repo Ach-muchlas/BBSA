@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="10dp"
     app:cardBackgroundColor="@color/white"
-    app:cardElevation="5dp">
+    android:elevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,6 +39,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:maxLines="2"
+            android:textSize="15sp"
             android:text="@string/example_title_notification"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,8 @@
 
         <TextView
             android:id="@+id/textViewDescription"
-            style="@style/TextContent.Body.PopReg.SmallSp"
+            style="@style/TextContent.Body.PopReg"
+            android:textSize="12sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
@@ -57,7 +59,7 @@
             android:textColor="@color/black"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/ellipse"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/iconNotification"
             app:layout_constraintTop_toBottomOf="@id/textViewTitle" />

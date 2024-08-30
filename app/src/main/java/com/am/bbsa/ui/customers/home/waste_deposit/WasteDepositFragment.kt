@@ -2,22 +2,21 @@ package com.am.bbsa.ui.customers.home.waste_deposit
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
 import com.am.bbsa.data.response.UserResponse
 import com.am.bbsa.databinding.FragmentWasteDepositBinding
 import com.am.bbsa.service.source.Status
-import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.ui.customers.home.HomeViewModel
 import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.UiHandler
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -30,7 +29,6 @@ import java.util.UUID
 class WasteDepositFragment : Fragment() {
     private var _binding: FragmentWasteDepositBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by inject()
 
     /*instantiation of firebase storage object to send images*/
     private lateinit var storage: FirebaseStorage
@@ -38,12 +36,11 @@ class WasteDepositFragment : Fragment() {
     private lateinit var firebaseFirestore: FirebaseFirestore
 
     /*instantiation of the object to store the image uri*/
-    private var imageUri: Uri? = null
     private var selectedIdNasabah: Int? = null
-    private lateinit var imageUrl: String
+    private var currentImageUri: Uri? = null
 
     /*initialize view model*/
-    private val viewModel: MenuViewModel by inject()
+    private val viewModel: HomeViewModel by inject()
     private val authViewModel: AuthViewModel by inject()
 
     private val token by lazy {
@@ -61,11 +58,6 @@ class WasteDepositFragment : Fragment() {
         return binding.root
     }
 
-    /*intent to object foto*/
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        binding.imageWaste.setImageURI(it)
-    }
 
     private fun initVars() {
         /*inisialisasi object firebase*/
@@ -77,6 +69,8 @@ class WasteDepositFragment : Fragment() {
     private fun setupView(data: UserResponse?) {
         UiHandler.setupVisibilityBottomNavigationNasabah(activity, true)
         binding.viewAppBar.textTitleAppBar.text = getString(R.string.waste_deposit)
+        UiHandler.setHintBehavior(binding.edlName)
+        binding.edtDate.isEnabled = false
         binding.edtName.setText(data?.data?.name)
         binding.edtDate.setText(Formatter.formatDateTime(LocalDateTime.now()))
     }
@@ -87,38 +81,30 @@ class WasteDepositFragment : Fragment() {
         }
 
         binding.buttonDeposit.setOnClickListener {
-            uploadImageToFirebaseAndPostApiForDatabase()
+            if (currentImageUri != null) {
+                uploadImageToFirebase(currentImageUri!!)
+            } else {
+                setupPostDataToApi("photo")
+            }
         }
 
         binding.cardValuePhoto.setOnClickListener {
-            resultLauncher.launch("image/*")
+            ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
+                currentImageUri = uri
+                Glide.with(requireContext()).load(uri).into(binding.imageWaste)
+            }
         }
     }
 
-    /*fungsi ini berjalan akan mengirim image ke firebase
-    setelah itu akan akan mendowload url dan dimasukkan kedalam viewmodel*/
-    private fun uploadImageToFirebaseAndPostApiForDatabase() {
-        if (imageUri != null) {
-            imageUri?.let { filePath ->
-                val ref = storageReference.child("Images/SetoranSampah/${UUID.randomUUID()}")
-
-                ref.putFile(filePath).addOnSuccessListener {
-                    UiHandler.toastSuccessMessage(
-                        requireContext(),
-                        "Berhasil Mengirim foto ke Firebase!!"
-                    )
-                    ref.downloadUrl.addOnSuccessListener { url ->
-                        imageUrl = url.toString()
-                        /*pada fungsi ini akan mengirimkan data ke dalam database*/
-                        setupPostDataToApi(imageUrl)
-                    }
-                }.addOnFailureListener { e ->
-                    UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
-                }
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val ref = storageReference.child("Images/Setoran Sampah/${UUID.randomUUID()}")
+        ref.putFile(imageUri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { url ->
+                val imageUrl = url.toString()
+                setupPostDataToApi(imageUrl)
             }
-        } else {
-            imageUrl = "null"
-            setupPostDataToApi(imageUrl)
+        }.addOnFailureListener { e ->
+            UiHandler.toastErrorMessage(requireContext(), "Upload failed: ${e.message}")
         }
     }
 
@@ -126,14 +112,20 @@ class WasteDepositFragment : Fragment() {
         viewModel.createDepositWaste(token, imageUrl)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
-                    Status.LOADING -> {}
+                    Status.LOADING -> {
+                        binding.textLoading.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
                     Status.SUCCESS -> {
+                        binding.textLoading.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         UiHandler.toastSuccessMessage(requireContext(), "Berhasil Setor sampah")
                         findNavController().popBackStack()
                     }
 
                     Status.ERROR -> {
-                        Log.e("CHECK_IMAGE_URL", imageUrl)
+                        binding.textLoading.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         UiHandler.toastErrorMessage(
                             requireContext(),
                             resource.message.toString()
@@ -144,7 +136,7 @@ class WasteDepositFragment : Fragment() {
     }
 
     private fun setupDataUser() {
-        homeViewModel.showDataUser(token).observe(viewLifecycleOwner) { resource ->
+        viewModel.showDataUser(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
                 Status.SUCCESS -> {

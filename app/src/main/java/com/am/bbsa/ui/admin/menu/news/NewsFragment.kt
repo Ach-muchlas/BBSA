@@ -71,7 +71,7 @@ class NewsFragment : Fragment() {
     private fun setupAdapter(data: NewsResponse?) {
         val adapter = NewsAdapter().apply {
             submitList(data?.data)
-            callbackOnclick = { data ->
+            onclickListener { data ->
                 val bundle = Bundle().apply {
                     putParcelable(KEY_DATA_NEWS, data)
                 }

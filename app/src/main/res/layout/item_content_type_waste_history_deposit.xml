@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageWaste"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/waste_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/example_news"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            style="@style/TextContent.Body.PopSemiBold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/example_type_waste"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/textWeight"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/imageWaste"
+            app:layout_constraintTop_toTopOf="@id/imageWaste" />
+
+        <TextView
+            android:id="@+id/textPrice"
+            style="@style/TextContent.Body.PopSemiBold"
+            android:layout_marginBottom="40dp"
+            android:text="@string/example_price_waste"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/textTitle"
+            app:layout_constraintTop_toBottomOf="@id/textTitle" />
+
+        <TextView
+            android:id="@+id/textWeight"
+            android:layout_width="50dp"
+            style="@style/TextContent.Body.PopSemiBold"
+            android:layout_marginStart="20dp"
+            android:text="@string/example_weight_kg"
+            android:textSize="12sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/textTotal"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/textTitle"
+            app:layout_constraintTop_toTopOf="@id/textTitle" />
+
+        <TextView
+            android:id="@+id/textTotal"
+            style="@style/TextContent.Body.PopSemiBold"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/example_price_waste"
+            android:textSize="12sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/textWeight"
+            app:layout_constraintTop_toTopOf="@id/textWeight" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

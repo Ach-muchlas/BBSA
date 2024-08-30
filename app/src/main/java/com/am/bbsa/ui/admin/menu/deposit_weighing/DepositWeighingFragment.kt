@@ -35,19 +35,20 @@ class DepositWeighingFragment : Fragment() {
     ): View {
         _binding = FragmentDepositWeighingBinding.inflate(inflater, container, false)
         UiHandler.setupVisibilityBottomNavigationAdmin(activity, true)
-        displayDepositWeighing()
+        binding.viewAppbar.textTitleAppBar.text = "Penimbangan Setoran"
+        setupGetDataWeighingDepositFromApi()
         setupNavigation()
         return binding.root
     }
 
     private fun setupNavigation() {
-        binding.buttonBack.setOnClickListener {
+        binding.viewAppbar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
 
-    private fun displayDepositWeighing() {
+    private fun setupGetDataWeighingDepositFromApi() {
         viewModel.showAllDepositWeighing(token).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {

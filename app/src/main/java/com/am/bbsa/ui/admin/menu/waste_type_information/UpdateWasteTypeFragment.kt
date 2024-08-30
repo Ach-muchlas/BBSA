@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.R
@@ -14,6 +13,8 @@ import com.am.bbsa.databinding.FragmentAddOrUpdateWasteTypeBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
+import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.UiHandler
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
@@ -38,14 +39,14 @@ class UpdateWasteTypeFragment : Fragment() {
     private val token by lazy {
         authViewModel.getCredentialUser()?.token.toString()
     }
-    private var imageUri: Uri? = null
-    private var imageUrl: String? = null
+    private var currentImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddOrUpdateWasteTypeBinding.inflate(inflater, container, false)
+        binding.viewAppbar.textTitleAppBar.text = "Update Jenis Sampah"
         setupNavigation()
         initVars()
         setupView()
@@ -53,12 +54,18 @@ class UpdateWasteTypeFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        val imageReceive = receive?.photo ?: ""
         binding.buttonSave.setOnClickListener {
-            uploadImage()
+            if (currentImageUri != null) {
+                uploadImageToFirebase(currentImageUri!!)
+            } else {
+                setupPostDataToApi(receive?.photo.toString())
+            }
         }
         binding.cardPhoto.setOnClickListener {
-            resultLauncher.launch("image/*")
+            ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
+                currentImageUri = uri
+                binding.imageWaste.setImageURI(uri)
+            }
         }
         binding.viewAppbar.buttonBack.setOnClickListener {
             findNavController().popBackStack()
@@ -67,16 +74,13 @@ class UpdateWasteTypeFragment : Fragment() {
 
     private fun setupView() {
         binding.viewAppbar.textTitleAppBar.text = getString(R.string.update_data)
-        binding.edtNameWaste.setText(receive?.name)
         binding.edtTypeWaste.setText(receive?.type)
-        binding.edtPrice.setText(receive?.price.toString())
+        binding.edtNameWaste.setText(receive?.name)
+        binding.edtPrice.setText(Formatter.formatCurrency(receive?.price ?: 0))
+
         Glide.with(requireContext()).load(receive?.photo).into(binding.imageWaste)
     }
 
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        binding.imageWaste.setImageURI(it)
-    }
 
     private fun initVars() {
         storage = Firebase.storage
@@ -84,38 +88,34 @@ class UpdateWasteTypeFragment : Fragment() {
         firebaseFirestore = FirebaseFirestore.getInstance()
     }
 
-    private fun uploadImage() {
-        if (imageUri != null) {
-            val filePath = imageUri!!
-            val ref = storageReference.child("Images/Sampah/${UUID.randomUUID()}")
-            val uploadTask = ref.putFile(filePath)
-            uploadTask.addOnSuccessListener {
-                UiHandler.toastSuccessMessage(requireContext(), "Image Success Uploaded!!")
-                ref.downloadUrl.addOnSuccessListener { url ->
-                    val imageUrl = url.toString()
-                    setupPostDataToApi(imageUrl)
-                }
-            }.addOnFailureListener { e ->
-                UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val ref = storageReference.child("Images/Sampah/${UUID.randomUUID()}")
+        ref.putFile(imageUri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { url ->
+                val imageUrl = url.toString()
+                setupPostDataToApi(imageUrl)
             }
-        } else {
-            // Jika imageUri null, menggunakan URL gambar yang sudah ada
-            val imageReceive = receive?.photo ?: ""
-            setupPostDataToApi(imageReceive)
+        }.addOnFailureListener { e ->
+            UiHandler.toastErrorMessage(requireContext(), "Upload failed: ${e.message}")
         }
     }
 
     private fun setupPostDataToApi(imageUrl: String) {
-        val id = receive?.id
+        val id = receive?.id ?: 0
         val name = binding.edtNameWaste.text.toString()
         val type = binding.edtTypeWaste.text.toString()
-        val price = binding.edtPrice.text.toString().toInt()
+        val price = binding.edtPrice.text
+        val priceWaste = price.toString().replace(Regex("\\D"), "").toIntOrNull()
 
-        viewModel.updateInformationWaste(id!!, token, name, type, price, imageUrl)
+        viewModel.updateInformationWaste(token, id, name, type, priceWaste ?: 0, imageUrl)
             .observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {}
                     Status.SUCCESS -> {
+                        UiHandler.toastSuccessMessage(
+                            requireContext(),
+                            resource.data?.message.toString()
+                        )
                         findNavController().popBackStack()
                     }
 

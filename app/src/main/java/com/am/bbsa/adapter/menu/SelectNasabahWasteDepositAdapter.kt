@@ -10,14 +10,15 @@ import com.am.bbsa.R
 import com.am.bbsa.data.response.DataItemNasabah
 
 class SelectNasabahWasteDepositAdapter(context: Context, resource: Int, private val nasabahList: List<DataItemNasabah>) :
-    ArrayAdapter<DataItemNasabah>(context, resource, nasabahList) {
+    ArrayAdapter<DataItemNasabah>(context, resource,nasabahList.filter { it.status == "Aktif" }) {
 
+    private val filteredNasabahList: List<DataItemNasabah> = nasabahList.filter { it.status == "Aktif" }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.dropdown_item, parent, false)
-        val nasabah = nasabahList[position]
+        val nasabah = filteredNasabahList[position]
         val textView = view.findViewById<TextView>(R.id.textViewDropdown)
         textView.text = buildString {
-        append(nasabah.id)
+        append(nasabah.userId)
         append(". ")
         append(nasabah.name)
     }
@@ -29,10 +30,10 @@ class SelectNasabahWasteDepositAdapter(context: Context, resource: Int, private 
     }
 
     override fun getItem(position: Int): DataItemNasabah {
-        return nasabahList[position]
+        return filteredNasabahList[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return nasabahList[position].id.toLong()
+        return filteredNasabahList[position].id.toLong()
     }
 }

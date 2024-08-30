@@ -15,7 +15,6 @@
             android:id="@+id/viewAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -37,7 +36,6 @@
             android:layout_height="300dp"
             android:contentDescription="@string/image_news"
             android:scaleType="centerCrop"
-            android:src="@drawable/example_news"
             app:layout_constraintTop_toBottomOf="@id/viewAppBar" />
 
         <TextView

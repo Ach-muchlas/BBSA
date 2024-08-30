@@ -20,8 +20,13 @@ class ForgotPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         setupNavigation()
+        setupView()
+        setContentView(binding.root)
+    }
+
+    private fun setupView(){
+        UiHandler.setHintBehavior(binding.edlPhoneNumber)
     }
 
     private fun setupPostDataToApi() {

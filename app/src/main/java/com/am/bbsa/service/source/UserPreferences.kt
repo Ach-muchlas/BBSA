@@ -80,6 +80,17 @@ class UserPreferences private constructor() {
         sharePref.edit().clear().apply()
     }
 
+    fun saveOtpStatus(isOtpPending: Boolean) {
+        sharePref.edit().apply {
+            putBoolean(KEY_OTP_PENDING, isOtpPending)
+            apply()
+        }
+    }
+
+    fun isOtpPending(): Boolean {
+        return sharePref.getBoolean(KEY_OTP_PENDING, false)
+    }
+
     companion object {
         private const val PREF_NAME = "user_pref"
         private const val KEY_TOKEN = "token"
@@ -89,6 +100,7 @@ class UserPreferences private constructor() {
         private const val KEY_PHONE_NUMBER = "nomer_telephone"
         private const val SESSION_TIMEOUT = "sessionTimeout"
         private const val TIMEOUT_DURATION = 300000L
+        private const val KEY_OTP_PENDING = "otpPending"
 
         @Volatile
         private var instance: UserPreferences? = null

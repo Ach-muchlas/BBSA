@@ -12,6 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="55dp" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/deep_green"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/imageProfile"
+        app:layout_constraintEnd_toEndOf="@id/imageProfile"
+        app:layout_constraintStart_toStartOf="@id/imageProfile"
+        app:layout_constraintTop_toTopOf="@id/imageProfile" />
+
+    <TextView
+        android:id="@+id/textLoading"
+        style="@style/TextContent.Body.MonMedium.SmallSp"
+        android:text="@string/loading"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+    <TextView
+        style="@style/TextContent.Body.PopMedium"
+        android:text="@string/foto_is_empty"
+        android:textSize="11sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/imageProfile"
+        app:layout_constraintEnd_toEndOf="@id/imageProfile"
+        android:id="@+id/textPhotoEmpty"
+        app:layout_constraintStart_toStartOf="@id/imageProfile"
+        app:layout_constraintTop_toTopOf="@id/imageProfile" />
+
     <ImageView
         android:id="@+id/imageProfile"
         android:layout_width="match_parent"

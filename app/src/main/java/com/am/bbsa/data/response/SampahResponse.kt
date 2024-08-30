@@ -38,5 +38,5 @@ data class DataItemSampah(
 	val id: Int,
 
 	@field:SerializedName("harga")
-	val price: Int? = null
+	var price: Int? = null
 ) : Parcelable

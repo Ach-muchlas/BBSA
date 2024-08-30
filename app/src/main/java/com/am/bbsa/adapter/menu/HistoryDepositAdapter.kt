@@ -9,8 +9,14 @@ import com.am.bbsa.data.response.DataItemHistoryDeposit
 import com.am.bbsa.databinding.ItemContentHistoryDepositAdminBinding
 import com.am.bbsa.utils.Formatter
 
-class HistoryDepositAdapter :
+class HistoryDepositAdapter(
+    private var onclick: ((Int) -> Unit)? = null
+) :
     ListAdapter<DataItemHistoryDeposit, HistoryDepositAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    fun setOnclickListener(listener: (Int) -> Unit) {
+        onclick = listener
+    }
 
     inner class ViewHolder(private val binding: ItemContentHistoryDepositAdminBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -18,6 +24,9 @@ class HistoryDepositAdapter :
             binding.textName.text = dataHistory.user?.name
             binding.textDate.text = Formatter.formatDate(dataHistory.createdAt.toString())
             binding.textTotal.text = Formatter.formatCurrency(dataHistory.totalSetoran ?: 0)
+            binding.cardRoot.setOnClickListener {
+                onclick?.invoke(dataHistory.id ?: 0)
+            }
         }
     }
 

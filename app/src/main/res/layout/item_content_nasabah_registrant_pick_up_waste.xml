@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
+    android:id="@+id/cardRoot"
     app:cardBackgroundColor="@color/white"
     app:strokeColor="@color/black"
     app:cardElevation="5dp"
@@ -60,24 +61,28 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonApprove"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:backgroundTint="@color/deep_green"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             android:layout_marginBottom="10dp"
             android:text="@string/approve"
-            app:layout_constraintStart_toEndOf="@id/imagePhotoProfile"
+            app:layout_constraintStart_toStartOf="@id/textName"
             app:layout_constraintTop_toBottomOf="@id/textDate" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonReject"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:backgroundTint="@color/red"
             android:text="@string/reject"
+            android:layout_marginEnd="5dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/buttonApprove"
             app:layout_constraintTop_toTopOf="@id/buttonApprove" />
     </androidx.constraintlayout.widget.ConstraintLayout>

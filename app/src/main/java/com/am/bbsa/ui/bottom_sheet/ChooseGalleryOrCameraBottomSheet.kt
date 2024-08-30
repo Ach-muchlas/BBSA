@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.am.bbsa.databinding.FragmentChooseCameraOrGaleriBottomSheetBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.admin.menu.nasabah.UpdatePhotoProfileFragment
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.customers.account.AccountViewModel
+import com.am.bbsa.utils.Formatter
 import com.am.bbsa.utils.UiHandler
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Firebase
@@ -34,14 +38,27 @@ class ChooseGalleryOrCameraBottomSheet : BottomSheetDialogFragment() {
 
     private val viewModel: MenuViewModel by inject()
     private val authViewModel: AuthViewModel by inject()
+    private val accountViewModel: AccountViewModel by inject()
     private val token: String by lazy { authViewModel.getCredentialUser()?.token.toString() }
     private val receiveArgsNasabahId: Int by lazy {
         arguments?.getInt(UpdatePhotoProfileFragment.KEY_BUNDLE_ID_NASABAH) ?: 0
     }
 
+    private lateinit var currentImageUri: Uri
+
+    private val launcherIntentCamera: ActivityResultLauncher<Uri> = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { isSuccess ->
+        if (isSuccess) {
+            uploadImageToFirebaseAndPostApiForDatabase(currentImageUri)
+        } else {
+            UiHandler.toastErrorMessage(requireContext(), "Failed to take picture")
+        }
+    }
+
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding =
             FragmentChooseCameraOrGaleriBottomSheetBinding.inflate(inflater, container, false)
@@ -66,9 +83,14 @@ class ChooseGalleryOrCameraBottomSheet : BottomSheetDialogFragment() {
                 pickImageGallery()
             }
             cardCamera.setOnClickListener {
-                UiHandler.toastSuccessMessage(requireContext(), "Camera")
+                startCamera()
             }
         }
+    }
+
+    private fun startCamera() {
+        currentImageUri = Formatter.getImageUri(requireContext())
+        launcherIntentCamera.launch(currentImageUri)
     }
 
     private fun pickImageGallery() {
@@ -90,12 +112,8 @@ class ChooseGalleryOrCameraBottomSheet : BottomSheetDialogFragment() {
     private fun uploadImageToFirebaseAndPostApiForDatabase(imageUri: Uri?) {
         imageUri?.let { filePath ->
             val ref = storageReference.child("Images/Profile/${UUID.randomUUID()}")
-
             ref.putFile(filePath).addOnSuccessListener {
-                UiHandler.toastSuccessMessage(
-                    requireContext(),
-                    "Berhasil Mengirim foto ke Firebase!!"
-                )
+
                 ref.downloadUrl.addOnSuccessListener { url ->
                     imageUrl = url.toString()
                     setupPostDataToApi(imageUrl)
@@ -107,23 +125,47 @@ class ChooseGalleryOrCameraBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun setupPostDataToApi(imageUrl: String) {
-        viewModel.changePhotoProfileNasabah(token, receiveArgsNasabahId, imageUrl)
-            .observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Status.LOADING -> {
-                        UiHandler.toastSuccessMessage(requireContext(), "Loading ...")
-                    }
+        if (receiveArgsNasabahId != 0) {
+            viewModel.changePhotoProfileNasabah(token, receiveArgsNasabahId, imageUrl)
+                .observe(viewLifecycleOwner) { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                            UiHandler.toastSuccessMessage(requireContext(), "Loading ...")
+                        }
 
-                    Status.SUCCESS -> {
-                        (parentFragment as UpdatePhotoProfileFragment).onImageProfileUpdated()
-                        dismissNow()
-                    }
+                        Status.SUCCESS -> {
+                            (parentFragment as UpdatePhotoProfileFragment).onImageProfileUpdated()
+                            dismissNow()
+                        }
 
-                    Status.ERROR -> {
-                        UiHandler.toastErrorMessage(requireContext(), resource.message.toString())
+                        Status.ERROR -> {
+                            UiHandler.toastErrorMessage(
+                                requireContext(), resource.message.toString()
+                            )
+                        }
                     }
                 }
-            }
+        } else {
+            accountViewModel.updatePhotoProfileUser(token, imageUrl)
+                .observe(viewLifecycleOwner) { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                            UiHandler.toastSuccessMessage(requireContext(), "Loading ...")
+                        }
+
+                        Status.SUCCESS -> {
+                            (parentFragment as UpdatePhotoProfileFragment).onImageProfileUpdated()
+                            dismissNow()
+                        }
+
+                        Status.ERROR -> {
+                            UiHandler.toastErrorMessage(
+                                requireContext(), resource.message.toString()
+                            )
+                        }
+                    }
+                }
+        }
     }
 
     companion object {

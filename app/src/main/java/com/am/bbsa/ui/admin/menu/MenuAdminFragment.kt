@@ -41,12 +41,21 @@ class MenuAdminFragment : Fragment() {
                     findNavController()
                 )
                 4 -> Navigation.navigationFragment(Destination.MENU_TO_DEPOSIT_WEIGHING, findNavController())
-                5 -> Navigation.navigationFragment(Destination.MENU_TO_HISTORY_DEPOSIT, findNavController())
+                5 -> Navigation.navigationFragment(
+                    Destination.MENU_TO_HISTORY_DEPOSIT,
+                    findNavController()
+                )
+
+                6 -> Navigation.navigationFragment(
+                    Destination.MENU_TO_HISTORY_WITHDRAW_BALANCE,
+                    findNavController()
+                )
+
                 7 -> Navigation.navigationFragment(Destination.MENU_TO_NEWS, findNavController())
                 8 -> Navigation.navigationFragment(
                     Destination.MENU_TO_WASTE_TYPE_INFORMATION, findNavController()
                 )
-
+                9 -> Navigation.navigationFragment(Destination.MENU_TO_REPORT_FRAGMENT, findNavController())
                 10 -> Navigation.navigationFragment(
                     Destination.MENU_TO_SCHEDULING_PICK_UP,
                     findNavController()

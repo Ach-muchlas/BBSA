@@ -9,7 +9,6 @@ import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.auth.login.LoginActivity
 import com.am.bbsa.utils.UiHandler
 import com.am.bbsa.utils.finish
-import com.am.bbsa.utils.goToActivity
 import org.koin.android.ext.android.inject
 
 class ResetPasswordActivity : AppCompatActivity() {
@@ -18,8 +17,13 @@ class ResetPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResetPasswordBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         setupNavigation()
+        setupView()
+        setContentView(binding.root)
+    }
+
+    private fun setupView() {
+        UiHandler.setHintBehavior(binding.edlPassword)
     }
 
     private fun setupNavigation() {
@@ -31,6 +35,10 @@ class ResetPasswordActivity : AppCompatActivity() {
     private fun setupPostDataToApi() {
         val userId = viewModel.getCredentialRegister().id
         val newPassword = binding.edtPassword.text
+
+        if (!UiHandler.validatePassword(newPassword.toString(), this)){
+            return
+        }
         viewModel.resetPassword(userId ?: 0, newPassword.toString()).observe(this) { resource ->
             when (resource.status) {
                 Status.LOADING -> {}
@@ -45,5 +53,4 @@ class ResetPasswordActivity : AppCompatActivity() {
             }
         }
     }
-
 }

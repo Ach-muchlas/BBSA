@@ -1,5 +1,6 @@
 package com.am.bbsa.ui.auth.otp
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -8,9 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.am.bbsa.R
 import com.am.bbsa.databinding.ActivityOtpBinding
 import com.am.bbsa.service.source.Status
+import com.am.bbsa.ui.admin.main.AdminMainActivity
 import com.am.bbsa.ui.auth.AuthViewModel
 import com.am.bbsa.ui.auth.forgot_password.ResetPasswordActivity
 import com.am.bbsa.utils.UiHandler
+import com.am.bbsa.utils.finish
 import com.am.bbsa.utils.goToActivity
 import org.koin.android.ext.android.inject
 
@@ -21,6 +24,9 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
 
     private val interval: Long = 1000
     private val totalDuration: Long = 120000
+
+    private var isTimeExpired: Boolean = false
+
 
     private val phoneNumber: String by lazy {
         viewModel.getCredentialRegister().phoneNumber.toString()
@@ -48,7 +54,8 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
 
     private fun setupNavigation() {
         setupEditText()
-        binding.textResendingOtp.setOnClickListener {
+        binding.textViewRequestNewCode.setOnClickListener {
+            resetCountDown()
             setupResendingOtp()
         }
     }
@@ -79,7 +86,9 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                isTimeExpired = true
                 binding.textTimeExpiredOtp.text = getString(R.string.time_out)
+                UiHandler.toastErrorMessage(this@OtpForgotPasswordActivity, getString(R.string.time_up_request_new_code))
             }
         }.start()
     }
@@ -98,7 +107,14 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                         if (i < edtTextList.size - 1) {
                             edtTextList[i + 1].requestFocus()
                         } else {
-                            setupPostDataToApi()
+                            if (isTimeExpired) {
+                                UiHandler.toastErrorMessage(
+                                    this@OtpForgotPasswordActivity,
+                                    getString(R.string.time_up_request_new_code)
+                                )
+                            } else {
+                                setupPostDataToApi()
+                            }
                             clearValueAllEditText()
                             edtTextList[0].requestFocus()
                         }
@@ -121,7 +137,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                             this,
                             resource.data?.message.toString()
                         )
-                        goToActivity(ResetPasswordActivity())
+                        Intent(this, ResetPasswordActivity::class.java).finish(this)
                     }
 
                     Status.ERROR -> {
@@ -146,6 +162,12 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
         for (i in edtTextList) {
             i.text.clear()
         }
+    }
+
+    private fun resetCountDown() {
+        countDownTimer.cancel()
+        isTimeExpired = false
+        setupCountDown()
     }
 
     override fun onDestroy() {

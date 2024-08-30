@@ -2,16 +2,17 @@ package com.am.bbsa.ui.admin.menu.waste_type_information
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.am.bbsa.databinding.FragmentAddOrUpdateWasteTypeBinding
 import com.am.bbsa.service.source.Status
 import com.am.bbsa.ui.admin.menu.MenuViewModel
 import com.am.bbsa.ui.auth.AuthViewModel
+import com.am.bbsa.ui.bottom_sheet.ChooseGalleryOrCamera2BottomSheet
 import com.am.bbsa.utils.UiHandler
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,8 +32,7 @@ class AddWasteTypeFragment : Fragment() {
     private lateinit var storage: FirebaseStorage
     private lateinit var storageReference: StorageReference
     private lateinit var firebaseFirestore: FirebaseFirestore
-    private var imageUri: Uri? = null
-    private lateinit var imageUrl: String
+    private var currentImageUri: Uri? = null
 
     private val token by lazy {
         authViewModel.getCredentialUser()?.token.toString()
@@ -43,6 +43,7 @@ class AddWasteTypeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddOrUpdateWasteTypeBinding.inflate(inflater, container, false)
+        binding.viewAppbar.textTitleAppBar.text = "Tambah Jenis Sampah"
         setupNavigation()
         initVars()
         return binding.root
@@ -50,38 +51,37 @@ class AddWasteTypeFragment : Fragment() {
 
     private fun setupNavigation() {
         binding.buttonSave.setOnClickListener {
-            uploadImage()
+            if (currentImageUri != null) {
+                uploadImageToFirebase(currentImageUri!!)
+            } else {
+                setupPostDataToApi("foto")
+            }
         }
         binding.cardPhoto.setOnClickListener {
-            resultLauncher.launch("image/*")
-        }
-    }
-
-    private fun uploadImage() {
-        imageUri?.let { filePath ->
-            val ref = storageReference.child("Images/Sampah/${UUID.randomUUID()}")
-
-            ref.putFile(filePath).addOnSuccessListener {
-                UiHandler.toastSuccessMessage(requireContext(), "Image Success Uploaded!!")
-                ref.downloadUrl.addOnSuccessListener { url ->
-                    imageUrl = url.toString()
-                    setupPostDataToApi(imageUrl)
-                }
-            }.addOnFailureListener { e ->
-                UiHandler.toastErrorMessage(requireContext(), "task : ${e.message}")
+            ChooseGalleryOrCamera2BottomSheet.show(childFragmentManager) { uri ->
+                currentImageUri = uri
+                binding.imageWaste.setImageURI(uri)
             }
         }
     }
 
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        imageUri = it
-        binding.imageWaste.setImageURI(it)
+    private fun uploadImageToFirebase(imageUri: Uri) {
+        val ref = storageReference.child("Images/Sampah/${UUID.randomUUID()}")
+        ref.putFile(imageUri).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { url ->
+                val imageUrl = url.toString()
+                setupPostDataToApi(imageUrl)
+            }
+        }.addOnFailureListener { e ->
+            UiHandler.toastErrorMessage(requireContext(), "Upload failed: ${e.message}")
+        }
     }
 
     private fun initVars() {
         storage = Firebase.storage
         storageReference = storage.reference
         firebaseFirestore = FirebaseFirestore.getInstance()
+        UiHandler.setHintBehavior(binding.edlNameWaste, binding.edlTypeWaste, binding.edlPrice)
     }
 
     private fun setupPostDataToApi(imageUrl: String) {
@@ -100,7 +100,7 @@ class AddWasteTypeFragment : Fragment() {
                     Status.ERROR -> {
                         UiHandler.toastErrorMessage(
                             requireContext(),
-                            resource.data?.message.toString()
+                            resource.message.toString()
                         )
                     }
                 }
